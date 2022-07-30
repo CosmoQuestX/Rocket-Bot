@@ -6,19 +6,17 @@ module.exports.help = {
 	description: 'Announce using the bot.',
 }
 
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (client, msg, args) => {
 
-    if(message.author.id === "662820223250071624") {
+    if(msg.member.hasPermission("ADMINISTRATOR") && !msg.member.bot) {
 
         const sayMessage = args.join(" ");
 
-        message.delete().catch(O_o=>{}); 
+        msg.delete().catch(O_o=>{}); 
 
-        message.channel.send(sayMessage);
-
+        msg.channel.send(sayMessage);
     } else {
-
-        message.reply("For security reasons, only developers and a restricted audience can use this function.");
-        
+        console.warn("Failed to run say command. Attempt by " + msg.author.id + ".\nReason: " + (!msg.member.hasPermission("ADMINISTRATOR") ? "Not an Administrator" : "Bot"));
+        return void(0);
     }
 };

@@ -1,12 +1,12 @@
 {
-  "name": "discord-magic-8",
-  "version": "1.0.0",
+  "name": "rocket-bot",
+  "version": "2.1.0",
   "private": true,
-  "description": "discord-magic-8",
-  "main": "index.js",
+  "description": "Rocket Bot is used in the CosmoQuest Discord server",
+  "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node bot.js"
   },
   "author": "",
   "license": "MIT",
@@ -15,11 +15,12 @@
     "@discordjs/uws": "^10.149.0",
     "@krthr/wikipedia.js": "^1.0.1",
     "async": "^3.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.27.2",
     "botkit-discord": "^0.1.3",
     "core-js": "^3.6.5",
     "discord.js": "^12.2.0",
     "discordjs-stable": "^11.5.1",
+    "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "giphy-js-sdk-core": "^1.0.6",
     "gyp-io": "^1.1.0",
@@ -38,7 +39,6 @@
     "superagent": "^5.2.2",
     "uptime-robot": "^1.3.0",
     "uwebsockets.js": "^18.3.3",
-    "weather-js": "^2.0.0",
     "wikijs": "^6.0.1",
     "xmpp": "0.0.8",
     "xmpp.js": "^0.11.1"
