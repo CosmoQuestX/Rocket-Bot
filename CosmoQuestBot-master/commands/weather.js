@@ -1,33 +1,72 @@
-const weather = require('./weather-js/openWeatherMap/index.js'); // Weather data API
+const weather = require('./weather-js/openWeatherMap'); // Weather data API
+const { warn, debug } = require('../public/async-logs');
 
 
 exports.run = (_, message, args) => {
+
+    if (args.length < 1) throw "No arguments passed";
+
     args = args.join(' ');
     
     weather.find({search: args, unitsType: 'metric'}, function(err, result) {
+
+        // Error Messages
         if(err) {
-            console.warn(err);
-            return message.channel.send("😞 An error has occurred");
+            warn(err);
+            if (!result) return message.channel.send({
+                "embed": {
+                    "title": ":warning: A critical error occurred!",
+                    "description": "Check logs for more detailed information."
+                }
+            }); // Send error message if no info given
         }
 
-        // console.debug(JSON.stringify(result, null, 2));
+        // debug(JSON.stringify(result, null, 2));
         
-        if (result === undefined) message.channel.send("😞 Error parsing data.");
-        if (typeof result.success !== 'boolean' || result.success === false) return message.channel.send(result.message || "😞 An unspecified error has occurred.");
-        if (!result.weather[0] || typeof result.main.temp !== "number") return message.channel.send(result.message || "😞 No data. An unknown error has occurred.");
+        if (result === undefined) return message.channel.send({
+            "embed": {
+                "title": ":warning: Error parsing data!",
+                "description": "Check logs for more detailed information."
+            }
+        });
+
+        if (typeof result.success !== 'boolean' || result.success === false) return message.channel.send(`:warning: ${result.message || "An unspecified error occurred."}`);
+
+        if (!result.weather[0]) return message.channel.send({
+            "embed": {
+                "title": `:warning: ${result.message || "No data. An unknown error occurred."}`,
+                "description": "Check logs for more detailed information."
+            }
+        });
+
+        // SUCCESS! Sending the data now...
         message.channel.send({
             "embed": {
-                "title": `The Weather in **${result.name}, ${result.sys.country}**`,
-                "description": `**Sky**: ${result.weather[0].description}\n**Temperature**: ${result.main.temp}°C\t[${result.main.temp_max}°C / ${result.main.temp_min}°C]\n**Feels Like**: ${result.main.feels_like}°C\n**Humidity**: ${result.main.humidity}%\n**Pressure**: ${result.main.pressure}hPa\n**Wind**: ${result.wind.speed}m/s ${result.wind.cardinal}\n**Gust**: ${result.wind.gust}\n**Visibility**: ${Math.floor(result.visibility / 1000)}km`,
-                "color": 4321431,
+                "title": `The Weather in **${result.name}, ${result.sys.country}**\n`,
+
+                "url": `https://openweathermap.org/city/${result.id}`,
+
+                "description": `**Sky**: ${result.weather[0].description}\n` +
+                ((!isNaN(result.main.temp)) ? `**Temperature**: ${result.main.temp}°C\t[${result.main.temp_max}°C / ${result.main.temp_min}°C]\n` : ``) +
+                ((!isNaN(result.main.feels_like)) ? `**Feels Like**: ${result.main.feels_like}°C\n` : ``) +
+                ((!isNaN(result.main.humidity)) ? `**Humidity**: ${result.main.humidity}%\n` : ``) +
+                ((!isNaN(result.main.pressure)) ? `**Pressure**: ${result.main.pressure}hPa\n` : ``) +
+                ((!isNaN(result.wind.speed)) ? `**Wind Speed**: ${result.wind.speed}m/s [${result.wind.cardinal}]\n` : ``) +
+                ((!isNaN(result.wind.gust)) ? `**Wind Gust**: ${result.wind.gust}m/s\n` : ``) +
+                ((!isNaN(result.visibility)) ? `**Visibility**: ${Math.floor(result.visibility / 1000)}km` : ``),
+
+                "color": 0x41f097,
+
                 "timestamp": (new Date(result.dt * 1000)),
-                "url": `https://openweathermap.org/`,
+
                 "thumbnail": {
                     "url": `https://openweathermap.org/img/wn/${result.weather[0].icon}@2x.png`
                 },
+
                 "image": { // Possible map in the future
                     "url": ""
                 },
+
                 "fields": [
                     { // Sadly I need to use a cheat to force inline
                         "name": "\u200C",
@@ -76,5 +115,5 @@ exports.conf = {
 exports.help = {
     name: `weather`,
     description: `Get the weather of a city.`,
-    usage: `!weather <city name>, <state name [optional]>, <country alpha-2 (ISO 3166)>`
+    usage: `weather <city name>, <US state name [optional]>, <country alpha-2 (ISO 3166)>`
 };

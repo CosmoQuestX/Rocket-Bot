@@ -53,57 +53,49 @@ module.exports = (function() {
         //console.debug(reqUrl);
 
         request.get({url: reqUrl, timeout: timeout}, function(err, res, body) {
-
+            
+            if (err) {
+                return callback(err); // Never return an unchecked Error Message to the front-end user.
+            }
+            
             let pBody = JSON.parse(body);
             if (pBody.message) pBody.message = toTitleCase(pBody.message);
 
-            if (err) {
-                console.warn(err);
-                return callback(null, pBody); // Never return an unchecked Error Message to the front-end user.
-            }
 
             if (res.statusCode !== 200) {
                 switch (res.statusCode) {
                     case 401:
                         switch (pBody.message.length > 0) {
                             case true:
-                                console.warn(new Error(`Authorization Failed (${res.statusCode})\nError Message: ${pBody.message}`));
-                                return callback(null, pBody);
+                                return callback(new Error(`Authorization Failed (${res.statusCode})\nError Message: ${pBody.message}`), pBody);
                             case false:
-                                console.warn(new Error(`Authorization Failed (${res.statusCode})`));
-                                return callback(null, pBody);
+                                return callback(new Error(`Authorization Failed (${res.statusCode})`), pBody);
                         }
                     case 404:
                         switch (pBody.message.length > 0) {
                             case true:
-                                console.warn(new Error(`${pBody.message} (${res.statusCode})`));
-                                return callback(null, pBody);
+                                return callback(new Error(`${pBody.message} (${res.statusCode})`), pBody);
                             case false:
-                                console.warn(new Error(`Request Failed (${res.statusCode})`));
-                                return callback(null, pBody);
+                                return callback(new Error(`Request Failed (${res.statusCode})`), pBody);
                         }
                     default:
                         switch (pBody.message.length > 0) {
                             case true:
-                                console.warn(new Error(`Request Failed (${res.statusCode})\nError Message: ${pBody.message}`));
-                                return callback(null, pBody);
+                                return callback(new Error(`Request Failed (${res.statusCode})\nError Message: ${pBody.message}`), pBody);
                             case false:
-                                console.warn(new Error(`Request Failed (${res.statusCode})`));
-                                return callback(null, pBody);
+                                return callback(new Error(`Request Failed (${res.statusCode})`), pBody);
                         }
                 }
             }
             if (pBody == undefined) {
-                console.warn(new Error('pBody is undefined'));
-                return callback(null, pBody);
+                return callback(new Error('pBody is undefined'), pBody);
             }
 
             pBody.success = true;
 
             // Check body content
             if(!(typeof pBody.weather[0] == 'object')) {
-                console.warn(new Error('pBody.weather Array came back empty'));
-                return callback(pBody);
+                return callback(new Error('pBody.weather Array came back empty'));
             }
 
             if(!pBody || !pBody.weather || !pBody.main)

@@ -1,4 +1,5 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
+const { debug } = require('../public/async-logs');
 
 module.exports.run = async (client, message, args) => {
     let clientPing = new Date() - message.createdAt;
@@ -17,10 +18,11 @@ module.exports.run = async (client, message, args) => {
         .addField(":outbox_tray: Upload Latency: ", Math.round(sendLaten) + "ms", true)
         .addField(":bullettrain_side: API Latency:", Math.round(client.ws.ping) + "ms", true)
         .setColor("GREEN")
-    // console.debug(time1, time2, sendLaten, clientPing, client.ws.ping);
+    // debug(time1, time2, sendLaten, clientPing, client.ws.ping);
     message.channel.send(pEmbed);
 }
 
 module.exports.help = {
-    name: "!ping"
+    name: "ping",
+    usage: "ping"
 }

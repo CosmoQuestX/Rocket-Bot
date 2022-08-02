@@ -1,13 +1,13 @@
-exports.run = (client, message, args) => {
+exports.run = (client, msg, args) => {
 	function sendCookie(channel, sender, receiver) {
-		if(receiver.bot === true) return message.channel.send(`:cookie: • **${sender.username}** gave a cookie to **<@${receiver.id}>**.. Oh... You're alone ? I'm sorry for you Q_Q`);
-		else if(receiver.id === sender.id) return message.channel.send(`:cookie: • Do you like your own cookies **<@${sender.id}>** ?`);
-		else return message.channel.send(`:cookie: • **${sender.username}** gave a cookie to **<@${receiver.id}>**`);
+		if(receiver.bot === true) return msg.channel.send(`:cookie: • **${sender.username}** gave a cookie to **<@${receiver.id}>**.. Oh... You're alone ? I'm sorry for you Q_Q`);
+		else if(receiver.id === sender.id) return msg.channel.send(`:cookie: • Do you like your own cookies **<@${sender.id}>** ?`);
+		else return msg.channel.send(`:cookie: • **${sender.username}** gave a cookie to **<@${receiver.id}>**`);
 	}
 
-	if(message.mentions.users.first()) return sendCookie(message.channel, message.author, message.mentions.users.first());
-	else if(args && system.getUser(message, args)) return sendCookie(message.channel, message.author, system.getUser(message, args).user);
-	else return message.channel.send(`Try with : \`$$cookie <user>\``);
+	if(msg.mentions.users.first()) return sendCookie(msg.channel, msg.author, msg.mentions.users.first());
+	else if(args && system.getUser(msg, args)) return sendCookie(msg.channel, msg.author, system.getUser(msg, args).user);
+	else throw "Cookies are sad";
 };
 
 exports.conf = {
@@ -21,5 +21,5 @@ exports.conf = {
 exports.help = {
 	name: `cookie`,
 	description: `Give a cookie to someone!`,
-	usage: `!cookie <user>`
+	usage: `cookie <user>`
 };

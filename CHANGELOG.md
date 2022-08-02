@@ -10,6 +10,19 @@
 
 - improved `!weather` command; now supporting more diverse queries
 
+## 2.1.1 (2022-08-01)
+
+### Fixes
+
+- DMs are no longer monitored
+- the `!weather` command embed now links to the location's webpage
+- the `!weather` command section `wind gust` now shows the unit of measurement [m/s]
+- the `!weather` command no longer shows sections with no value (excluding description)
+- added asynchronous log/debug/warn/error for improved response times - *questionably effective*
+- improved error handling
+- improved code formatting consistency
+- other minor fixes & small improvements
+
 ## 2.1.0 (2022-07-29)
 
 ### Fixes

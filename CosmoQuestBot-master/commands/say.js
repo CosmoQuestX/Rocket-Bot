@@ -1,14 +1,21 @@
-const Discord = require("discord.js")
-
-module.exports.help = {
-    name: 'say',
-    aliases: [],
-	description: 'Announce using the bot.',
-}
+const { warn } = require('../public/async-logs');
 
 module.exports.run = async (client, msg, args) => {
 
-    if(msg.member.hasPermission("ADMINISTRATOR") && !msg.member.bot) {
+    try {
+        if (!msg.member.hasPermission("ADMINISTRATOR")) throw new Error(`Failed to run say command. Attempt by ${msg.author.id}.\nReason: Not an Administrator`);
+        if (msg.member.bot) throw new Error(`Failed to run say command. Attempt by ${msg.author.id}.\nReason: Bot`);
+        msg.delete().catch(O_o=>{});
+        if (args.length < 1) return void(0);
+        
+        const sayMessage = args.join(" ");
+        msg.channel.send(sayMessage);
+    
+    } catch (e) {
+        throw e;
+    }
+
+    /* if(msg.member.hasPermission("ADMINISTRATOR") && !msg.member.bot && args.length > 0) {
 
         const sayMessage = args.join(" ");
 
@@ -16,7 +23,14 @@ module.exports.run = async (client, msg, args) => {
 
         msg.channel.send(sayMessage);
     } else {
-        console.warn("Failed to run say command. Attempt by " + msg.author.id + ".\nReason: " + (!msg.member.hasPermission("ADMINISTRATOR") ? "Not an Administrator" : "Bot"));
+        warn("Failed to run say command. Attempt by " + msg.author.id + ".\nReason: " + (!msg.member.hasPermission("ADMINISTRATOR") ? "Not an Administrator" : "Bot"));
         return void(0);
-    }
+    } */
 };
+
+module.exports.help = {
+    name: 'say',
+    aliases: [],
+	description: 'Announce using the bot.',
+    usage: "say <message>"
+}

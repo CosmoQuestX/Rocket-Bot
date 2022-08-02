@@ -1,21 +1,23 @@
 var math = require("mathjs");
-exports.run = (client, message, args) => {
+exports.run = (client, msg, args) => {
   try {
-    console.log(args);
-    message.channel.send(math.evaluate(args));
+    if (args.length < 1) throw new RangeError(`${args.length} arguments passed`);
+    msg.channel.send(math.evaluate(args));
   } catch (err) {
-    if (err) message.channel.send(`**${err.message}**`);
+    throw err;
   }
 };
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: [
+    "calculate"
+  ],
   permLevel: 1,
   type: 5
 };
 exports.help = {
   name: `calc`,
   description: `Calculate something.`,
-  usage: `!calc <calc here>`
+  usage: `calc <math formula>`
 };
