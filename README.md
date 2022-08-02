@@ -10,7 +10,7 @@ This is a bot built for the CosmoQuest server on Discord, it is a replacement fo
 
 Rocket is a bot that was created using current and stable features. They are:
 
-🌍 Botkit: a handy bot building
+🌍 Botkit: a handy bot designing tool
 
 🌎 frameworkDiscord.js: a node module for connecting to the Discord API
 
