@@ -11,7 +11,7 @@ module.exports.run = async (client, msg, args) => {
             .addFields(
                 {
                     "name": "Who Made Me?",
-                    "value": "I was created from stardust. ||<@662820223250071624> & <@234481908057112576>||",
+                    "value": "I am made of stardust. ||<@662820223250071624> & <@234481908057112576>||",
                     "inline": false
                 },
                 {
