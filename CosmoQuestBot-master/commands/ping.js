@@ -1,21 +1,28 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
+const { debug } = require('../public/async-logs');
 
 module.exports.run = async (client, message, args) => {
-    let clientping = new Date() - message.createdAt;
+    let clientPing = new Date() - message.createdAt;
+    let time1, time2, sendLaten, msg;
 
-    message.channel.send(`${message.author}`)
+    let sndMsg = ":ping_pong: PONG!";
+    time1 = new Date();
+    msg = await message.channel.send(sndMsg);
+
+    time2 = new Date(msg.createdAt);
+    msg.delete();
+    sendLaten = time2 - time1;
+
     let pEmbed = new Discord.MessageEmbed()
-        .setTitle("Application Programming Interface (API)")
-        .setDescription("Ping is a command used to measure the response time of your computer's connection to other devices on the local network or the Internet")
-        .setURL('https://en.m.wikipedia.org/wiki/Application_programming_interface')
-        .addField(":robot:BOT: ", Math.floor(clientping) + "ms")
-        .addField(":date:DATE:", message.createdAt)
-         .setFooter('CosmoQuest X Bot' , 'https://pbs.twimg.com/media/ETQLceGWAAI2GiY.png')
+        .addField(":inbox_tray: Download Latency: ", Math.round(clientPing) + "ms", true)
+        .addField(":outbox_tray: Upload Latency: ", Math.round(sendLaten) + "ms", true)
+        .addField(":bullettrain_side: API Latency:", Math.round(client.ws.ping) + "ms", true)
         .setColor("GREEN")
-
-        message.channel.send(pEmbed)
+    // debug(time1, time2, sendLaten, clientPing, client.ws.ping);
+    message.channel.send(pEmbed);
 }
 
 module.exports.help = {
-    name: "!ping"
+    name: "ping",
+    usage: "ping"
 }

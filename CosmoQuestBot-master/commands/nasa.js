@@ -34,5 +34,5 @@ module.exports.run = async (bot, message, args) => {
 module.exports.help = {
   name: 'nasa',
   description: 'Returns the nasa video/picture of the day.',
-  usage: '!nasa'
+  usage: 'nasa'
 }
