@@ -1,6 +1,6 @@
 {
   "name": "rocket-bot",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "private": true,
   "description": "Rocket Bot is used in the CosmoQuest Discord server",
   "main": "bot.js",
@@ -38,7 +38,6 @@
     "strip-indent": "^3.0.0",
     "superagent": "^5.2.2",
     "uptime-robot": "^1.3.0",
-    "uwebsockets.js": "^18.3.3",
     "wikijs": "^6.0.1",
     "xmpp": "0.0.8",
     "xmpp.js": "^0.11.1"

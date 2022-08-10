@@ -2,17 +2,38 @@
 
 ## 2.2.0 (unreleased)
 
-### Security
+### 2.2.0 Proposed Security Fixes
 
 - possible update to `npm v8.11.0` & `node v16 LTS`
 
-### Features
+### 2.2.0 Proposed Features
 
-- improved `!weather` command; now supporting more diverse queries
+- improved `!weather` command(s)
+  - support for more diverse queries
+  - `METAR` & `TAF` command(s)
+  - weather forecast command(s)
+  - special weather statements & alerts command(s)
+  - space weather command(s)
+
+## 2.1.2 (2022-08-05)
+
+### 2.1.2 Features
+
+- added `Dockerfile` for containerization; check [here](README.md#docker-instructions) for information on how to use it
+
+- added instructions for running [Docker](README.md#docker-instructions) & [npm](README.md#npm-instructions) in `README.md`
+
+### 2.1.2 Fixes
+
+- fixed `package.json` & `package-lock.json`; `npm install` should work with no issue (disregard deprecation warnings)
+  - pruned `uwebsockets.js` to stop fatal install errors
+
+- updated `CHANGELOG.md` to follow the markdown standard
+  - fixed all "duplicate heading level 3" errors
 
 ## 2.1.1 (2022-08-01)
 
-### Fixes
+### 2.1.1 Fixes
 
 - DMs are no longer monitored
 - the `!weather` command embed now links to the location's webpage
@@ -25,7 +46,7 @@
 
 ## 2.1.0 (2022-07-29)
 
-### Fixes
+### 2.1.0 Fixes
 
 - Discord bot `token` is now stored in the `.env` file  located in `./CosmoQuestBot-master/`; enter it after `DISCORD_TOKEN=`
   - Example: `DISCORD_TOKEN="937it3ow87i4ery69876wqire"`
@@ -43,6 +64,6 @@
 
 - improved the `!ping` command to report more information [API, Upload, & Download latency]
 
-### Security
+### 2.1.0 Security
 
 - removed Discord bot `token` from `config.json` located in `./CosmoQuestBot-master/`; check under Fixes for more information
