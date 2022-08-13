@@ -22,8 +22,7 @@ module.exports.run = async (bot, message, args) => {
       .setURL('https://apod.nasa.gov/')
       .setDescription(r.body.explanation)
       .setColor('#584db0')
-      .addField('Image Link: ', `${url}`)
-      .addField('Date:', message.createdAt)
+      .setTimestamp(new Date(message.createdAt))
       .setFooter( 'A service of: ASD at NASA / GSFC & Michigan Tech. U.','https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/287px-NASA_logo.svg.png')
 
     message.channel.send({ embed: embed })
@@ -31,7 +30,9 @@ module.exports.run = async (bot, message, args) => {
   msg.delete()
 }
 
-module.exports.help = {
+exports.conf = { enabled: true }
+
+exports.help = {
   name: 'nasa',
   description: 'Returns the nasa video/picture of the day.',
   usage: 'nasa'

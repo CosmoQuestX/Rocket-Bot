@@ -1,0 +1,10 @@
+{
+    "verbose": true,
+    "ignoreRoot": [
+      ".git",
+      ".gitignore",
+      "node_modules",
+      "private",
+      "commands/example.js"
+    ]
+  }

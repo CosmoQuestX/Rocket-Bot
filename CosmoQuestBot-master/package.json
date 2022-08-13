@@ -1,12 +1,13 @@
 {
   "name": "rocket-bot",
-  "version": "2.1.2",
+  "version": "2.2.0-n1",
   "private": true,
   "description": "Rocket Bot is used in the CosmoQuest Discord server",
-  "main": "bot.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bot.js"
+    "start": "node main.js",
+    "dev": "nodemon main.js --config dev/nodemon.json"
   },
   "author": "",
   "license": "MIT",

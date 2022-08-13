@@ -1,7 +1,7 @@
 const { warn } = require('../public/async-logs');
 const { MessageEmbed } = require('discord.js');
 
-module.exports.run = async (client, msg, args) => {
+module.exports.run = async function about (client, msg, args) {
 
     try {
         const embed = new MessageEmbed()
@@ -33,9 +33,15 @@ module.exports.run = async (client, msg, args) => {
                     "name": "Why Have Another Bot?",
                     "value": "Because people find my functionality useful, and that makes me happy! :blue_heart:",
                     "inline": false
-                }
+                }/* ,
+                {
+                    "name": "Version Info:",
+                    "value": "Rocket Bot v2.2.0-n1 (nightly)",
+                    "inline": false
+                } */
             )
-            .setThumbnail("https://cdn.discordapp.com/avatars/725798031391326288/c907fb6643a9c43e4dc6f21975e6bf67.webp?size=128");
+            .setThumbnail("https://cdn.discordapp.com/avatars/725798031391326288/c907fb6643a9c43e4dc6f21975e6bf67.webp?size=128")
+            .setFooter('Rocket Bot v2.2.0-n1 (nightly)');
         
         msg.channel.send(embed);
     } catch(e) {
@@ -44,7 +50,9 @@ module.exports.run = async (client, msg, args) => {
     }
 };
 
-module.exports.help = {
+exports.conf = { enabled: true }
+
+exports.help = {
     name: 'about',
     aliases: [
         "info",

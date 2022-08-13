@@ -1,14 +1,15 @@
-const weather = require('./weather-js/openWeatherMap'); // Weather data API
 const { warn, debug } = require('../public/async-logs');
+const weatherApi = require('./modules/openWeatherMap'); // Weather data API
 
 
-exports.run = (_, message, args) => {
-
+exports.run = function weather (_, message, args) {
+    
     if (args.length < 1) throw "No arguments passed";
 
     args = args.join(' ');
-    
-    weather.find({search: args, unitsType: 'metric'}, function(err, result) {
+
+    weatherApi.find({search: args, unitsType: 'metric'}, function(err, result) {
+
 
         // Error Messages
         if(err) {
@@ -50,10 +51,11 @@ exports.run = (_, message, args) => {
                 ((!isNaN(result.main.temp)) ? `**Temperature**: ${result.main.temp}°C\t[${result.main.temp_max}°C / ${result.main.temp_min}°C]\n` : ``) +
                 ((!isNaN(result.main.feels_like)) ? `**Feels Like**: ${result.main.feels_like}°C\n` : ``) +
                 ((!isNaN(result.main.humidity)) ? `**Humidity**: ${result.main.humidity}%\n` : ``) +
-                ((!isNaN(result.main.pressure)) ? `**Pressure**: ${result.main.pressure}hPa\n` : ``) +
-                ((!isNaN(result.wind.speed)) ? `**Wind Speed**: ${result.wind.speed}m/s [${result.wind.cardinal}]\n` : ``) +
-                ((!isNaN(result.wind.gust)) ? `**Wind Gust**: ${result.wind.gust}m/s\n` : ``) +
-                ((!isNaN(result.visibility)) ? `**Visibility**: ${Math.floor(result.visibility / 1000)}km` : ``),
+                ((!isNaN(result.main.pressure)) ? `**Pressure**: ${result.main.pressure}\u00A0hPa\n` : ``) +
+                ((!isNaN(result.wind.speed)) ? `**Wind Speed**: ${result.wind.speed}\u00A0m/s [${result.wind.cardinal}]\n` : ``) +
+                ((!isNaN(result.wind.kmSpeed)) ? `**Keeper's Wind**: ${result.wind.kmSpeed}\u00A0km/h from ${result.wind.leadDeg}°\n` : ``) +
+                ((!isNaN(result.wind.gust)) ? `**Wind Gust**: ${result.wind.gust}\u00A0m/s\n` : ``) +
+                ((!isNaN(result.visibility)) ? `**Visibility**: ${Math.floor(result.visibility / 1000)}\u00A0km` : ``),
 
                 "color": 0x41f097,
 
@@ -107,13 +109,13 @@ exports.run = (_, message, args) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: [],
     permLevel: 1,
     type: 5
 };
 
 exports.help = {
     name: `weather`,
+    aliases: [],
     description: `Get the weather of a city.`,
     usage: `weather <city name>, <US state name [optional]>, <country alpha-2 (ISO 3166)>`
 };

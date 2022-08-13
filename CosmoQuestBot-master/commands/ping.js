@@ -22,7 +22,9 @@ module.exports.run = async (client, message, args) => {
     message.channel.send(pEmbed);
 }
 
-module.exports.help = {
+exports.conf = { enabled: true }
+
+exports.help = {
     name: "ping",
     usage: "ping"
 }
