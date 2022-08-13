@@ -1,4 +1,7 @@
-# Rocket Bot (v2.1 Stable)
+# Rocket Bot (v2.2 Nightly)
+
+> **ATTENTION** This is the nightly version of Rocket-Bot, expect bugs & incomplete features!\
+*Some features listed are not committed yet*
 
 The Bot of the New generation of explorers for the CosmoQuest server on Discord. Assembled with official APIs and documentation, created using the Github Students Program tools.
 
@@ -44,21 +47,22 @@ Starting in the `Rocket-Bot` directory
 
     > `nano .env` is arguably the most user friendly IDE.
 
-3. Run `docker build . -t rocket-bot:v2.1.2`
+3. Run `docker build . -t rocket-bot:v2.2.0-n1`
 
     > Disregard any deprecation warnings, these are planned to be fixed in future updates.
 
 ### Docker - Usage instructions
 
-- Run `docker run -d rocket-bot:v2.1.2` from anywhere on the system to start the bot
+- Run `docker run -d rocket-bot:v2.2.0-n1` from anywhere on the system to start the bot
+  - To auto-restart after a server reboot, add the tag `--restart always`
 
-    > After the [first install](#first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
+  > After the [first install](#first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
 
 ### Docker - Stopping the container
 
 Eventually you might want to stop the container, run the following commands to accomplish this:
 
-1. `docker ps` displays all running process; locate `rocket-bot:v2.1.2` & note the `Container ID`
+1. `docker ps` displays all running process; locate `rocket-bot:v2.2.0-n1` & note the `Container ID`
     - if it returns no process, you need to change your context by running `docker context list` then `docker context use <context_not_marked_with_*>`
         - run step 1 again
 
@@ -66,9 +70,14 @@ Eventually you might want to stop the container, run the following commands to a
 
     > After a couple of seconds, it should return the Container ID you just entered, this means it stopped successfully.
 
+3. `docker rm <container_id>` (optional)
+    - Use this before updating to a new version
+
 ----------------------------------------------------
 
 ## NPM instructions
+
+> use node v14.4.0 to install (try [`nvm`](https://www.linode.com/docs/guides/how-to-install-use-node-version-manager-nvm/)); you may use any version (14.4.0+) to run it
 
 ### npm - First install
 

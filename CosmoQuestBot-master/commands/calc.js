@@ -1,5 +1,5 @@
 var math = require("mathjs");
-exports.run = (client, msg, args) => {
+exports.run = function calc (client, msg, args) {
   try {
     if (args.length < 1) throw new RangeError(`${args.length} arguments passed`);
     msg.channel.send(math.evaluate(args));
@@ -10,14 +10,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [
-    "calculate"
-  ],
   permLevel: 1,
   type: 5
 };
 exports.help = {
   name: `calc`,
+  aliases: [
+    "calculate"
+  ],
   description: `Calculate something.`,
   usage: `calc <math formula>`
 };

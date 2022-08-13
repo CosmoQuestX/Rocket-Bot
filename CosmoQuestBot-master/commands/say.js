@@ -28,7 +28,9 @@ module.exports.run = async (client, msg, args) => {
     } */
 };
 
-module.exports.help = {
+exports.conf = { enabled: true }
+
+exports.help = {
     name: 'say',
     aliases: [],
 	description: 'Announce using the bot.',

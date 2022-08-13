@@ -1,8 +1,5 @@
 # Rocket Bot Changelog
 
-> **ATTENTION** This is the nightly version of Rocket-Bot, expect bugs & incomplete features!\
-*Some features listed are not committed yet*
-
 ## 2.2.0 (unreleased)
 
 ### 2.2.0 Features
@@ -13,7 +10,7 @@
 
 - removed the `!<command> is not a valid command.` error message *as requested*
 
-- removed deprecated scripts
+-
 
 ### 2.2.0 Fixes
 
