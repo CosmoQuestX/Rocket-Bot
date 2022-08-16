@@ -22,7 +22,7 @@ exports.run = function weather (_, message, args) {
             }); // Send error message if no info given
         }
 
-        // debug(JSON.stringify(result, null, 2));
+        debug(JSON.stringify(result, null, 2));
         
         if (result === undefined) return message.channel.send({
             "embed": {
