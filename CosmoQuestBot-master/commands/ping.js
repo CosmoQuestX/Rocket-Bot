@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args) => {
         .addField(":bullettrain_side: API Latency:", Math.round(client.ws.ping) + "ms", true)
         .setColor("GREEN")
     // debug(time1, time2, sendLaten, clientPing, client.ws.ping);
-    message.channel.send(pEmbed);
+    message.channel.send({"embeds": [pEmbed]});
 }
 
 module.exports.help = {
