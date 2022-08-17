@@ -1,9 +1,10 @@
-const { warn } = require('../public/async-logs');
+const { warn, debug } = require('../public/async-logs');
+const { Permissions } = require('discord.js');
 
 module.exports.run = async (client, msg, args) => {
 
     try {
-        if (!msg.member.hasPermission("ADMINISTRATOR")) throw new Error(`Failed to run say command. Attempt by ${msg.author.id}.\nReason: Not an Administrator`);
+        if (!msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) throw new Error(`Failed to run say command. Attempt by ${msg.author.id}.\nReason: Not an Administrator`);
         if (msg.member.bot) throw new Error(`Failed to run say command. Attempt by ${msg.author.id}.\nReason: Bot`);
         msg.delete().catch(O_o=>{});
         if (args.length < 1) return void(0);
@@ -12,7 +13,7 @@ module.exports.run = async (client, msg, args) => {
         msg.channel.send(sayMessage);
     
     } catch (e) {
-        throw e;
+        warn(e);
     }
 
     /* if(msg.member.hasPermission("ADMINISTRATOR") && !msg.member.bot && args.length > 0) {

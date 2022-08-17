@@ -1,5 +1,8 @@
-const { warn } = require('../public/async-logs');
+const { warn, debug } = require('../public/async-logs');
 const { MessageEmbed } = require('discord.js');
+const config = require('../config.json');
+const version = config.version.long;
+const github = config.github;
 
 module.exports.run = async (client, msg, args) => {
 
@@ -7,7 +10,7 @@ module.exports.run = async (client, msg, args) => {
         const embed = new MessageEmbed()
             .setColor(0x5dadec)
             .setTitle("About Rocket-Bot")
-            .setURL("https://github.com/CosmoQuestX/Rocket-Bot/blob/master/README.md")
+            .setURL(`${github}/blob/master/README.md`)
             .addFields(
                 {
                     "name": "Who Made Me?",
@@ -21,7 +24,7 @@ module.exports.run = async (client, msg, args) => {
                 },
                 {
                     "name": "Where Can You Find Me?",
-                    "value": "All my code can be found [here](https://github.com/CosmoQuestX/Rocket-Bot) on GitHub.",
+                    "value": `All my code can be found [here](${github}) on GitHub.`,
                     "inline": false
                 },
                 {
@@ -35,9 +38,10 @@ module.exports.run = async (client, msg, args) => {
                     "inline": false
                 }
             )
-            .setThumbnail("https://cdn.discordapp.com/avatars/725798031391326288/c907fb6643a9c43e4dc6f21975e6bf67.webp?size=128");
+            .setFooter({ text: `Rocket Bot ${version}`, iconURL: client.user.displayAvatarURL() })
+            .setThumbnail(client.user.displayAvatarURL());
         
-        msg.channel.send(embed);
+        msg.channel.send({embeds: [embed]});
     } catch(e) {
         warn(e);
         return void(0);
