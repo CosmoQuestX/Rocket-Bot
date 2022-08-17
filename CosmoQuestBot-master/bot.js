@@ -5,11 +5,11 @@ const { prefix, statusMessages } = require('./config.json');
 
 const fs = require('fs');
 
-const { log, warn } = require('./public/async-logs');
+const { log, warn, debug } = require('./public/async-logs');
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
+const { Client, Collection, Intents } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+client.commands = new Collection();
 
 client.prefix = prefix;
 
@@ -38,7 +38,7 @@ for (const file of commandFiles) {
 log('\n%cFinished!\n', 'font-weight: bold;');
 
 
-client.on("message", async msg => {
+client.on("messageCreate", async msg => {
     if(msg.author.bot || msg.channel.type === "dm") return;
 
     if(msg.mentions.has(client.user)) { // If the message mentions the bot, return the prefix

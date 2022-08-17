@@ -2,7 +2,7 @@ var math = require("mathjs");
 exports.run = (client, msg, args) => {
   try {
     if (args.length < 1) throw new RangeError(`${args.length} arguments passed`);
-    msg.channel.send(math.evaluate(args));
+    msg.channel.send(math.evaluate(args).toString());
   } catch (err) {
     throw err;
   }
