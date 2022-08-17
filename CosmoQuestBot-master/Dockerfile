@@ -1,6 +1,6 @@
 # src : https://nodejs.org/en/docs/guides/nodejs-docker-webapp/#creating-a-dockerfile
 # Currently using node version 14.4.0
-FROM node:14.4.0
+FROM node:16.9.1
 
 # Create app directory
 WORKDIR /usr/src/app

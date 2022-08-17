@@ -40,7 +40,7 @@ Starting in the `Rocket-Bot` directory
 
 1. `cd CosmoQuestBot-master`
 
-2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN` & `WEATHER_API_KEY`)
+2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `WEATHER_API_KEY`, & `NASA_API_KEY`)
 
     > `nano .env` is arguably the most user friendly IDE.
 
@@ -76,7 +76,7 @@ Starting in the `Rocket-Bot` directory
 
 1. `cd CosmoQuestBot-master`
 
-2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN` & `WEATHER_API_KEY`)
+2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `WEATHER_API_KEY`, & `NASA_API_KEY`)
 
     > `nano .env` is arguably the most user friendly IDE.
 
