@@ -2,7 +2,7 @@ const { log } = require('./async-logs');
 const { channelId } = require('../config.json');
 require('dotenv').config();
 
-module.exports = (function getNasa (Discord, client, callback) {
+module.exports = (function getNasa (client, callback) {
     if (process.argv[2] !== "nasa") return;
 
     client.on('ready', ()=> {

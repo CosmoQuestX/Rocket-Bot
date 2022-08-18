@@ -43,17 +43,17 @@ Starting in the `Rocket-Bot` directory
 
 1. `cd CosmoQuestBot-master`
 
-2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN` & `WEATHER_API_KEY`)
+2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
     > `nano .env` is arguably the most user friendly IDE.
 
-3. Run `docker build . -t rocket-bot:v2.2.0-n1`
+3. Run `docker build . -t rocket-bot:v2.2.0-n2`
 
     > Disregard any deprecation warnings, these are planned to be fixed in future updates.
 
 ### Docker - Usage instructions
 
-- Run `docker run -d rocket-bot:v2.2.0-n1` from anywhere on the system to start the bot
+- Run `docker run --name rocket-bot -d rocket-bot:v2.2.0-n2` from anywhere on the system to start the bot
   - To auto-restart after a server reboot, add the tag `--restart always`
 
   > After the [first install](#first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
@@ -62,13 +62,13 @@ Starting in the `Rocket-Bot` directory
 
 Eventually you might want to stop the container, run the following commands to accomplish this:
 
-1. `docker ps` displays all running process; locate `rocket-bot:v2.2.0-n1` & note the `Container ID`
+1. `docker ps` displays all running process; locate `rocket-bot:v2.2.0-n2` & note the `Container ID`
     - if it returns no process, you need to change your context by running `docker context list` then `docker context use <context_not_marked_with_*>`
         - run step 1 again
 
-2. `docker stop <container_id>`
+2. `docker stop rocket-bot`
 
-    > After a couple of seconds, it should return the Container ID you just entered, this means it stopped successfully.
+    > (NOT SURE) After a couple of seconds, it should return the Container ID you just entered, this means it stopped successfully.
 
 3. `docker rm <container_id>` (optional)
     - Use this before updating to a new version
@@ -77,7 +77,7 @@ Eventually you might want to stop the container, run the following commands to a
 
 ## NPM instructions
 
-> use node v14.4.0 to install (try [`nvm`](https://www.linode.com/docs/guides/how-to-install-use-node-version-manager-nvm/)); you may use any version (14.4.0+) to run it
+> use node v16.9.1 to install (try [`nvm`](https://www.linode.com/docs/guides/how-to-install-use-node-version-manager-nvm/)); you may use any compatible version (16.9.1) to run it
 
 ### npm - First install
 
@@ -85,7 +85,7 @@ Starting in the `Rocket-Bot` directory
 
 1. `cd CosmoQuestBot-master`
 
-2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN` & `WEATHER_API_KEY`)
+2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
     > `nano .env` is arguably the most user friendly IDE.
 
