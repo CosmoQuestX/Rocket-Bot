@@ -11,9 +11,9 @@
  * @param {Discord.Message} message - The data received from Discord about the message
  * @param {Object[]} args           - The message from the client split from all spaces omitting the command (Example: `"!say Hello World" == ["Hello", "World"]`)
  */
-const run = function example (client, message, args) {
+const run = function example (client, message, args) { // "run" is required (when enabled)
     /* Command code here */
-    message.channel.send('Hello World!'); // sends the message 'Hello World!' in the request channel
+    message.reply('Hello World!'); // responds with 'Hello World!'
 }
 
 // -------------------------------------------------------------------------
@@ -28,10 +28,8 @@ const run = function example (client, message, args) {
  *    type: 5         // To-Be Implemented (No Use)
  * }
  */
-const conf = {
-    enabled: false,
-    permLevel: 1,
-    type: 5
+const conf = { // The only required conf config is "enabled" (when true)
+    enabled: false
 }
 
 // -------------------------------------------------------------------------
@@ -49,13 +47,15 @@ const conf = {
  *          "anothername"
  *     ],
  *     description: `Get the list of commands.`,    // The description shown using the !help command
- *     usage: `help [command]`                      // <> for mandatory & [] for optional 
+ *     usage: `help [command]`                      // <> for mandatory & [] for optional
+ * 
+ *  // `omit` is a temporary solution
+ *     omit: true                                   // Hides the command from !help
  * }
  */
-const help = {
+const help = { // The only required help config is "name" (when enabled)
     name: `example`,
-    description: `This is an example command.`,
-    usage: `example <something> [maybe-something]`
+    description: `This is an example command.`
 }
 
 module.exports = {run, conf, help} // this is a clean way to export multiple at once

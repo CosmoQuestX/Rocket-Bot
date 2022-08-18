@@ -13,6 +13,7 @@
   - `"debug": true` for more console logging & to enable the debug function
   - `"channelId": "CHANNEL_ID"` for testing the NASA function
   - `"userId": "USER_ID"` allows this user to use debug commands (like `!help <command> debug`), this is unnecessary if they have `ADMINISTRATOR` permission
+  - `"throwInvalid": true` enables the `!this is not a valid command.` message
 
 - `nodemon` is being used for quick development, the config can be found in `dev/nodemon.json`; do not use `--omit=dev` when installing to include nodemon
   - run the command `npm run dev` to restart the bot after every edit; you may exclude files & folders from causing restarts by editing `dev/nodemon.json`

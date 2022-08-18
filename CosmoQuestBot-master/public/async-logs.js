@@ -38,7 +38,7 @@ exports.parseSeconds = async function (time, callback) {
     let hours = Math.floor(time / (60*60)).toString().padStart(2,'0');
     let minutes = Math.floor(time % (60*60) / 60).toString().padStart(2,'0');
     let seconds = Math.floor(time % 60).toString().padStart(2,'0');
-    let milliseconds = (time.toFixed(3)*1000%1000).toString().padStart(3, "0");
+    let milliseconds = time.toFixed(3).toString().substring(time.toString().indexOf('.')+1);
     
     let parsed = `${hours}:${minutes}:${seconds}.${milliseconds}`;
 

@@ -14,17 +14,33 @@ module.exports.run = async (client, message, args) => {
     sendLaten = time2 - time1;
 
     let pEmbed = new Discord.MessageEmbed()
-        .addField(":inbox_tray: Download Latency: ", Math.round(clientPing) + "ms", true)
-        .addField(":outbox_tray: Upload Latency: ", Math.round(sendLaten) + "ms", true)
-        .addField(":bullettrain_side: API Latency:", Math.round(client.ws.ping) + "ms", true)
-        .setColor("GREEN")
+        .addFields(
+            {
+                name: ":inbox_tray: Download Latency: ",
+                value: Math.round(clientPing) + "ms",
+                inline: true
+            },
+            {
+                name: ":outbox_tray: Upload Latency: ",
+                value: Math.round(sendLaten) + "ms",
+                inline: true
+            },
+            {
+                name: ":bullettrain_side: API Latency:",
+                value: Math.round(client.ws.ping) + "ms",
+                inline: true
+            }
+        )
+        .setColor("GREEN");
+    
     // debug(time1, time2, sendLaten, clientPing, client.ws.ping);
-    message.channel.send(pEmbed);
+    message.channel.send({ embeds: [ pEmbed ] });
 }
 
 exports.conf = { enabled: true }
 
 exports.help = {
     name: "ping",
-    usage: "ping"
+    usage: "ping",
+    description: "Pong!"
 }

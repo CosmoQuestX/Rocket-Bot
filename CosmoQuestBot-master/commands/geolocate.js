@@ -14,21 +14,21 @@ const stageOne = async (msg, args) => {
             if(err) { // If err, it will parse then end
                 //warn(err);
                 if (result && result.error && result.error.message) resolve(msg.channel.send({ // Send error message if result.message given
-                    "embed": {
+                    "embeds": [{
                         "title": `:warning: ${result.message}`,
                         "description": "Check logs for more detailed information."
-                    }
+                    }]
                 }));
             }
             
-            // debug(JSON.stringify(result, null, 2));
+            debug(JSON.stringify(result, null, 2));
             
             if (result === undefined || result.length < 1) {
                 resolve(msg.channel.send({ // Here just in case
-                    "embed": {
+                    "embeds": [{
                         "title": ":warning: Error parsing data!",
                         "description": "Check logs for more detailed information."
-                    }
+                    }]
                 }));
             }
 
