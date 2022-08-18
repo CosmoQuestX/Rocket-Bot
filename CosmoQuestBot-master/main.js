@@ -5,29 +5,32 @@ const fs = require('fs');
 
 const { log, warn, debug, parseSeconds, startWatch, stopWatch } = require('./public/async-logs');
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
+const { Client, Intents, Collection } = require('discord.js');
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
-(async () => {
+(async () => { try {
     
-    require('./public/getNasa')(Discord, client, process.exit);
+    require('./public/getNasa')(client, process.exit);
     if (process.argv[2] === "nasa") return;
     
-    client.commands = new Discord.Collection();
+    client.commands = new Collection();
     
-    const { prefix, statusMessages } = require('./config.json');
+    const { prefix, statusMessages, throwInvalid } = require('./config.json');
     client.prefix = prefix;
 
     
     // ----------------------------------------------------------------
     
-    startWatch("loading commands", process.uptime());
-    
-    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-    let cmdList = []; // array later used to store command information
 
     log('\n%cLoading Commands...\n', 'font-weight: bold;');
+
+    startWatch("Commands loading time", process.uptime());
+
+    const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+    helpList = []; // Array used for the help command
+    cmdList = []; // Array later used to store command information
+
     for (const file of commandFiles) {
         (async (file) => {try {
 
@@ -38,17 +41,17 @@ const client = new Discord.Client();
                     conf    = cmd.conf
 
 
-            if (typeof cmd.conf !== 'object' || !cmd.conf.enabled) {
-                debug("Skipping " + file, cmd.conf);
+            if (typeof conf !== 'object' || !conf.enabled) {
+                debug("⏭ " + file + "\t\u2192\t " + JSON.stringify(conf));
                 return;
             }
-            if (typeof cmd.help !== 'object' || !cmd.help.name) {
+            if (typeof help !== 'object' || !help.name) {
                 warn(new Error(`help.name of ${file} is undefined`));
                 return;
             }
                     
                     
-            let obj = {name: help.name, debug: cmd.conf}; // used once for entering data in help, deleted after
+            let obj = {name: help.name, debug: conf}; // used once for entering data in help, deleted after
 
             client.commands.set(help.name, cmd); // defines the commands, this will be used for running the commands
 
@@ -56,20 +59,23 @@ const client = new Discord.Client();
 
             if (typeof help.usage === 'string') obj.usage = help.usage; // Add usage info if it exists
 
-            log(help.name); // Top-Level of the tree listing commands
-            
-            if (Array.isArray(help.aliases) && help.aliases.length) { // if there are no aliases, don't add them
-                
-                obj.aliases = help.aliases;
-
-                /* for (const alias of help.aliases) {
-                    log(' \\ ' + alias);
-                    client.commands.set(alias, cmd);
-                    obj.aliases.push(alias);
-                } */
+            switch (Array.isArray(help.aliases) && help.aliases.length > 0) { // if there are no aliases, don't add them
+                case true:
+                    for (alias of help.aliases) {
+                        client.commands.set(alias, cmd);
+                    }
+                    obj.aliases = help.aliases;
+                    log(`${help.name}\n \u21B3 ${help.aliases.join("\n \u21B3 ")}`);
+                    break;
+                case false:
+                    log(help.name);
+                    break;
             }
 
-            cmdList.push(obj); // adds the information to the commands list
+            cmdList.push(obj);
+
+            if (!help.omit)
+                helpList.push({ name: (prefix + obj.name), value: (obj.description || ((typeof obj.usage === "string" && obj.usage.length > 0) ? `${prefix}${obj.usage}` : "<:TealDeer:910194620732932106>")), inline: true}); // adds the information to the commands list
         } catch (e) {
             e.fileName = file;
             log();
@@ -82,24 +88,15 @@ const client = new Discord.Client();
     // Export all the information needed for the !help command, circular dependency fix
     (client.commands.get('help').setup(cmdList)) ? log('\n%cFinished!\n', 'font-weight: bold;') : process.exit(1);
 
-    stopWatch("loading commands", process.uptime(), undefined, true); // Using this to develop asynchronous commands
+    stopWatch("Commands loading time", process.uptime(), undefined, true); // Using this to develop asynchronous commands
 
     // ----------------------------------------------------------------
 
-    client.on("message", async msg => {
+    client.on("messageCreate", async msg => {
         if(msg.author.bot || msg.channel.type === "dm") return;
-
-        if(msg.mentions.has(client.user)) { // If the message mentions the bot, return the prefix
-            return client.api.channels[msg.channel.id].messages.post({ // src: https://stackoverflow.com/a/68116494/
-                data: {
-                    content: `My prefix is \`${client.prefix}\``,
-                        message_reference: {
-                        message_id: msg.id,
-                        channel_id: msg.channel.id,
-                        guild_id: msg.guild.id
-                    }
-                }
-            });
+        
+        if(msg.mentions.has(client.user) && msg.content.startsWith(`<@${client.user.id}>`)) { // If the message mentions the bot, return the prefix
+            return msg.reply(`My prefix is \`${client.prefix}\``);
         };
 
         if(!msg.content.startsWith(client.prefix)) return; // if the prefix is not given, return
@@ -110,9 +107,16 @@ const client = new Discord.Client();
         command = command.slice(client.prefix.length).toLowerCase();
         
         const cmd = await client.commands.get(command);
-
+        
         if (typeof cmd !== "object") {
-            return;
+            switch (throwInvalid == true) {
+                case true:
+                    msg.reply(`**${prefix}${command}** is not a valid command.`);
+                    return;
+                case false:
+                    return;
+            }
+            return; // Just in case
         }
         
         try { // Runs the command
@@ -122,31 +126,16 @@ const client = new Discord.Client();
                 cmd.run(client, msg, args);
             }
         } catch (e) { // Respond to an incorrect command
-            debug(e);
+            debug(e, `"${msg.content}"`);
+
             try {
-                await client.api.channels[msg.channel.id].messages.post({ // src: https://stackoverflow.com/a/68116494/
-                    data: {
-                        content: `Please use the format \`${client.prefix}${cmd.help.usage}\``,
-                        message_reference: {
-                            message_id: msg.id,
-                            channel_id: msg.channel.id,
-                            guild_id: msg.guild.id
-                        }
-                    }
-                });
+                await msg.reply(`Please use the format \`${client.prefix}${cmd.help.usage}\``);
             } catch (e) {
-                await client.api.channels[msg.channel.id].messages.post({ // src: https://stackoverflow.com/a/68116494/
-                    data: {
-                        content: `Incorrect usage of \`${prefix}${command}\``,
-                        message_reference: {
-                            message_id: msg.id,
-                            channel_id: msg.channel.id,
-                            guild_id: msg.guild.id
-                        }
-                    }
-                });
+                debug(e);
+                try {
+                    await msg.reply(`Incorrect usage of \`${prefix}${command}\``);
+                } catch (e) {}
             }
-            // No need to throw an error in the log
         };
     });
 
@@ -158,8 +147,8 @@ const client = new Discord.Client();
         
         // Logs startup info to console in English & Portuguese
         log.bilingual (
-            `Bot online with, ${client.users.cache.size} users, ${client.guilds.cache.size} guilds, & ${client.channels.cache.size} channels.`,
-            `Bot foi iniciado com, ${client.users.cache.size} usuários,${client.guilds.cache.size} servidores, e ${client.channels.cache.size} canais.`
+            `Bot online with : ${client.users.cache.size} users, ${client.guilds.cache.size} guilds, & ${client.channels.cache.size} channels.`,
+            `Bot foi iniciado com : ${client.users.cache.size} usuários, ${client.guilds.cache.size} servidores, e ${client.channels.cache.size} canais.`
         );
 
         dt = Date();
@@ -196,4 +185,6 @@ const client = new Discord.Client();
         client.login(token);
         void(delete token);
     })();
-})()
+} catch (e) {
+    throw e;
+}})()

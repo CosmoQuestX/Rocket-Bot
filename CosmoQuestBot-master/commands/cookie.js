@@ -1,13 +1,17 @@
-exports.run = (client, msg, args) => {
-	function sendCookie(channel, sender, receiver) {
-		if(receiver.bot === true) return msg.channel.send(`:cookie: • **${sender.username}** gave a cookie to **<@${receiver.id}>**.. Oh... You're alone ? I'm sorry for you Q_Q`);
-		else if(receiver.id === sender.id) return msg.channel.send(`:cookie: • Do you like your own cookies **<@${sender.id}>** ?`);
-		else return msg.channel.send(`:cookie: • **${sender.username}** gave a cookie to **<@${receiver.id}>**`);
-	}
+const { warn, debug } = require('../public/async-logs');
 
-	if(msg.mentions.users.first()) return sendCookie(msg.channel, msg.author, msg.mentions.users.first());
-	else if(args && system.getUser(msg, args)) return sendCookie(msg.channel, msg.author, system.getUser(msg, args).user);
-	else throw "Cookies are sad";
+exports.run = (client, msg, args) => {
+	try {
+		function sendCookie(channel, sender, receiver) {
+			if(receiver.bot === true) return msg.channel.send(`:cookie: • **${sender.username}** gave a cookie to :robot:**${receiver.username}**`);
+			else if(receiver.id === sender.id) return msg.channel.send(`:cookie: • Do you like your own cookies, **${sender.username}**?`);
+			else return msg.channel.send(`:cookie: • **${sender.username}** gave a cookie to **${receiver.username}**`);
+		}
+
+		if(msg.mentions.users.first()) return sendCookie(msg.channel, msg.author, msg.mentions.users.first());
+		else if(args && system.getUser(msg, args)) return sendCookie(msg.channel, msg.author, system.getUser(msg, args).user);
+		else warn("Cookies are sad");
+	} catch (e) {} // drop all errors
 };
 
 exports.conf = {
@@ -19,6 +23,6 @@ exports.conf = {
 
 exports.help = {
 	name: `cookie`,
-	description: `Give a cookie to someone!`,
+	description: `Give a cookie to someone.`,
 	usage: `cookie <user>`
 };
