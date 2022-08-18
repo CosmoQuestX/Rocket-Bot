@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
       .setImage(url)
       .setTitle('**NASA** Astronomy Picture of the Day')
       .setURL('https://apod.nasa.gov/')
-      .setDescription(r.body.explanation.substring(null, 650, "..."))
+      .setDescription(r.body.explanation)
       .setFooter(
         {
           text: 'A service of: ASD at NASA / GSFC & Michigan Tech. U.',
