@@ -79,9 +79,9 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
         } catch (e) {
             e.fileName = file;
             log();
-            warn(new SyntaxError(`file ${file} was incorrectly setup`));
+            warn(e);
+            warn("SyntaxError:", `file ${file} was incorrectly setup so it was not loaded`);
             log();
-            process.exit();
         }})(file)
     }
 
