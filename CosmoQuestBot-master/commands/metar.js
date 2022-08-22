@@ -93,9 +93,9 @@ exports.run = function metar (_, msg, args) {
         var xml = request.responseXML;
         var responseText = request.responseText;
 
-        warn(request+"\n");
+        warn(request + "\n");
         warn("===\n");
-        warn(xml+"\n");
+        warn(xml + "\n");
 
         var observation = xml.getElementsByTagName("raw_text");
 
@@ -111,7 +111,9 @@ exports.run = function metar (_, msg, args) {
                 }
             ]
         });
-    };
+    } else {
+        warn("Request failed!\n");
+    }
 }; // function metar()
 
 exports.conf = {
