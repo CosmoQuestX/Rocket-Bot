@@ -78,13 +78,15 @@ Response code: 200 (OK); Time: 186ms (186 ms); Content length: 1399 bytes (1.4 k
     var requestString = 'https://aviationweather.gov/adds/dataserver_current/httpparam?';
     requestString = requestString + 'dataSource=metars';
     requestString = requestString + 'requestType=retrieve&format=xml';
-    requestString = requestString + 'stationString='.args;
+    requestString = requestString + 'stationString=' + `${args}`;
     requestString = requestString + 'mostRecent=true&hoursBeforeNow=3';
+
+    warn(requestString);
 
     // Retrieve the data
 
     var request = new XMLHttpRequest();
-    request.open("GET", requestString, false);
+    request.open("GET", $requestString, false);
     request.send();
 
     var xml = response.responseXML;
@@ -97,8 +99,8 @@ Response code: 200 (OK); Time: 186ms (186 ms); Content length: 1399 bytes (1.4 k
     msg.reply({
         "embeds": [
             {
-                "title": "METAR for " + $observation.station_id + "\n",
-                "observation": $observation.raw_text + "\n",
+                "title": "METAR for " + observation.station_id + "\n",
+                "observation": observation.raw_text + "\n",
                 "source": "NOAA ADDS\n"
             }
         ]
