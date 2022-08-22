@@ -88,32 +88,30 @@ exports.run = function metar (_, msg, args) {
     var request = new XMLHttpRequest();
 
     request.open("GET", requestString);
-    {
-        request.send();
+    request.send();
 
-        var xml = request.responseXML;
-        var responseText = request.responseText;
+    var xml = request.responseXML;
+    var responseText = request.responseText;
 
-        msg.channel.send("responseText: " + responseText);
+    msg.channel.send("responseText: " + responseText);
 
-        warn("===\n");
-        warn(xml + "\n");
+    // warn("===\n");
+    //warn(xml + "\n");
 
-        var observation = xml.getElementsByTagName("raw_text");
+    var observation = xml.getElementsByTagName("raw_text");
 
 
-        // Parse the results
+    // Parse the results
 
-        msg.reply({
-            "embeds": [
-                {
-                    "title": "METAR for " + observation.station_id + "\n",
-                    "observation": observation.raw_text + "\n",
-                    "source": "NOAA ADDS\n"
-                }
-            ]
-        });
-    };
+    msg.reply({
+        "embeds": [
+            {
+                "title": "METAR for " + observation.station_id + "\n",
+                "observation": observation.raw_text + "\n",
+                "source": "NOAA ADDS\n"
+            }
+        ]
+    });
 }; // function metar()
 
 exports.conf = {
