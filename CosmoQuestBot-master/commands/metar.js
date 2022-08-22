@@ -85,33 +85,17 @@ exports.run = function metar (_, msg, args) {
 
     // Retrieve the data
 
-//    var request = new XMLHttpRequest();
-    var request = require("xmlhttprequest").XMLHttpRequest;
+    var request = new XMLHttpRequest();
 
-    function httpGet(theUrl)
-    {
-        var xmlHttp = new XMLHttpRequest()
-        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-        xmlHttp.send( null );
-        return xmlHttp.responseText;
-    }
+    //TODO Add handlers since this is done asynchronously. Everything after the .send() needs to be in the handler.
+    request.open("GET", requestString, false);
+    request.send();
 
-    let result = httpGet(`${requestString}`);
-
-    message.channel.send(result)
-
-    //TODO Add handlers since this is (probably) done asynchronously. Everything after the .send() needs to be in the handler.
-
-    // request.open("GET", requestString, false);
-    // request.send();
-
-
-
-    // var xml = request.responseXML;
-    // var responseText = request.responseText;
+    var xml = request.responseXML;
+    var responseText = request.responseText;
 
     // Parse the results
-/*
+
     var observation = xml.getElementsByTagName("raw_text");
 
     msg.channel.send("responseText: ");
@@ -120,7 +104,7 @@ exports.run = function metar (_, msg, args) {
     msg.channel.send(observation.station_id);
     msg.channel.send(observation.raw_text);
     msg.channel.send("Source: NOAA ADDS");
-/**/
+
 
 };
 
