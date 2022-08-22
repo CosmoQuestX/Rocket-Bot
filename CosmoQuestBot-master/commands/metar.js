@@ -81,7 +81,7 @@ exports.run = function metar (_, msg, args) {
     requestString = requestString + '&stationString=' + `${args}`;
     requestString = requestString + '&mostRecent=true&hoursBeforeNow=3';
 
-    msg.channel.send(requestString);
+    msg.channel.send("requestString: "+requestString);
 
     // Retrieve the data
 
@@ -113,7 +113,7 @@ exports.run = function metar (_, msg, args) {
             ]
         });
     } else {
-        message.channel.send("Request failed!");
+        msg.channel.send("Request failed!");
     }
 }; // function metar()
 
