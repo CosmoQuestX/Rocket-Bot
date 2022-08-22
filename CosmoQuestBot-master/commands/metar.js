@@ -94,8 +94,11 @@ exports.run = function metar (_, msg, args) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    msg.channel.send("Starting to wait 3000ms");
+
     sleep(3000);
 
+    msg.channel.send("Done waiting.");
     var xml = request.responseXML;
     var responseText = request.responseText;
 
