@@ -97,8 +97,8 @@ Response code: 200 (OK); Time: 186ms (186 ms); Content length: 1399 bytes (1.4 k
     msg.reply({
         "embeds": [
             {
-                "title": "METAR for " + ${observation.station_id} + "\n",
-                "observation": ${observation.raw_text} + "\n",
+                "title": "METAR for " + $observation.station_id + "\n",
+                "observation": $observation.raw_text + "\n",
                 "source": "NOAA ADDS\n"
             }
         ]
