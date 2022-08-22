@@ -93,13 +93,13 @@ exports.run = function metar (_, msg, args) {
     var xml = request.responseXML;
     var responseText = request.responseText;
 
-    msg.channel.send("responseText: " + responseText);
+    msg.channel.send("responseText: ");
+    msg.channel.send(responseText);
 
     // warn("===\n");
     //warn(xml + "\n");
 
     var observation = xml.getElementsByTagName("raw_text");
-
 
     // Parse the results
 
