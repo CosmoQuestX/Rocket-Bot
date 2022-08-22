@@ -76,7 +76,7 @@ Response code: 200 (OK); Time: 186ms (186 ms); Content length: 1399 bytes (1.4 k
     // Build the URL
 
     var requestString = 'https://aviationweather.gov/adds/dataserver_current/httpparam?';
-    requestString = requestString + '&dataSource=metars';
+    requestString = requestString + 'dataSource=metars';
     requestString = requestString + '&requestType=retrieve&format=xml';
     requestString = requestString + '&stationString=' + `${args}`;
     requestString = requestString + '&mostRecent=true&hoursBeforeNow=3';
