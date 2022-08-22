@@ -92,6 +92,10 @@ exports.run = function metar (_, msg, args) {
 
     var xml = response.responseXML;
 
+    warn(request);
+    warn("===");
+    warn(xml);
+
     var observation = xml.getElementsByTagName("raw_text");
 
 
