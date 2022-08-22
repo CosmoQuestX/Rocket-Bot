@@ -115,7 +115,7 @@ exports.run = function metar (_, msg, args) {
         ]
     });
     */
-}
+};
 
 
 exports.conf = {
