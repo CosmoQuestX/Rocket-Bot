@@ -87,13 +87,14 @@ exports.run = function metar (_, msg, args) {
 
     var request = new XMLHttpRequest();
 
-    if (request.open("GET", requestString, false)) {
+    request.open("GET", requestString);
+    {
         request.send();
 
         var xml = request.responseXML;
         var responseText = request.responseText;
 
-        msg.channel.send("responseText: "+responseText);
+        msg.channel.send("responseText: " + responseText);
 
         warn("===\n");
         warn(xml + "\n");
@@ -112,9 +113,7 @@ exports.run = function metar (_, msg, args) {
                 }
             ]
         });
-    } else {
-        msg.channel.send("Request failed!");
-    }
+    };
 }; // function metar()
 
 exports.conf = {
