@@ -87,18 +87,10 @@ exports.run = function metar (_, msg, args) {
 
     var request = new XMLHttpRequest();
 
+    //TODO Add handlers since this is done asynchronously. Everything after the .send() needs to be in the handler.
     request.open("GET", requestString, false);
     request.send();
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    msg.channel.send("Starting to wait 3000ms");
-
-    sleep(3000);
-
-    msg.channel.send("Done waiting.");
     var xml = request.responseXML;
     var responseText = request.responseText;
 
