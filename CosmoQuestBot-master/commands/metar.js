@@ -96,14 +96,11 @@ exports.run = function metar (_, msg, args) {
     msg.channel.send("responseText: ");
     msg.channel.send(responseText);
 
-    // warn("===\n");
-    //warn(xml + "\n");
-
     var observation = xml.getElementsByTagName("raw_text");
 
     // Parse the results
 
-    msg.reply({
+/*    msg.reply({
         "embeds": [
             {
                 "title": "METAR for " + observation.station_id + "\n",
@@ -112,7 +109,9 @@ exports.run = function metar (_, msg, args) {
             }
         ]
     });
-}; // function metar()
+    */
+}
+
 
 exports.conf = {
     enabled: true,
