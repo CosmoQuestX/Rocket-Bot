@@ -4,7 +4,7 @@ exports.run = function metar (_, msg, args) {
 
     if (args.length < 1) throw  "No station specified";
 
-    /* args = args.join(' '); */
+    args = args.join(' ');
 
     /* NOAA ADDS: https://aviationweather.gov/dataserver
         METAR: https://aviationweather.gov/dataserver/example?datatype=metar
@@ -78,7 +78,7 @@ exports.run = function metar (_, msg, args) {
     var requestString = 'https://aviationweather.gov/adds/dataserver_current/httpparam?';
     requestString = requestString + 'dataSource=metars';
     requestString = requestString + '&requestType=retrieve&format=xml';
-    requestString = requestString + '&stationString=' + `${args[0]}`;
+    requestString = requestString + '&stationString=' + `${args}`;
     requestString = requestString + '&mostRecent=true&hoursBeforeNow=3';
 
     msg.channel.send("requestString: "+requestString);
@@ -87,7 +87,7 @@ exports.run = function metar (_, msg, args) {
 
     var request = new XMLHttpRequest();
 
-    request.open("GET", requestString);
+    request.open("GET", requestString, false);
     request.send();
 
     var xml = request.responseXML;
