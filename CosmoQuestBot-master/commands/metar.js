@@ -90,9 +90,16 @@ exports.run = function metar (_, msg, args) {
     request.open("GET", requestString, false);
     request.send();
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    sleep(3000);
+
     var xml = request.responseXML;
     var responseText = request.responseText;
 
+    // Parse the results
 
     var observation = xml.getElementsByTagName("raw_text");
 
@@ -103,18 +110,7 @@ exports.run = function metar (_, msg, args) {
     msg.channel.send(observation.raw_text);
     msg.channel.send("Source: NOAA ADDS");
 
-    // Parse the results
 
-/*    msg.reply({
-        "embeds": [
-            {
-                "title": "METAR for " + observation.station_id + "\n",
-                "observation": observation.raw_text + "\n",
-                "source": "NOAA ADDS\n"
-            }
-        ]
-    });
-    */
 };
 
 
