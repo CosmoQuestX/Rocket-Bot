@@ -82,7 +82,7 @@ exports.run = function metar (_, msg, args) {
     requestString = requestString + '&mostRecent=true&hoursBeforeNow=3';
 
     msg.channel.send("requestString: "+requestString);
-
+    msg.channel.send("Now callingn httpGet()");
     // Retrieve the data
 
 //    var request = new XMLHttpRequest();
@@ -98,7 +98,8 @@ exports.run = function metar (_, msg, args) {
 
     let result = httpGet(`${requestString}`);
 
-    message.channel.send(result)
+    message.channel.send("after httpGet()");
+    message.channel.send(result);
 
     //TODO Add handlers since this is (probably) done asynchronously. Everything after the .send() needs to be in the handler.
 
