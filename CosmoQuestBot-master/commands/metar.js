@@ -105,7 +105,8 @@ exports.run = function metar (_, msg, args) {
 
 //            msg.channel.send("Result: "  + json);
             msg.channel.send("result: " + result);
-            msg.channel.send("result.raw_date: " + result.raw_data);
+            msg.channel.send("json.raw_data: " + json.raw_data);
+            msg.channel.send("result.raw_data: " + result.raw_data);
 
         });
     });
