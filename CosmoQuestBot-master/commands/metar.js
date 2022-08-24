@@ -94,11 +94,9 @@ exports.run = function metar (_, msg, args) {
         const xml2js = require('xml2js');
 
         // convert XML to JSON
-        xml2js.parseString(body, (err, result) => {
+        xml2js.parseString(body,{ mergeAttrs: true }, (err, result) => {
             if(err) {
                 throw err;
-            } else {
-                msg.channel.send(result);
             }
 
             // `result` is a JavaScript object
