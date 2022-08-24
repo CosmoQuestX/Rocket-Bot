@@ -90,6 +90,9 @@ exports.run = function metar (_, msg, args) {
     const request = require('request');
 
     request(requestString, function(err, res, body) {
+
+        msg.channel.send(body);
+
         const xml2js = require('xml2js');
 
         // convert XML to JSON
@@ -102,7 +105,7 @@ exports.run = function metar (_, msg, args) {
             // convert it to a JSON string
             const json = JSON.stringify(result, null, 4);
 
-            msg.channel.send("Result: "  + body["raw_text"]);
+            msg.channel.send("Result: "  + json["METAR"."raw_text"]);
 
         });
  //       msg.channel.send(body);
