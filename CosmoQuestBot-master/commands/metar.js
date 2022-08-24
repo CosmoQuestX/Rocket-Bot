@@ -105,7 +105,7 @@ exports.run = function metar (_, msg, args) {
             // convert it to a JSON string
             const json = JSON.stringify(result, null, 4);
 
-//            msg.channel.send("Result: "  + json);
+            msg.channel.send("Result: "  + json);
 ///////            msg.channel.send("result: " + result['response']['data num_results'][1]['METAR']['raw_text']);
             msg.channel.send("json.raw_data: " + json.raw_data);
             msg.channel.send("result.raw_data: " + result.raw_data);
