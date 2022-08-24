@@ -85,26 +85,13 @@ exports.run = function metar (_, msg, args) {
 
     // Retrieve the data
 
-    var request = new XMLHttpRequest();
+//    var request = new XMLHttpRequest();
 
-    //TODO Add handlers since this is done asynchronously. Everything after the .send() needs to be in the handler.
-    request.open("GET", requestString, false);
-    request.send();
+    const request = require('request');
 
-    var xml = request.responseXML;
-    var responseText = request.responseText;
-
-    // Parse the results
-
-    var observation = xml.getElementsByTagName("raw_text");
-
-    msg.channel.send("responseText: ");
-    msg.channel.send(responseText);
-
-    msg.channel.send(observation.station_id);
-    msg.channel.send(observation.raw_text);
-    msg.channel.send("Source: NOAA ADDS");
-
+    request(requestString, function(err, res, body) {
+        msg.channel.send(body);
+    });
 
 };
 
