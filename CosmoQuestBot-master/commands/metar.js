@@ -102,7 +102,7 @@ exports.run = function metar (_, msg, args) {
             // convert it to a JSON string
             const json = JSON.stringify(result, null, 4);
 
-            msg.channel.send("Result: "  + json["raw_text"]);
+            msg.channel.send("Result: "  + body["raw_text"]);
 
         });
  //       msg.channel.send(body);
