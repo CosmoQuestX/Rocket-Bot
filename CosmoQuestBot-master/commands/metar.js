@@ -95,18 +95,13 @@ exports.run = function metar (_, msg, args) {
         // convert XML to JSON
         xml2js.parseString(body, (err, result) => {
             if(err) {
-                msg.channel.send(err);
-                msg.channel.send(result);
-            }
+                throw err;
+            };
 
             // `result` is a JavaScript object
             // convert it to a JSON string
             const json = JSON.stringify(result, null, 4);
 
-            // log JSON string
-
-//            throw result;
-//            throw json;
             msg.channel.send(result.raw_text);
 
         });
