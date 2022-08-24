@@ -105,7 +105,7 @@ exports.run = function metar (_, msg, args) {
             // log JSON string
 
 
-            msg.channel.send(json.raw_text);
+            msg.channel.send(result.raw_text);
 
         });
  //       msg.channel.send(body);
