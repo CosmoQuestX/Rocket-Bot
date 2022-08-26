@@ -110,7 +110,7 @@ exports.run = function metar (_, msg, args) {
             // debug(json);
 
             //msg.channel.send("Result: "  + json);
-            if (!isnull(result.response.data)) {
+            if (!isnull(result.response.data[0])) {
                 msg.channel.send(" " +metar.raw_text);
             } else {
                 msg.channel.send("No report for " + $args);
