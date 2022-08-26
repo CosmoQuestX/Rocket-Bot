@@ -1,28 +1,32 @@
 # Rocket Bot Changelog
 
-> **ATTENTION** This is the nightly version of Rocket-Bot, expect bugs & incomplete features!\
-*Some features listed are not committed yet*
-
 ## 2.2.0 (unreleased)
 
 ### 2.2.0 Features
 
-- added `km/h` wind value with direction to `!weather` command
 - added `!metar` command
+- added `km/h` wind value with direction in the `!weather` command
+
+- updated `!about` command
+  - added long version number to the footer
 
 ### 2.2.0 Changes
 
-- removed the `!<command> is not a valid command.` error message *as requested*
+- removed unused scripts & files
 
-- removed deprecated scripts
+<!-- move this to README or a usage file, CHANGELOG should be brief -->
+- updated `config.json`
+  - `"throwInvalid": [bool]` toggles the `!<command> is not a valid command.` error message
+  - `"github": <url string>` sets the GitHub link used for different commands
+  - `"version": <array>` defines different formats of the current version
 
 ### 2.2.0 Fixes
 
--
+- fixed deprecation warnings during install [#5]
 
-### 2.2.0 Security Fixes
+### 2.2.0 Security
 
--
+- updated node packages
 
 -------------------------------------
 
