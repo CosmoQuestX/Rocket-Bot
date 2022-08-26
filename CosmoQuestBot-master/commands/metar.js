@@ -110,11 +110,13 @@ exports.run = function metar (_, msg, args) {
             // debug(json);
 
             //msg.channel.send("Result: "  + json);
-            if (!isnull(result.response.data[0])) {
+
+            // TODO add response for no report received
+            //if (!isnull(result.response.data[0])) {
                 msg.channel.send(" " +metar.raw_text);
-            } else {
-                msg.channel.send("No report for " + $args);
-            }
+            //} else {
+            //    msg.channel.send("No report for " + $args);
+            //}
 
         });
     });
