@@ -162,9 +162,9 @@ exports.run = function taf (_, msg, args) {
             // `result` is a JavaScript object
             // convert it to a JSON string
             const json = JSON.stringify(result, null, 4);
-            const taf = result.response.data[0].TAF; // JSON Object; Try metar.raw_text
+            const taf = result.response.data[0].TAF[0]; // JSON Object; Try metar.raw_text
 
-            debug(json);
+            // debug(json);
 
             //msg.channel.send("Result: "  + json);
             msg.channel.send(" "+taf.raw_text);
