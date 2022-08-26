@@ -167,7 +167,7 @@ exports.run = function taf (_, msg, args) {
             debug(json);
 
             //msg.channel.send("Result: "  + json);
-            msg.channel.send(join(taf.raw_text,' '));
+            msg.channel.send(" "+taf.raw_text);
 
         });
     });
