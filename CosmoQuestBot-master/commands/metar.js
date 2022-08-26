@@ -112,7 +112,7 @@ exports.run = function metar (_, msg, args) {
             debug(json);
 
             //msg.channel.send("Result: "  + json);
-            msg.channel.send("Result: " + metar.raw_text);
+            msg.channel.send(metar.raw_text);
 
         });
     });
