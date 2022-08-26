@@ -102,6 +102,8 @@ exports.run = function metar (_, msg, args) {
                 return debug(err);
             }
 
+            if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0].METAR)) return;
+
             // `result` is a JavaScript object
             // convert it to a JSON string
             const json = JSON.stringify(result, null, 4);
