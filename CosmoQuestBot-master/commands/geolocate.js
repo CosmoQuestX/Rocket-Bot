@@ -1,5 +1,5 @@
 const geocodeMap = require('./modules/geocodeMapSearch'); // Forward-Geocode Search 
-const { warn, debug } = require('../public/async-logs');
+const { debug } = asyncLogs;
 
 
 const stageOne = async (msg, args) => {

@@ -6,5 +6,6 @@ exports.conf = { enabled: true }
 
 exports.help = {
     name: "invite",
-    aliases: [ "link" ]
+    aliases: [ "link" ],
+    description: "Get the invite link for the CosmoQuest Discord."
 }

@@ -1,5 +1,5 @@
 const { log } = require('./async-logs');
-const { channelId } = require('../config.json');
+const { channelId } = config;
 require('dotenv').config();
 
 module.exports = (function getNasa (client, callback) {

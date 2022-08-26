@@ -1,4 +1,4 @@
-const { warn } = require('../public/async-logs');
+const { warn } = asyncLogs;
 const { Permissions } = require('discord.js');
 
 module.exports.run = async (client, msg, args) => {

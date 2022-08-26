@@ -1,11 +1,14 @@
 // Configuring dotenv package & token variable
 require('dotenv').config();
 
+asyncLogs = require('./public/async-logs'); // Creates global variable asyncLogs; Useful for modules
+const { log, warn, debug, parseSeconds, startWatch, stopWatch } = asyncLogs;
+
+config = require('./config.json');  // Creates global variable config
+
 const fs = require('fs');
 
-const { log, warn, debug, parseSeconds, startWatch, stopWatch } = require('./public/async-logs');
-
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, Intents, Collection } = require('discord.js'); // Not a global variable on-purpose to prevent data mishandling
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 (async () => { try {
@@ -15,7 +18,8 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
     
     client.commands = new Collection();
     
-    const { prefix, statusMessages, throwInvalid } = require('./config.json');
+    const { prefix, statusMessages, throwInvalid } = config; // Importing needed configs
+
     client.prefix = prefix;
 
     
@@ -49,8 +53,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
                 warn(new Error(`help.name of ${file} is undefined`));
                 return;
             }
-                    
-                    
+            
             let obj = {name: help.name, debug: conf}; // used once for entering data in help, deleted after
 
             client.commands.set(help.name, cmd); // defines the commands, this will be used for running the commands

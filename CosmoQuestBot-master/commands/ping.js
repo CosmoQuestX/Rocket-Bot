@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { debug } = require('../public/async-logs');
+//const { debug } = asyncLogs;
 
 module.exports.run = async (client, message, args) => {
     let clientPing = new Date() - message.createdAt;
@@ -41,6 +41,5 @@ exports.conf = { enabled: true }
 
 exports.help = {
     name: "ping",
-    usage: "ping",
     description: "Pong!"
 }

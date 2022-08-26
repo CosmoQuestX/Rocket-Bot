@@ -1,11 +1,10 @@
-const { warn, debug } = require('../public/async-logs');
+const { warn } = asyncLogs;
 const { MessageEmbed } = require('discord.js');
 
-const config = require('../config.json');
 const version = config.version.full;
 const github = config.github;
 
-module.exports.run = async function about (client, msg, args) {
+module.exports.run = async function about (client, msg) {
 
     try {
         const ico = client.user.displayAvatarURL();

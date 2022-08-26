@@ -1,6 +1,6 @@
-const { warn, debug } = require('../public/async-logs');
+const { warn } = asyncLogs;
 
-exports.run = (client, msg, args) => {
+exports.run = (_, msg, args) => {
 	try {
 		function sendCookie(channel, sender, receiver) {
 			if(receiver.bot === true) return msg.channel.send(`:cookie: • **${sender.username}** gave a cookie to :robot:**${receiver.username}**`);
@@ -9,9 +9,11 @@ exports.run = (client, msg, args) => {
 		}
 
 		if(msg.mentions.users.first()) return sendCookie(msg.channel, msg.author, msg.mentions.users.first());
-		else if(args && system.getUser(msg, args)) return sendCookie(msg.channel, msg.author, system.getUser(msg, args).user);
+		else if(args && system.getUser(msg, args)) return sendCookie(msg.channel, msg.author, system.getUser(msg, args).user); // FIXME What is system supposed to do?
 		else warn("Cookies are sad");
-	} catch (e) {} // drop all errors
+	} catch (e) {
+		warn(e);
+	}
 };
 
 exports.conf = {
