@@ -94,8 +94,6 @@ exports.run = function metar (_, msg, args) {
 
     request(requestString, function(err, res, body) {
 
-        //msg.channel.send("body: " + body);
-
         // convert XML to JSON
         xml2js.parseString(body, (err, result) => { //
             if(err) {
@@ -112,7 +110,11 @@ exports.run = function metar (_, msg, args) {
             // debug(json);
 
             //msg.channel.send("Result: "  + json);
-            msg.channel.send(" " +metar.raw_text);
+            if (!isnull(result.response.data)) {
+                msg.channel.send(" " +metar.raw_text);
+            } else {
+                msg.channel.send("No report for " + $args);
+            }
 
         });
     });
