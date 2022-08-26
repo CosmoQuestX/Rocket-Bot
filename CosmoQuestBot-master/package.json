@@ -19,7 +19,8 @@
     "mathjs": "^11.0.1",
     "node": "^16.9",
     "request": "^2.88.2",
-    "snekfetch": "^4.0.4"
+    "snekfetch": "^4.0.4",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
