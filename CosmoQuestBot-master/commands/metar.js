@@ -1,4 +1,7 @@
-const { warn, debug } = require('../public/async-logs');
+const { debug } = require('console');
+const { warn, log } = require('../public/async-logs');
+
+const xml2js = require('xml2js');
 
 exports.run = function metar (_, msg, args) {
 
@@ -91,24 +94,23 @@ exports.run = function metar (_, msg, args) {
 
     request(requestString, function(err, res, body) {
 
-        msg.channel.send("body: " + body);
-
-        const xml2js = require('xml2js');
+        //msg.channel.send("body: " + body);
 
         // convert XML to JSON
         xml2js.parseString(body, { mergeAttrs: true }, (err, result) => { //
             if(err) {
-                throw err;
+                return debug(err);
             }
 
             // `result` is a JavaScript object
             // convert it to a JSON string
             const json = JSON.stringify(result, null, 4);
+            const metar = result.response.data[0].METAR[0]; // JSON Object; Try metar.raw_text
 
-            msg.channel.send("Result: "  + result);
-///////            msg.channel.send("result: " + result['response']['data num_results'][1]['METAR']['raw_text']);
-            msg.channel.send("json.raw_data: " + json.raw_data);
-            msg.channel.send("result.raw_data: " + result.raw_data);
+            debug(json);
+
+            //msg.channel.send("Result: "  + json);
+            msg.channel.send("Result: " + metar.raw_text);
 
         });
     });
