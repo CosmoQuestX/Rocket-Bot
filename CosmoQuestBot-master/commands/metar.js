@@ -97,7 +97,7 @@ exports.run = function metar (_, msg, args) {
         //msg.channel.send("body: " + body);
 
         // convert XML to JSON
-        xml2js.parseString(body, { mergeAttrs: true }, (err, result) => { //
+        xml2js.parseString(body, (err, result) => { //
             if(err) {
                 return debug(err);
             }
@@ -109,10 +109,10 @@ exports.run = function metar (_, msg, args) {
             const json = JSON.stringify(result, null, 4);
             const metar = result.response.data[0].METAR[0]; // JSON Object; Try metar.raw_text
 
-            debug(json);
+            // debug(json);
 
             //msg.channel.send("Result: "  + json);
-            msg.channel.send(metar.raw_text);
+            msg.channel.send("Result: " + metar.raw_text);
 
         });
     });
