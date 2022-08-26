@@ -7,7 +7,8 @@
 
 ### 2.2.0 Features
 
-- added `km/h` wind value with direction
+- added `km/h` wind value with direction to `!weather` command
+- added `!metar` command
 
 ### 2.2.0 Changes
 
@@ -33,7 +34,7 @@
 
 - improved `!weather` command(s)
   - support for more diverse queries
-  - `METAR` & `TAF` command(s)
+  - `TAF` command(s)
   - weather forecast command(s)
   - special weather statements & alerts command(s)
   - space weather command(s)
