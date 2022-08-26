@@ -11,7 +11,9 @@ This is a bot built for the CosmoQuest server on Discord, it is a replacement fo
 
 ## Details
 
-Rocket is a bot that was created using current and stable features. They are:
+> Updated details needed!
+
+<!-- Rocket is a bot that was created using current and stable features. They are:
 
 🌍 Botkit: a handy bot designing tool
 
@@ -19,11 +21,11 @@ Rocket is a bot that was created using current and stable features. They are:
 
 🌏 Botkit Discord: A connector that allows you to use Bokit and Discord.js
 
-🌍 Uptime Robo and Freshping: A monitoring service that helps keep your bot running 24/7
+🌍 Uptime Robo and Freshping: A monitoring service that helps keep your bot running 24/7 -->
 
 ### Application Programming Interface (APIs)
 
-🌑 Math.js: extensive math library for JavaScript and Node.js
+🌑 Math.js: Extensive math library for JavaScript and Node.js
 
 🌒 NASA API's: Data, images and files from official NASA applications
 
@@ -31,7 +33,9 @@ Rocket is a bot that was created using current and stable features. They are:
 
 🌔 Discord API: For everything basically
 
-🌕 Github API: To receive remote warnings and alerts
+🌕 Keyv: For saving guild-specific settings
+
+<!-- 🌕 Github API: To receive remote warnings and alerts -->
 
 ----------------------------------------------------
 
@@ -47,13 +51,13 @@ Starting in the `Rocket-Bot` directory
 
     > `nano .env` is arguably the most user friendly IDE.
 
-3. Run `docker build . -t rocket-bot:v2.2.0-n2`
+3. Run `docker build . -t rocket-bot:v2.2.0-n3`
 
     > Disregard any deprecation warnings, these are planned to be fixed in future updates.
 
 ### Docker - Usage instructions
 
-- Run `docker run --name rocket-bot -d rocket-bot:v2.2.0-n2` from anywhere on the system to start the bot
+- Run `docker run --name rocket-bot -d rocket-bot:v2.2.0-n3` from anywhere on the system to start the bot
   - To auto-restart after a server reboot, add the tag `--restart always`
 
   > After the [first install](#first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
@@ -62,7 +66,7 @@ Starting in the `Rocket-Bot` directory
 
 Eventually you might want to stop the container, run the following commands to accomplish this:
 
-1. `docker ps` displays all running process; locate `rocket-bot:v2.2.0-n2` & note the `Container ID`
+1. `docker ps` displays all running process; locate `rocket-bot:v2.2.0-n3` & note the `Container ID`
     - if it returns no process, you need to change your context by running `docker context list` then `docker context use <context_not_marked_with_*>`
         - run step 1 again
 

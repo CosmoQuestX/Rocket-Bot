@@ -1,5 +1,5 @@
-const { debug, warn } = require('../public/async-logs');
-const { prefix, userId } = require('../config.json');
+//const { debug, warn } = asyncLogs;
+const { prefix, devId } = config;
 const { Permissions, MessageEmbed } = require('discord.js');
 
 var list,
@@ -62,7 +62,7 @@ exports.run = async function help (client, msg, args) {
                 })
             }
 
-            if (args[1] === "debug" && (msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) || msg.member.userID === userId)) {
+            if (args[1] === "debug" && (msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) || msg.member.userID === devId)) {
                 fields.push({
                     name: "Debug:",
                     value: `\n\`\`\`json\n${JSON.stringify(cmd.conf, null, 4)}\n\`\`\``
@@ -73,9 +73,8 @@ exports.run = async function help (client, msg, args) {
 
             await msg.reply({ embeds: [embed] });
             break;
-        default:
-            // return full list (maybe in pages)
-            /* wildcard help not implemented yet */
+        default: // FIXME Add pages when list gets too long
+            // returns full list by default
             embed.setFields(...helpList);
             msg.reply({ embeds: [ embed ] });
             break;

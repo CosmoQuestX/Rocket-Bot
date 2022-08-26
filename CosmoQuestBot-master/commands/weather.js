@@ -1,4 +1,4 @@
-const { warn, debug } = require('../public/async-logs');
+const { warn, debug } = asyncLogs;
 const weatherApi = require('./modules/openWeatherMap'); // Weather data API
 
 

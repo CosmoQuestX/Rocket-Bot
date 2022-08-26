@@ -1,18 +1,19 @@
 {
 	"prefix": "!",
+	"throwInvalid": false,
 	"statusMessages": [
 		"📡 Running v2.2 (nightly) 🛰️",
 		"💻 Coded With Love 💙"
 	],
 	"github": "https://github.com/CosmoQuestX/Rocket-Bot",
 	"version": {
-		"full": "v2.2.0-n2 (nightly)",
-		"long": "v2.2.0-n2",
+		"full": "v2.2.0-n3 (nightly)",
+		"long": "v2.2.0-n3",
 		"short": "v2.2",
 		"release": "nightly",
 		"major": "2",
 		"minor": "2",
 		"patch": "0",
-		"rCode": "n2"
+		"rCode": "n3"
 	}
 }

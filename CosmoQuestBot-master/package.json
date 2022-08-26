@@ -1,6 +1,6 @@
 {
   "name": "rocket-bot",
-  "version": "2.2.0-n2",
+  "version": "2.2.0-n3",
   "private": true,
   "description": "Rocket Bot is used in the CosmoQuest Discord server",
   "main": "main.js",
@@ -12,8 +12,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@keyv/mongo": "^2.1.6",
     "discord.js": "^13.10.2",
     "dotenv": "^16.0.1",
+    "keyv": "^4.3.3",
     "mathjs": "^11.0.1",
     "node": "^16.9",
     "request": "^2.88.2",

@@ -4,6 +4,18 @@
  */
 
 
+/*
+Access global variables; By default, these are asyncLogs & config
+  - `asyncLogs` - Replaces console to add more functionality
+    - startWatch(name[string], time[process.uptime], callback[function])
+    - stopWatch(name[string], time[process.uptime], callback[function], log[bool])
+  - `config`    - `config.json` is often called, this removes the need for require
+*/
+const { log, debug, warn, error, startWatch, stopWatch } = asyncLogs;
+
+const { prefix, statusMessages, github, version } = config;
+
+
 /**
  * This handles the command
  * @see {@link help.aliases}
