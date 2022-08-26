@@ -152,7 +152,7 @@ exports.run = function taf (_, msg, args) {
         //msg.channel.send("body: " + body);
 
         // convert XML to JSON
-        xml2js.parseString(body, { mergeAttrs: true }, (err, result) => { //
+        xml2js.parseString(body, (err, result) => { //
             if(err) {
                 return debug(err);
             }
