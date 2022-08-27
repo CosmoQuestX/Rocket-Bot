@@ -13,8 +13,9 @@ module.exports.run = async (client, message, args) => {
     msg.delete();
     sendLaten = time2 - time1;
 
-    let pEmbed = new Discord.MessageEmbed()
-        .addFields(
+    let pEmbed = new Discord.MessageEmbed().setTitle(":ping_pong: PONG!").setColor("#2f3136");
+    
+        pEmbed.addFields(
             {
                 name: ":inbox_tray: Download Latency: ",
                 value: Math.round(clientPing) + "ms",
@@ -31,7 +32,7 @@ module.exports.run = async (client, message, args) => {
                 inline: true
             }
         )
-        .setColor("GREEN");
+        pEmbed.setColor("GREEN");
     
     // debug(time1, time2, sendLaten, clientPing, client.ws.ping);
     message.channel.send({ embeds: [ pEmbed ] });
