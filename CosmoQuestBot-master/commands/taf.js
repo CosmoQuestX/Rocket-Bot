@@ -142,6 +142,7 @@ exports.run = function taf (_, msg, args) {
             //msg.channel.send("Result: "  + json);
 
             console.log(JSON.stringify(result));
+            console.log(JSON.stringify(result.response.data[0]));
             console.log(taf);
 
             // TODO add response for no forecast received
