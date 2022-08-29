@@ -113,7 +113,7 @@ exports.run = function taf (_, msg, args) {
     requestString = requestString + 'dataSource=tafs';
     requestString = requestString + '&requestType=retrieve&format=xml';
     requestString = requestString + '&stationString=' + `${args}`;
-    requestString = requestString + '&mostRecent=true&hoursBeforeNow=3';
+    requestString = requestString + '&mostRecent=true&hoursBeforeNow=12';
 
     // msg.channel.send("requestString: "+requestString);
 
