@@ -110,7 +110,7 @@ exports.run = function taf (_, msg, args) {
     // Build the URL
 
     var requestString = 'https://aviationweather.gov/adds/dataserver_current/httpparam?';
-    requestString = requestString + 'dataSource=metars';
+    requestString = requestString + 'dataSource=tafs';
     requestString = requestString + '&requestType=retrieve&format=xml';
     requestString = requestString + '&stationString=' + `${args}`;
     requestString = requestString + '&mostRecent=true&hoursBeforeNow=3';
