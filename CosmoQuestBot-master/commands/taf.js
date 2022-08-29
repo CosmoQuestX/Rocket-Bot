@@ -135,7 +135,7 @@ exports.run = function taf (_, msg, args) {
 
             // `result` is a JavaScript object
 
-            const taf = result.response.data[0].TAF; // JSON Object; Try taf.raw_text
+            const taf = result.response.data[0].TAF[0]; // JSON Object; Try taf.raw_text
 
             // debug(json);
 
@@ -144,7 +144,7 @@ exports.run = function taf (_, msg, args) {
             console.log(JSON.stringify(result));
             console.log(JSON.stringify(result.response.data[0]));
             console.log(JSON.stringify(result.response.data[0].TAF));
-            console.log(JSON.stringify(result.response.data[0].TAF.raw_text));
+            console.log(JSON.stringify(result.response.data[0].TAF[0].raw_text));
             console.log(taf);
 
             // TODO add response for no forecast received
