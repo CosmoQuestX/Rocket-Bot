@@ -10,7 +10,7 @@ exports.run = function taf (_, msg, args) {
     args = args.join(' ');
 
     /* NOAA ADDS: https://aviationweather.gov/dataserver
-        METAR: https://aviationweather.gov/dataserver/example?datatype=metar
+        TAF: https://aviationweather.gov/dataserver/example?datatype=taf
 
         // dataSource: tafs
         // stationString=CYOW
@@ -131,15 +131,13 @@ exports.run = function taf (_, msg, args) {
                 return debug(err);
             }
 
-            if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0].METAR)) return;
+            if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0].TAF)) return;
 
             // `result` is a JavaScript object
 
-            const taf = result.response.data[0].TAF; // JSON Object; Try metar.raw_text
+            const taf = result.response.data[0].TAF; // JSON Object; Try taf.raw_text
 
             // debug(json);
-
-            console.log(JSON.stringify(result));
 
             //msg.channel.send("Result: "  + json);
 
