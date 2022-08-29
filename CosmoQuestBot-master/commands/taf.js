@@ -144,6 +144,7 @@ exports.run = function taf (_, msg, args) {
             console.log(JSON.stringify(result));
             console.log(JSON.stringify(result.response.data[0]));
             console.log(JSON.stringify(result.response.data[0].TAF));
+            console.log(JSON.stringify(result.response.data[0].TAF.raw_text));
             console.log(taf);
 
             // TODO add response for no forecast received
