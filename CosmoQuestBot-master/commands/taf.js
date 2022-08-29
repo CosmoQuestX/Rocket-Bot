@@ -135,7 +135,7 @@ exports.run = function taf (_, msg, args) {
 
             // `result` is a JavaScript object
 
-            const taf = result.response.data[0].TAF; // JSON Object; Try metar.raw_text
+            const taf = result.response.data.TAF; // JSON Object; Try metar.raw_text
 
             // debug(json);
 
