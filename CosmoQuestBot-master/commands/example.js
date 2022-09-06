@@ -5,15 +5,18 @@
 
 
 /*
-Access global variables; By default, these are asyncLogs & config
+Access global variables; By default, these are asyncLogs, config, & prefix
   - `asyncLogs` - Replaces console to add more functionality
     - startWatch(name[string], time[process.uptime], callback[function])
     - stopWatch(name[string], time[process.uptime], callback[function], log[bool])
   - `config`    - `config.json` is often called, this removes the need for require
+  - `prefix`    - the prefix of the bot [This will change in the future]
 */
 const { log, debug, warn, error, startWatch, stopWatch } = asyncLogs;
 
-const { prefix, statusMessages, github, version } = config;
+const { statusMessages, github, version } = config;
+
+if (prefix === "!") log("The prefix is !");
 
 
 /**

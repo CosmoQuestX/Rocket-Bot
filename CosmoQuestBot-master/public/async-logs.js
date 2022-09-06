@@ -31,18 +31,38 @@ exports.debug = async function (...args) {
  * Converts seconds to hh:mm:ss:mss
  * 
  * @param {number} time Time in seconds
- * @param {function} callback Callback function
- */
-exports.parseSeconds = async function (time, callback) {
-    time = time || 0;
-    let hours = Math.floor(time / (60*60)).toString().padStart(2,'0');
-    let minutes = Math.floor(time % (60*60) / 60).toString().padStart(2,'0');
-    let seconds = Math.floor(time % 60).toString().padStart(2,'0');
-    let milliseconds = time.toFixed(3).toString().substring(time.toString().indexOf('.')+1);
-    
-    let parsed = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+ * @param {function} [callback] Deprecated: Callback function
 
-    callback(parsed);
+ */
+exports.parseSeconds = function (time, callback) {
+    switch (typeof callback !== "undefined") {
+        case true:
+            exports.warn("Deprecated: parseSeconds: callback is no longer recommended, use await/Promise");
+
+            time = time || 0;
+            let hours = Math.floor(time / (60*60)).toString().padStart(2,'0');
+            let minutes = Math.floor(time % (60*60) / 60).toString().padStart(2,'0');
+            let seconds = Math.floor(time % 60).toString().padStart(2,'0');
+            let milliseconds = time.toFixed(3).toString().substring(time.toString().indexOf('.')+1);
+            
+            let parsed = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+
+            callback(parsed);
+            break;
+        case false:
+            new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    time = time || 0;
+                    let hours = Math.floor(time / (60*60)).toString().padStart(2,'0');
+                    let minutes = Math.floor(time % (60*60) / 60).toString().padStart(2,'0');
+                    let seconds = Math.floor(time % 60).toString().padStart(2,'0');
+                    let milliseconds = time.toFixed(3).toString().substring(time.toString().indexOf('.')+1);
+                    
+                    resolve(`${hours}:${minutes}:${seconds}.${milliseconds}`);
+                }, 2000);
+            });
+            break;
+    }
 }
 
 

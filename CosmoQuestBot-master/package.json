@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node main.js",
-    "dev": "nodemon main.js --config dev/nodemon.json"
+    "dev": "nodemon main.js --config dev/nodemon.json",
+    "rebuild": "docker build . -t rocket-bot:v2.2.0 && docker stop rocket-bot && docker container rm rocket-bot && docker run --name rocket-bot -d rocket-bot:v2.2.0"
   },
   "author": "",
   "license": "MIT",

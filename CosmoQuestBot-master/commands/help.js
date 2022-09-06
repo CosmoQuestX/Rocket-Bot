@@ -1,5 +1,5 @@
 //const { debug, warn } = asyncLogs;
-const { prefix, devId } = config;
+const { devId } = config;
 const { Permissions, MessageEmbed } = require('discord.js');
 
 var list,
@@ -21,7 +21,7 @@ exports.run = async function help (client, msg, args) {
     let command = (typeof args[0] === 'string' ? args[0].replace(RegExp(`^${prefix}`), '') : undefined); // if arg given, remove prefix (if any)
     
     const embed = new MessageEmbed().setTitle("Command Info:").setColor("#2f3136");
-    
+
     switch (typeof args[0]) {
         case 'string': // if command is specified
             let fields = [];
@@ -62,7 +62,7 @@ exports.run = async function help (client, msg, args) {
                 })
             }
 
-            if (args[1] === "debug" && (msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) || msg.member.userID === devId)) {
+            if (args[1] === "debug" && (!msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) || !msg.member.user.id === devId)) {
                 fields.push({
                     name: "Debug:",
                     value: `\n\`\`\`json\n${JSON.stringify(cmd.conf, null, 4)}\n\`\`\``
@@ -95,5 +95,5 @@ exports.help = {
         "cmd"
     ],
     description: `Get the list of commands.`,
-    usage: `help [command]`
+    usage: `help (command)`
 };

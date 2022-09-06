@@ -6,6 +6,8 @@ const { log, warn, debug, parseSeconds, startWatch, stopWatch } = asyncLogs;
 
 config = require('./config.json');  // Creates global variable config
 
+prefix = "!"; // Creates global variable prefix w/ default of "!"
+
 const fs = require('fs');
 
 const { Client, Intents, Collection } = require('discord.js'); // Not a global variable on-purpose to prevent data mishandling
@@ -18,9 +20,9 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
     
     client.commands = new Collection();
     
-    const { prefix, statusMessages, throwInvalid } = config; // Importing needed configs
+    const { statusMessages, throwInvalid } = config; // Importing needed configs
 
-    client.prefix = prefix;
+    prefix = config.prefix || prefix; // If config.prefix===undefined then do default (set above)
 
     
     // ----------------------------------------------------------------
@@ -99,15 +101,15 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
         if(msg.author.bot || msg.channel.type === "dm") return;
         
         if(msg.mentions.has(client.user) && msg.content.startsWith(`<@${client.user.id}>`)) { // If the message mentions the bot, return the prefix
-            return msg.reply(`My prefix is \`${client.prefix}\``);
+            return msg.reply(`My prefix is \`${prefix}\``);
         };
 
-        if(!msg.content.startsWith(client.prefix)) return; // if the prefix is not given, return
+        if(!msg.content.startsWith(prefix)) return; // if the prefix is not given, return
 
         // cleans up the command for easy parsing
         let args = msg.content.split(" ").slice(1);
         let command = msg.content.split(" ")[0];
-        command = command.slice(client.prefix.length).toLowerCase();
+        command = command.slice(prefix.length).toLowerCase();
         
         const cmd = await client.commands.get(command);
         
@@ -132,7 +134,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
             debug(e, `"${msg.content}"`);
 
             try {
-                await msg.reply(`Please use the format \`${client.prefix}${cmd.help.usage}\``);
+                await msg.reply(`Please use the format \`${prefix}${cmd.help.usage}\``);
             } catch (e) {
                 debug(e);
                 try {
