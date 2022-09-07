@@ -15,7 +15,7 @@
   "dependencies": {
     "@keyv/mongo": "^2.1.6",
     "discord.js": "^13.10.2",
-    "dotenv": "^16.0.1",
+    "dotenv": "^16.0.2",
     "keyv": "^4.4.1",
     "mathjs": "^11.1.0",
     "node": "^16.9",
