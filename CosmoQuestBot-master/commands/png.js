@@ -8,8 +8,8 @@ const Discord = require('discord.js');
 const run = async function example (_, message) {
     let msg = await message.channel.send('🛰️Fetching information from the database...');
 
-    const d1 = 803275200000; // First APOD [June 16, 1995]
-    const d2 = (new Date()).getTime();
+    const d1 = new Date("June 16, 1995").getTime(); // First APOD [June 16, 1995]
+    const d2 = new Date().getTime();
     const dr = new Date(Math.floor(Math.random() * (d2 - d1) + d1));
     const dt = dr.toLocaleDateString('en-CA'); // YYYY-MM-DD
     
@@ -24,8 +24,6 @@ const run = async function example (_, message) {
       const dn = date.replace(/-/g, "").slice(-6); // YYMMDD
 
       const url = `https://apod.nasa.gov/apod/ap${dn}.html`;
-      
-      log(body);
   
       const embed = new Discord.MessageEmbed()
         .setColor('#584db0')
