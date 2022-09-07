@@ -1,7 +1,4 @@
-# Rocket Bot (v2.2 Nightly)
-
-> **ATTENTION** This is the nightly version of Rocket-Bot, expect bugs & incomplete features!\
-*Some features listed are not committed yet*
+# Rocket Bot (v2.2 Stable)
 
 The Bot of the New generation of explorers for the CosmoQuest server on Discord. Assembled with official APIs and documentation, created using the Github Students Program tools.
 
@@ -83,7 +80,7 @@ Eventually you might want to stop the container, run the following commands to a
 
 > use node v16.9.1 to install (try [`nvm`](https://www.linode.com/docs/guides/how-to-install-use-node-version-manager-nvm/)); you may use any compatible version (16.9.1) to run it
 
-### npm - First install
+### NPM - First install
 
 Starting in the `Rocket-Bot` directory
 
@@ -91,16 +88,16 @@ Starting in the `Rocket-Bot` directory
 
 2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
-    > `nano .env` is arguably the most user friendly IDE.
+    > `nano .env` is a good option.
 
 3. Run `npm install --omit=dev` to install production-only packages
 
     > Disregard any deprecation warnings, these are planned to be fixed in future updates.
 
-### npm - Usage instructions
+### NPM - Usage instructions
 
 - Run `npm start` still in the current directory
 
-### npm - Stopping the process
+### NPM - Stopping the process
 
 - use the keyboard shortcut `Ctrl+C` to stop the process
