@@ -62,7 +62,7 @@ exports.run = async function help (client, msg, args) {
                 })
             }
 
-            if (args[1] === "debug" && (!msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) || !msg.member.user.id === devId)) {
+            if (args[1] === "debug" && (msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR) || msg.member.user.id === devId)) {
                 fields.push({
                     name: "Debug:",
                     value: `\n\`\`\`json\n${JSON.stringify(cmd.conf, null, 4)}\n\`\`\``

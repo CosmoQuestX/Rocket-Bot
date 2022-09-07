@@ -48,7 +48,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 
 
             if (typeof conf !== 'object' || !conf.enabled) {
-                debug("⏭ " + file + "\t\u2192\t " + JSON.stringify(conf));
+                debug("\u23ED " + file + "\t\u2192\t " + JSON.stringify(conf)); // Log Skipped
                 return;
             }
             if (typeof help !== 'object' || !help.name) {
