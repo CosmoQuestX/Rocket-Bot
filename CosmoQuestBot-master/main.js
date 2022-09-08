@@ -80,7 +80,10 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
             cmdList.push(obj);
 
             if (!help.omit)
-                helpList.push({ name: (prefix + obj.name), value: (obj.description || ((typeof obj.usage === "string" && obj.usage.length > 0) ? `${prefix}${obj.usage}` : "<:TealDeer:910194620732932106>")), inline: true}); // adds the information to the commands list
+                helpList.push({ name: (prefix + obj.name), value: (obj.description ||
+                    ((typeof obj.usage === "string" && obj.usage.length > 0) ?
+                    `${prefix}${obj.usage}` : "<:TealDeer:910194620732932106>")),
+                    inline: true}); // adds the information to the commands list
         } catch (e) {
             e.fileName = file;
             log();
@@ -100,7 +103,8 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
     client.on("messageCreate", async msg => {
         if(msg.author.bot || msg.channel.type === "dm") return;
         
-        if(msg.mentions.has(client.user) && msg.content.startsWith(`<@${client.user.id}>`)) { // If the message mentions the bot, return the prefix
+        // If the message mentions the bot, return the prefix
+        if(msg.mentions.has(client.user) && msg.content.startsWith(`<@${client.user.id}>`)) {
             return msg.reply(`My prefix is \`${prefix}\``);
         };
 
