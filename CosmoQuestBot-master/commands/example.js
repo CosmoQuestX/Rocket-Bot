@@ -16,7 +16,7 @@ const { log, debug, warn, error, startWatch, stopWatch } = asyncLogs;
 
 const { statusMessages, github, version } = config;
 
-if (prefix === "!") log("The prefix is !");
+// if (prefix === "!") log("\tExample: The prefix is !"); // This runs on command load
 
 
 /**
