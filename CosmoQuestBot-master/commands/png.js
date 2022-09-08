@@ -6,7 +6,7 @@ const api = `https://api.nasa.gov/planetary/apod?api_key=${process.env["NASA_API
 const snekfetch = require('snekfetch');
 const Discord = require('discord.js');
 
-const run = async function example (_, message) {
+const run = async (_, message) => {
     let msg = await message.channel.send('🛰️Fetching information from the database...'); // Temporary Message
 
     const d1 = new Date("June 16, 1995").getTime(); // First APOD [June 16, 1995]
