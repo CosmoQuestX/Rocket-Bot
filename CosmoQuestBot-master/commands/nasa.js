@@ -68,7 +68,10 @@ module.exports.run = async (bot, message, args) => {
     msg.delete();
 }
 
-exports.conf = { enabled: true }
+exports.conf = {
+    enabled: true,
+    await: true
+}
 
 exports.help = {
     name: 'nasa',
