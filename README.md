@@ -1,6 +1,10 @@
 # Rocket Bot (v2.2 Stable)
 
-The Bot of the New generation of explorers for the CosmoQuest server on Discord. Assembled with official APIs and documentation, created using the Github Students Program tools.
+The Bot of the New generation of explorers for the CosmoQuest server on Discord. Assembled with official APIs and documentation,
+and originally created using the Github Students Program tools,
+version 2.2 is a substantial overhaul of many of the original Rocket Bot.
+
+Version 2.2 introduces a number of aviation weather commands and other goodies.
 
 ## Introduction
 
