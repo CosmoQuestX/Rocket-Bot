@@ -15,43 +15,50 @@ const oD = new Date("June 16, 1995").getTime(); // First APOD [June 16, 1995]
  Usage is defined as !nasa
 */
 module.exports.run = async (bot, message, args) => {
-    let msg = await message.channel.send('🛰️Fetching information from the database...');
+    let msg = await message.channel.send('🛰️Fetching information from the database...'); // Temporary Message
 
-    const pDt = new Date(args.join(" "));
+    const pDt = new Date(args.join(" ")); // Formats command arguments
 
     const pDn = pDt.getTime(); // User submitted timestamp
     const tD = new Date().getTime(); // Current timestamp
 
-    let reqUrl;
+    let reqUrl; // Request URL
 
-    if (pDt != "Invalid Date" && (pDn <= tD && pDn >= oD)) {
+    if (pDt != "Invalid Date" && (pDn <= tD && pDn >= oD)) { // User defined date, or most recent APOD
         reqUrl = `${api}&date=${pDt.toLocaleDateString('en-CA')}`;
     } else {
         reqUrl = api;
     }
     
-    // Creates a RichEmbed using the image given from the url of the api.
-    await snekfetch.get(reqUrl).then(r => {
+
+    await snekfetch.get(reqUrl).then(r => { // Handles API Request
         try {
-            const body = r.body;
-            const img = (body.hdurl || body.url);
-            const date = body.date;
+            const body = r.body; // JSON response
+            const media = (body.hdurl || body.url); // APOD Image/Video
+            const date = body.date; // Date of creation (YYYY-MM-DD)
+            const bE = body.explanation;
+            let desc;
+
+            if (bE.indexOf(" ", 512) != -1) {
+                desc = bE.substring(0, bE.indexOf(" ", 512)) + "...";
+            } else {
+                desc = bE;
+            }
             
-            const y = date.slice(0,4);
-            const m = Number(date.slice(5,7)) - 1;
-            const d = Number(date.slice(8,10)) + 1;
-            const rDt = new Date(y, m, d);
+            const y = date.slice(0,4); // YYYY
+            const m = Number(date.slice(5,7)) - 1; // MM
+            const d = Number(date.slice(8,10)) + 1; // DD
+            const rDt = new Date(y, m, d); // Date of creation (Date())
 
             const dn = date.replace(/-/g, "").slice(-6); // YYMMDD
         
-            const url = `https://apod.nasa.gov/apod/ap${dn}.html`;
+            const url = `https://apod.nasa.gov/apod/ap${dn}.html`; // Title URL
             
-            const embed = new Discord.MessageEmbed()
+            const embed = new Discord.MessageEmbed() // Response embed
                 .setColor('#584db0')
-                .setImage(img)
-                .setTitle('**NASA** Astronomy Picture of the Day')
+                .setTitle(body.title)
                 .setURL(url)
-                .setDescription(body.explanation)
+                .setDescription(desc)
                 .setFooter(
                     {
                         text: 'A service of: ASD at NASA / GSFC & Michigan Tech. U.',
@@ -60,17 +67,44 @@ module.exports.run = async (bot, message, args) => {
                 )
                 .setTimestamp(rDt.toString());
 
-            message.channel.send({ embeds: [embed] });
+
+            if (body.copyright) // If author, set it
+                embed.setAuthor({ name: `\u00A9 ${body.copyright}` });
+
+            switch (body.media_type) { // Sorts media types
+                case 'image':
+                    embed.setImage(media);
+                    break;
+                case 'video':
+                    debug(media);
+                    embed.addFields([
+                        {
+                            name: "\u200B",
+                            value: "\u200B",
+                            inline: true
+                        },
+                        {
+                            name: "Well this is awkward...",
+                            value: "Videos are not yet supported.",
+                            inline: true
+                        }
+                    ])
+                    //embed.video = media;
+                    break;
+            }
+
+            message.channel.send({ embeds: [embed] }); // Send completed Embed
+
         } catch (e) {
             debug(e);
         }
     }, debug);
-    msg.delete();
+
+    msg.delete(); // Delete temp message
 }
 
 exports.conf = {
-    enabled: true,
-    await: true
+    enabled: true
 }
 
 exports.help = {

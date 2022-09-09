@@ -1,13 +1,16 @@
 const { parseSeconds, debug } = asyncLogs;
 
 exports.run = function invite (_, message) {
-    return message.channel.send("00:00:10.290");
-    parseSeconds(process.uptime(), message.channel.send);
+    parseSeconds(process.uptime(), (n) => {
+        message.channel.send(
+            `I have been up for \`${n.toString()}\`.`
+        )
+    });
 }
 
 exports.conf = { enabled: true }
 
 exports.help = {
-    name: "uptime",
+    name: "runtime",
     description: "Get the uptime of Rocket Bot."
 }
