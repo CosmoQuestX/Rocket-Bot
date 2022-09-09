@@ -14,29 +14,31 @@ This is a bot built for the CosmoQuest server on Discord, it is a replacement fo
 
 > Updated details needed!
 
-<!-- Rocket is a bot that was created using current and stable features. They are:
+<!-- Rocket is a bot that was created using current and stable features. They are: -->
 
-🌍 Botkit: a handy bot designing tool
+<!-- 🌍 Math.js: Extensive math library for JavaScript and Node.js
 
-🌎 frameworkDiscord.js: a node module for connecting to the Discord API
+🌎 SOMETHING
 
-🌏 Botkit Discord: A connector that allows you to use Bokit and Discord.js
+🌏 SOMETHING
 
-🌍 Uptime Robo and Freshping: A monitoring service that helps keep your bot running 24/7 -->
+🌍 SOMETHING -->
 
 ### Application Programming Interface (APIs)
 
-🌑 Math.js: Extensive math library for JavaScript and Node.js
+🌑 NASA's APOD: We use the NASA API to access the full history of Astronomy Picture of The Day
 
-🌒 NASA API's: Data, images and files from official NASA applications
+🌒 FLIKr API: Get images from the latest JWST posts.
 
 🌓 OpenWeatherMap: OpenWeatherMap is an API for obtaining weather information
 
 🌔 Discord API: For everything basically
 
-🌕 Keyv: For saving guild-specific settings
+<!-- Planned -->
 
-<!-- 🌕 Github API: To receive remote warnings and alerts -->
+<!-- 🌕 Keyv: For saving guild-specific settings -->
+
+<!-- 🌕 Github API: To receive statuses, warnings, and alerts -->
 
 ----------------------------------------------------
 
@@ -50,7 +52,7 @@ Starting in the `Rocket-Bot` directory
 
 2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
-    > `nano .env` is arguably the most user friendly IDE.
+    > Try `nano .env`.
 
 3. Run `docker build . -t rocket-bot:v2.2.0`
 
@@ -61,7 +63,7 @@ Starting in the `Rocket-Bot` directory
 - Run `docker run --name rocket-bot -d rocket-bot:v2.2.0` from anywhere on the system to start the bot
   - To auto-restart after a server reboot, add the tag `--restart always`
 
-  > After the [first install](#first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
+  > After the [first install](#docker---first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
 
 ### Docker - Stopping the container
 
@@ -73,7 +75,7 @@ Eventually you might want to stop the container, run the following commands to a
 
 2. `docker stop rocket-bot`
 
-    > (NOT SURE) After a couple of seconds, it should return the Container ID you just entered, this means it stopped successfully.
+    > After a short time, it should return the Container Name you just entered, this means it stopped successfully.
 
 3. `docker rm <container_id>` (optional)
     - Use this before updating to a new version
@@ -92,15 +94,16 @@ Starting in the `Rocket-Bot` directory
 
 2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
-    > `nano .env` is a good option.
+    > Try `nano .env`.
 
 3. Run `npm install --omit=dev` to install production-only packages
-
-    > Disregard any deprecation warnings, these are planned to be fixed in future updates.
+   - Deprecation warnings <!-- blah blah blah Fix me -->
 
 ### NPM - Usage instructions
 
 - Run `npm start` still in the current directory
+
+> After the [first install](#npm---first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
 
 ### NPM - Stopping the process
 
