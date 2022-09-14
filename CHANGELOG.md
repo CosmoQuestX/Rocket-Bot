@@ -4,7 +4,7 @@
 
 ### 2.2.1 Proposed Features
 
-- improved `!weather` command(s)
+- further improved `!weather` command(s)
   - support for more diverse queries
   - weather forecast command(s)
   - special weather statements & alerts command(s)
@@ -19,13 +19,21 @@
 - [`main.js`](CosmoQuestBot-master/main.js) has been massively overhauled
 
 - improved weather commands
-  - added `km/h` wind value with direction in the `!weather` command
-  - added `!metar` command
-  - added `!taf` command
+  - added `km/h` wind value with direction in the [`!weather`](CosmoQuestBot-master/commands/weather.js) command
+  - added [`!metar`](CosmoQuestBot-master/commands/metar.js) command
+  - added [`!taf`](CosmoQuestBot-master/commands/taf.js) command
 
-- updated `!about` command
+- improved [`!nasa`](CosmoQuestBot-master/commands/nasa.js) command
+  - optional date parameter
+  - new alias (`apod`)
 
-- other minor updates
+- added [`!png`](CosmoQuestBot-master/commands/png.js) command
+- updated [`!about`](CosmoQuestBot-master/commands/about.js) command
+- updated [`example.js`](CosmoQuestBot-master/commands/example.js)
+- added [`!help`](CosmoQuestBot-master/commands/help.js) command
+- added [`!invite`](CosmoQuestBot-master/commands/invite.js) command
+-
+- other minor updates <!-- calc, cookie,  -->
 
 ### 2.2.0 Changes
 
