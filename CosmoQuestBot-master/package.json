@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node main.js",
     "dev": "nodemon main.js --config dev/nodemon.json",
-    "rebuild": "docker build . -t rocket-bot:v2.2.0 && docker stop rocket-bot && docker container rm rocket-bot && docker run --name rocket-bot -d rocket-bot:v2.2.0"
+    "rebuild": "docker build . -t rocket-bot:v$npm_package_version && docker stop rocket-bot && docker container rm rocket-bot && docker run --name rocket-bot -d rocket-bot:v$npm_package_version"
   },
   "author": "",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "keyv": "^4.5.0",
     "mathjs": "^11.1.0",
     "node": "^16.9",
+    "npm": "^8.19.1",
     "request": "^2.88.2",
     "snekfetch": "^4.0.4",
     "xml2js": "^0.4.23"

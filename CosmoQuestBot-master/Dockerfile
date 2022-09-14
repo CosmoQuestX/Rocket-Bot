@@ -1,6 +1,6 @@
 # src : https://nodejs.org/en/docs/guides/nodejs-docker-webapp/#creating-a-dockerfile
-# Currently using node version 16.9.1
-FROM node:16.9.1
+# Currently using Node LTS Gallium
+FROM node:lts-gallium
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -17,4 +17,4 @@ RUN npm install --omit=dev
 COPY . .
 
 # run the bot
-CMD [ "node", "main.js" ]
+CMD [ "npm", "start" ]
