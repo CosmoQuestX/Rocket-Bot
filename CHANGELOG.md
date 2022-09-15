@@ -52,7 +52,7 @@
 ### 2.2.0 Security
 
 - updated node packages
-- updated to `npm v8.11.0` & `node v16 LTS`
+- updated to `npm v8` & `Node LTS Gallium`
 
 ----------------------------------
 

@@ -52,7 +52,7 @@ Starting in the `Rocket-Bot` directory
 
 2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
-    > Try `nano .env`.
+    > Try `nano .env`
 
 3. Run `docker build . -t rocket-bot:v2.2.0`
 
@@ -84,7 +84,9 @@ Eventually you might want to stop the container, run the following commands to a
 
 ## NPM instructions
 
-> use node v16.9.1 to install (try [`nvm`](https://www.linode.com/docs/guides/how-to-install-use-node-version-manager-nvm/)); you may use any compatible version (16.9.1) to run it
+Node v16 [`lts/gallium`] is recommended. If you often run different versions of Node, check out [`nvm`](https://www.linode.com/docs/guides/how-to-install-use-node-version-manager-nvm/).
+
+> *Hint: Use `nvm install lts/gallium && nvm alias default lts/gallium` to always be on the correct version.*
 
 ### NPM - First install
 
@@ -94,7 +96,7 @@ Starting in the `Rocket-Bot` directory
 
 2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
-    > Try `nano .env`.
+    > Try `nano .env`
 
 3. Run `npm install --omit=dev` to install production-only packages
    - Deprecation warnings <!-- blah blah blah Fix me -->
