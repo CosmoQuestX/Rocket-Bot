@@ -20,5 +20,6 @@ RUN npm ci --omit=dev
 # Bundle app source
 COPY . .
 
-# run the bot
-CMD [ "npm", "start" ]
+# Run the bot
+# Use node for production
+CMD [ "node", "main.js" ]

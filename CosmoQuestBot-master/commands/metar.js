@@ -2,6 +2,7 @@ const { debug } = require('console');
 const { warn, log } = require('../public/async-logs');
 
 const xml2js = require('xml2js');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 exports.run = function metar (_, msg, args) {
 
@@ -78,11 +79,11 @@ exports.run = function metar (_, msg, args) {
     // Parse the parameters
     // Build the URL
 
-    var requestString = 'https://aviationweather.gov/adds/dataserver_current/httpparam?';
-    requestString = requestString + 'dataSource=metars';
-    requestString = requestString + '&requestType=retrieve&format=xml';
-    requestString = requestString + '&stationString=' + `${args}`;
-    requestString = requestString + '&mostRecent=true&hoursBeforeNow=3';
+    var reqUrl = 'https://aviationweather.gov/adds/dataserver_current/httpparam?';
+    reqUrl += 'dataSource=metars';
+    reqUrl += '&requestType=retrieve&format=xml';
+    reqUrl += '&stationString=' + `${args}`;
+    reqUrl += '&mostRecent=true&hoursBeforeNow=3';
 
     // msg.channel.send("requestString: "+requestString);
 
@@ -90,36 +91,42 @@ exports.run = function metar (_, msg, args) {
 
 //    var request = new XMLHttpRequest();
 
-    const request = require('request');
+    fetch(reqUrl)
+        .then(async r => {
+            try {
+                const resp = await r.text();
 
-    request(requestString, function(err, res, body) {
+                // convert XML to JSON
+                xml2js.parseString(resp, (err, result) => { //
+                    if(err) {
+                        return debug(err);
+                    }
 
-        // convert XML to JSON
-        xml2js.parseString(body, (err, result) => { //
-            if(err) {
-                return debug(err);
+                    if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0].METAR)) return;
+
+                    // `result` is a JavaScript object
+
+                    const metar = result.response.data[0].METAR[0]; // JSON Object; Try metar.raw_text
+
+                    // debug(json);
+
+                    //msg.channel.send("Result: "  + json);
+
+                    // TODO add response for no report received
+                    //if (!isnull(result.response.data[0])) {
+                        msg.channel.send(metar.raw_text.toString());
+                    //} else {
+                    //    msg.channel.send("No report for " + $args);
+                    //}
+
+                });
+            } catch (e) {
+                warn(e);
             }
-
-            if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0].METAR)) return;
-
-            // `result` is a JavaScript object
-            // convert it to a JSON string
-            const json = JSON.stringify(result, null, 4);
-            const metar = result.response.data[0].METAR[0]; // JSON Object; Try metar.raw_text
-
-            // debug(json);
-
-            //msg.channel.send("Result: "  + json);
-
-            // TODO add response for no report received
-            //if (!isnull(result.response.data[0])) {
-                msg.channel.send(" " +metar.raw_text);
-            //} else {
-            //    msg.channel.send("No report for " + $args);
-            //}
-
-        });
-    });
+        })
+        .catch(e => {
+            warn(e);
+        })
 
 };
 
