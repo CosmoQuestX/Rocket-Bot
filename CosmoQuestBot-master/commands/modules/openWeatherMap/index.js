@@ -111,6 +111,10 @@ exports.find = function find(options, callback) {
             return callback(new Error('pBody is undefined'), resp);
         }
 
+        if (!Array.isArray(resp.weather) || resp.weather.length < 1) {
+            return callback(new Error('Weather came back empty'), resp);
+        }
+
         resp.success = true;
 
         // Check body content
