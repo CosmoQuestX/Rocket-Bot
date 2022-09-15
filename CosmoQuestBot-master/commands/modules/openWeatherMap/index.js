@@ -6,11 +6,13 @@
 /* jslint node: true, sub: true */
 'use strict';
 
-const { debug } = require('console');
+const { debug } = asyncLogs;
 
 require('dotenv').config();
-const request     = require('request'),
-    apiKey  = process.env.WEATHER_API_KEY;
+const apiKey  = process.env.WEATHER_API_KEY;
+
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+AbortController
 
 function toTitleCase(str) { // src: https://www.w3docs.com/snippets/javascript/how-to-convert-string-to-title-case-with-javascript.html
     return str.toLowerCase().split(' ').map(function (word) {
@@ -58,77 +60,81 @@ exports.find = function find(options, callback) {
     let     pBody       = [],
             lang        = options.lang || defLang,
             unitsType   = options.unitsType || defUnits,
-            timeout     = options.timeout || defTimeout,
+            pTimeout     = options.timeout || defTimeout,
             search      = encodeURIComponent(''+options.search),
             reqUrl      = findUrl + '?units=' + (''+unitsType) + '&lang=' + (''+lang) + '&q=' + search + '&appid=' + apiKey;
     
     /* console.debug(reqUrl); */
 
+
+    // Setting up the timeout clock
+    const controller = new AbortController();
+    const timeout = setTimeout(() => {
+        controller.abort();
+    }, pTimeout);
+
+
     // Request weather
-    request.get({url: reqUrl, timeout: timeout}, function(err, res, body) {
+    fetch(reqUrl, {signal: controller.signal}).then(async r => {
         
-        if (err) {
-            return callback(err); // Never return an unchecked Error Message to the front-end user.
-        }
-        
-        let pBody = JSON.parse(body);
+        let resp = await r.json();
         /* debug(pBody); */
-        if (pBody.message) pBody.message = toTitleCase(pBody.message);
+        if (resp.message) resp.message = toTitleCase(resp.message);
 
-
-        if (res.statusCode !== 200) {
+        /* TODO : Replace this with working version */
+        /* if (res.statusCode !== 200) {
             switch (res.statusCode) {
                 case 401:
-                    switch (pBody.message.length > 0) {
+                    switch (body.message.length > 0) {
                         case true:
-                            return callback(new Error(`Authorization Failed (${res.statusCode})\nError Message: ${pBody.message}`), pBody);
+                            return callback(new Error(`Authorization Failed (${res.statusCode})\nError Message: ${body.message}`), body);
                         case false:
-                            return callback(new Error(`Authorization Failed (${res.statusCode})`), pBody);
+                            return callback(new Error(`Authorization Failed (${res.statusCode})`), body);
                     }
                 case 404:
-                    switch (pBody.message.length > 0) {
+                    switch (body.message.length > 0) {
                         case true:
-                            return callback(new Error(`${pBody.message} (${res.statusCode})`), pBody);
+                            return callback(new Error(`${body.message} (${res.statusCode})`), body);
                         case false:
-                            return callback(new Error(`Request Failed (${res.statusCode})`), pBody);
+                            return callback(new Error(`Request Failed (${res.statusCode})`), body);
                     }
                 default:
-                    switch (pBody.message.length > 0) {
+                    switch (body.message.length > 0) {
                         case true:
-                            return callback(new Error(`Request Failed (${res.statusCode})\nError Message: ${pBody.message}`), pBody);
+                            return callback(new Error(`Request Failed (${res.statusCode})\nError Message: ${body.message}`), body);
                         case false:
-                            return callback(new Error(`Request Failed (${res.statusCode})`), pBody);
+                            return callback(new Error(`Request Failed (${res.statusCode})`), body);
                     }
             }
-        }
-        if (pBody == undefined) {
-            return callback(new Error('pBody is undefined'), pBody);
+        } */
+        if (resp == undefined) {
+            return callback(new Error('pBody is undefined'), resp);
         }
 
-        pBody.success = true;
+        resp.success = true;
 
         // Check body content
-        if(!(typeof pBody.weather[0] == 'object')) {
+        if(!(typeof resp.weather[0] == 'object')) {
             return callback(new Error('pBody.weather Array came back empty'));
         }
 
-        if(!pBody || !pBody.weather || !pBody.main)
+        if(!resp || !resp.weather || !resp.main)
             return callback(new Error('no weather data found'));
 
-        if(!(pBody.weather instanceof Array)) {
+        if(!(resp.weather instanceof Array)) {
             return callback(new Error('missing weather info'));
         }
 
         // Parsing Data
         try {
-            pBody.weather[0].description = toTitleCase(pBody.weather[0].description);
-            pBody.wind.cardinal = degToCompass(pBody.wind.deg);
-            pBody.wind.leadDeg = String(pBody.wind.deg).padStart(3, '0');
-            pBody.wind.kmSpeed = (pBody.wind.speed * 3.6).toFixed(2);
+            resp.weather[0].description = toTitleCase(resp.weather[0].description);
+            resp.wind.cardinal = degToCompass(resp.wind.deg);
+            resp.wind.leadDeg = String(resp.wind.deg).padStart(3, '0');
+            resp.wind.kmSpeed = (resp.wind.speed * 3.6).toFixed(2);
         } catch (e) {
             return callback(e);
         }
 
-        return callback(null, pBody);
+        return callback(null, resp);
     });
 };

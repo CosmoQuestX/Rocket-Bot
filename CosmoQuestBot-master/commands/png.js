@@ -3,7 +3,7 @@ require('dotenv').config();
 const { log, debug, warn } = asyncLogs;
 
 const api = `https://api.nasa.gov/planetary/apod?api_key=${process.env["NASA_API_KEY"]}`;
-const snekfetch = require('snekfetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const Discord = require('discord.js');
 
 const run = async (_, message) => {
@@ -17,66 +17,71 @@ const run = async (_, message) => {
     const reqUrl = `${api}&date=${dt}`; // API URL
 
 
-    await snekfetch.get(reqUrl).then(r => { // Handles API Request
-        try {
-            const body = r.body; // JSON response
-            const media = (body.hdurl || body.url).toLowerCase(); // APOD Image/Video
-            const date = body.date; // Date of creation (YYYY-MM-DD)
-            const bE = body.explanation;
-            let desc;
+    await fetch(reqUrl)
+        .then(async r => { // Handles API Request
+            try {
+                const resp = await r.json(); // JSON response
+                const media = (resp.hdurl || resp.url).toLowerCase(); // APOD Image/Video
+                const date = resp.date; // Date of creation (YYYY-MM-DD)
+                const bE = resp.explanation;
+                let desc;
 
-            if (bE.indexOf(" ", 512) != -1) {
-                desc = bE.substring(0, bE.indexOf(" ", 512)) + "...";
-            } else {
-                desc = bE;
-            }
+
+                if (bE.indexOf(" ", 512) != -1) {
+                    desc = bE.substring(0, bE.indexOf(" ", 512)) + "...";
+                } else {
+                    desc = bE;
+                }
+            
+                const dn = date.replace(/-/g, "").slice(-6); // YYMMDD
+
+                const url = `https://apod.nasa.gov/apod/ap${dn}.html`; // Title URL
         
-            const dn = date.replace(/-/g, "").slice(-6); // YYMMDD
+                const embed = new Discord.MessageEmbed() // Response Embed
+                .setColor('#584db0')
+                .setTitle(resp.title)
+                .setURL(url)
+                .setDescription(desc)
+                .setFooter({
+                    text: 'A service of: ASD at NASA / GSFC & Michigan Tech. U.',
+                    iconURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/287px-NASA_logo.svg.png'
+                })
+                .setTimestamp(dr);
 
-            const url = `https://apod.nasa.gov/apod/ap${dn}.html`; // Title URL
-    
-            const embed = new Discord.MessageEmbed() // Response Embed
-            .setColor('#584db0')
-            .setTitle(body.title)
-            .setURL(url)
-            .setDescription(desc)
-            .setFooter({
-                text: 'A service of: ASD at NASA / GSFC & Michigan Tech. U.',
-                iconURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/287px-NASA_logo.svg.png'
-            })
-            .setTimestamp(dr);
+                if (resp.copyright) // If author, set it
+                    embed.setAuthor({ name: `\u00A9 ${resp.copyright}` });
 
-            if (body.copyright) // If author, set it
-                embed.setAuthor({ name: `\u00A9 ${body.copyright}` });
+                switch (resp.media_type) {
+                    case 'image':
+                        embed.setImage(media);
+                        break;
+                    case 'video':
+                        debug(media);
+                        embed.addFields([
+                            {
+                                name: "\u200B",
+                                value: "\u200B",
+                                inline: true
+                            },
+                            {
+                                name: "Well this is awkward...",
+                                value: "Videos are not yet supported.",
+                                inline: true
+                            }
+                        ])
+                        //embed.video = media;
+                        break;
+                }
 
-            switch (body.media_type) {
-                case 'image':
-                    embed.setImage(media);
-                    break;
-                case 'video':
-                    debug(media);
-                    embed.addFields([
-                        {
-                            name: "\u200B",
-                            value: "\u200B",
-                            inline: true
-                        },
-                        {
-                            name: "Well this is awkward...",
-                            value: "Videos are not yet supported.",
-                            inline: true
-                        }
-                    ])
-                    //embed.video = media;
-                    break;
+                message.channel.send({ embeds: [embed] }); // Send completed Embed
+
+            } catch (e) {
+                warn(e);
             }
-
-            message.channel.send({ embeds: [embed] }); // Send completed Embed
-
-        } catch (e) {
-            debug(e);
-        }
-    })
+        })
+        .catch(e => {
+            warn(e);
+        })
 
     msg.delete() // Delete temp message
 }

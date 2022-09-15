@@ -1,15 +1,39 @@
 # Rocket Bot Changelog
 
+## 2.2.1 (unreleased)
+
+### 2.2.1 Proposed Features
+
+- further improved `!weather` command(s)
+  - support for more diverse queries
+  - weather forecast command(s)
+  - special weather statements & alerts command(s)
+  - space weather command(s)
+
+----------------------------------
+
 ## 2.2.0 (unreleased)
 
 ### 2.2.0 Features
 
-- added `!metar` command
-- added `!taf` command
-- added `km/h` wind value with direction in the `!weather` command
+- [`main.js`](CosmoQuestBot-master/main.js) has been massively overhauled
 
-- updated `!about` command
-  - added long version number to the footer
+- improved weather commands
+  - added `km/h` wind value with direction in the [`!weather`](CosmoQuestBot-master/commands/weather.js) command
+  - added [`!metar`](CosmoQuestBot-master/commands/metar.js) command
+  - added [`!taf`](CosmoQuestBot-master/commands/taf.js) command
+
+- improved [`!nasa`](CosmoQuestBot-master/commands/nasa.js) command
+  - optional date parameter
+  - new alias (`apod`)
+
+- added [`!png`](CosmoQuestBot-master/commands/png.js) command
+- updated [`!about`](CosmoQuestBot-master/commands/about.js) command
+- updated [`example.js`](CosmoQuestBot-master/commands/example.js)
+- added [`!help`](CosmoQuestBot-master/commands/help.js) command
+- added [`!invite`](CosmoQuestBot-master/commands/invite.js) command
+-
+- other minor updates <!-- calc, cookie,  -->
 
 ### 2.2.0 Changes
 
@@ -28,22 +52,9 @@
 ### 2.2.0 Security
 
 - updated node packages
+- updated to `npm v8` & `Node LTS Gallium`
 
--------------------------------------
-
-### 2.2.0 Proposed Security Fixes
-
-- possible update to `npm v8.11.0` & `node v16 LTS`
-
-### 2.2.0 Proposed Features
-
-- improved `!weather` command(s)
-  - support for more diverse queries
-  - weather forecast command(s)
-  - special weather statements & alerts command(s)
-  - space weather command(s)
-
--------------------------------------
+----------------------------------
 
 ## 2.1.2 (2022-08-05)
 

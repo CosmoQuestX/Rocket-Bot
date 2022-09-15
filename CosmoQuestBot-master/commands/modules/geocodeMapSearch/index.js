@@ -6,11 +6,11 @@
 /* jslint node: true, sub: true */
 'use strict';
 
-const { debug, log } = require('console');
+const { debug, log } = asyncLogs;
 
 require('dotenv').config();
-let request     = require('request'),
-    apiKey  = process.env.WEATHER_API_KEY;
+
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 function toTitleCase(str) { // src: https://www.w3docs.com/snippets/javascript/how-to-convert-string-to-title-case-with-javascript.html
     return str.toLowerCase().split(' ').map(function (word) {
@@ -46,8 +46,8 @@ exports.forwardSearch = function (options, callback) {
     
     //console.debug(reqUrl);
 
-    request.get({url: reqUrl, timeout: timeout}, function(err, res, body) {
-        
+    fetch(url).then(function(err, res, body) {
+        /* !!! THIS NEEDS TO BE RE-DONE WITH node-fetch !!! */
         if (err) {
             return callback(err, {message: ":warning: Check logs for more information"}); // Never return an unchecked Error Message to the front-end user
         }

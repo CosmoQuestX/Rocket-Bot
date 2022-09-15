@@ -1,5 +1,7 @@
-exports.run = function invite (_, message) {
-    message.channel.send("Join our community on Discord: https://discord.gg/pVGXJDUKud");
+const { discord } = config;
+
+exports.run = function invite (_, msg) {
+    msg.channel.send(`Join our community on Discord: ${discord}`);
 }
 
 exports.conf = { enabled: true }
