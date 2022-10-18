@@ -107,3 +107,15 @@ Starting in the `Rocket-Bot` directory
 ### NPM - Stopping the process
 
 - use the keyboard shortcut `Ctrl+C` to stop the process
+
+## Configuration
+
+### Options
+
+|Name           |Default    |Type   |Description        |
+|:--------------|:----------|:------|:------------------|
+|`throwInvalid` |`false`    |`[bool]` |Toggles the `!<command> is not a valid command.` error message.
+|`github`       |`N/A`      |`<url-string>` |Sets the GitHub repo link.
+|`discord`      |`N/A`      |`<url-string>` |Sets the Discord invite link.
+|`version`      |`N/A`      |`<array>`      |Defines the version
+|`debug`        |`false`    |`<bool>`       |Enables debug features.
