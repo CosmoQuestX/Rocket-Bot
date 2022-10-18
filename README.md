@@ -88,22 +88,14 @@ Node v16 [`lts/gallium`] is recommended. If you often run different versions of 
 
 > *Hint: Use `nvm install lts/gallium && nvm alias default lts/gallium` to always be on the correct version.*
 
-### NPM - First install
+## Configuration
 
-Starting in the `Rocket-Bot` directory
+### Options
 
-1. `cd CosmoQuestBot-master`
-
-2. Edit `.env` using your preferred IDE or text-editor. Fill out all the necessary details.
-
-3. Run `npm install --omit=dev` to install production-only packages
-
-### NPM - Usage instructions
-
-- Run `npm start` still in the current directory
-
-> After the [first install](#npm---first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
-
-### NPM - Stopping the process
-
-- use the keyboard shortcut `Ctrl+C` to stop the process
+|Name           |Default    |Type   |Description        |
+|:--------------|:----------|:------|:------------------|
+|`throwInvalid` |`false`    |`[bool]` |Toggles the `!<command> is not a valid command.` error message.
+|`github`       |`N/A`      |`<url-string>` |Sets the GitHub repo link.
+|`discord`      |`N/A`      |`<url-string>` |Sets the Discord invite link.
+|`version`      |`N/A`      |`<array>`      |Defines the version
+|`debug`        |`false`    |`[bool]`       |Enables debug features.

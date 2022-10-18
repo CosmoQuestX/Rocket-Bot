@@ -13,16 +13,15 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@keyv/mongo": "^2.1.6",
+    "@keyv/mongo": "^2.1.8",
     "discord.js": "^13.10.2",
-    "dotenv": "^16.0.2",
+    "dotenv": "^16.0.3",
     "keyv": "^4.5.0",
-    "mathjs": "^11.2.1",
-    "node": "^16.9",
+    "mathjs": "^11.3.0",
     "node-fetch": "^3.2.10",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.20"
   }
 }
