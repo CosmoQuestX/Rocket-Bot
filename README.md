@@ -118,4 +118,4 @@ Starting in the `Rocket-Bot` directory
 |`github`       |`N/A`      |`<url-string>` |Sets the GitHub repo link.
 |`discord`      |`N/A`      |`<url-string>` |Sets the Discord invite link.
 |`version`      |`N/A`      |`<array>`      |Defines the version
-|`debug`        |`false`    |`<bool>`       |Enables debug features.
+|`debug`        |`false`    |`[bool]`       |Enables debug features.
