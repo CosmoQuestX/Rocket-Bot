@@ -33,7 +33,7 @@
 - added [`!help`](CosmoQuestBot-master/commands/help.js) command
 - added [`!invite`](CosmoQuestBot-master/commands/invite.js) command
 -
-- other minor updates <!-- calc, cookie,  -->
+- other minor updates <!-- calc, cookie, etc. -->
 
 ### 2.2.0 Changes
 
