@@ -82,12 +82,6 @@ Eventually you might want to stop the container, run the following commands to a
 
 ----------------------------------------------------
 
-## NPM instructions
-
-Node v16 [`lts/gallium`] is recommended. If you often run different versions of Node, check out [nvm](https://www.linode.com/docs/guides/how-to-install-use-node-version-manager-nvm/).
-
-> *Hint: Use `nvm install lts/gallium && nvm alias default lts/gallium` to always be on the correct version.*
-
 ## Configuration
 
 ### Options
