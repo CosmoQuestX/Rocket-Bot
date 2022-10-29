@@ -10,19 +10,9 @@ Version 2.2 introduces a number of aviation weather commands and other goodies.
 
 This is a bot built for the CosmoQuest server on Discord, it is a replacement for the CosmoQuest One which was an outdated version of the robot.
 
-## Details
-
-> Updated details needed!
-
-<!-- Rocket is a bot that was created using current and stable features. They are: -->
-
-<!-- 🌍 Math.js: Extensive math library for JavaScript and Node.js
-
-🌎 SOMETHING
-
-🌏 SOMETHING
-
-🌍 SOMETHING -->
+## History
+The original Rocket Bot was created by CosmoQuest community member Kaio Duarte.
+The current version is being maintained primarily by TheRealFakeAdmin and KeeperOfMaps.
 
 ### Application Programming Interface (APIs)
 
@@ -32,7 +22,9 @@ This is a bot built for the CosmoQuest server on Discord, it is a replacement fo
 
 🌓 OpenWeatherMap: OpenWeatherMap is an API for obtaining weather information
 
-🌔 Discord API: For everything basically
+🌔 AviationWeather.gov: Source for the METAR and TAF data
+
+🌕 Discord API: For everything basically
 
 <!-- Planned -->
 
@@ -56,7 +48,6 @@ Starting in the `Rocket-Bot` directory
 
 3. Run `docker build . -t rocket-bot:v2.2.0`
 
-    > Disregard any deprecation warnings, these are planned to be fixed in future updates.
 
 ### Docker - Usage instructions
 
@@ -86,10 +77,10 @@ Eventually you might want to stop the container, run the following commands to a
 
 ### Options
 
-|Name           |Default    |Type   |Description        |
-|:--------------|:----------|:------|:------------------|
-|`throwInvalid` |`false`    |`[bool]` |Toggles the `!<command> is not a valid command.` error message.
-|`github`       |`N/A`      |`<url-string>` |Sets the GitHub repo link.
-|`discord`      |`N/A`      |`<url-string>` |Sets the Discord invite link.
-|`version`      |`N/A`      |`<array>`      |Defines the version
-|`debug`        |`false`    |`[bool]`       |Enables debug features.
+| Name           | Default | Type           | Description                                                     |
+|:---------------|:--------|:---------------|:----------------------------------------------------------------|
+| `throwInvalid` | `false` | `[bool]`       | Toggles the `!<command> is not a valid command.` error message. |
+| `github`       | `N/A`   | `<url-string>` | Sets the GitHub repo link.                                      |
+| `discord`      | `N/A`   | `<url-string>` | Sets the Discord invite link.                                   |
+| `version`      | `N/A`   | `<array>`      | Defines the version                                             |
+| `debug`        | `false` | `[bool]`       | Enables debug features.                                         |
