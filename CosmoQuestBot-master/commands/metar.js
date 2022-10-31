@@ -4,6 +4,8 @@ const { warn, log } = require('../public/async-logs');
 const xml2js = require('xml2js');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
+require('format_taf_and_metar.js');
+
 exports.run = function metar (_, msg, args) {
 
     if (args.length < 1) throw  "No station specified";
