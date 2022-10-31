@@ -47,3 +47,13 @@ function format_metar_taf(string $raw_report): string
 -----8<-----
 
  */
+
+/**
+ * Converts TAF into a ... [Embed?, Parsed Text]
+ * @param {string} input - Unparsed TAF string
+ */
+function parse (input) {
+    let output;
+    output = input.split(" "); // Split words separated by spaces into array
+
+}
