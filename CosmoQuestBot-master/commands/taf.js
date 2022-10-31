@@ -3,6 +3,8 @@ const { debug, warn, log } = asyncLogs;
 const xml2js = require('xml2js');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
+require('CosmoQuestBot-master/commands/format_taf_and_metar.js');
+
 exports.run = function taf (_, msg, args) {
 
     if (args.length < 1) throw  "No station specified";
