@@ -1,9 +1,8 @@
-const { debug, warn, log } = asyncLogs;
+const { debug, warn } = asyncLogs;
 
+const {parse} = require("./modules/aviationWeather");
 const xml2js = require('xml2js');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-
-require('format_taf_and_metar.js');
 
 exports.run = function taf (_, msg, args) {
 
@@ -138,7 +137,9 @@ exports.run = function taf (_, msg, args) {
 
                     // `result` is a JavaScript object
 
-                    const taf = result.response.data[0].TAF[0]; // JSON Object; Try taf.raw_text
+                    const taf = result.response.data[0].TAF[0].raw_text.toString(); // JSON Object; Try taf.raw_text
+
+                    const parsedTaf = parse(taf); // Formats TAF to Keeper's liking
 
                     // debug(json);
 
@@ -146,7 +147,7 @@ exports.run = function taf (_, msg, args) {
 
                     // TODO add response for no forecast received
                     //if (!isnull(result.response.data[0])) {
-                        msg.channel.send(taf.raw_text.toString());
+                        msg.channel.send(parsedTaf);
                     //} else {
                     //    msg.channel.send("No forecast for " + $args);
                     //}

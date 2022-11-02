@@ -1,10 +1,9 @@
 const { debug } = require('console');
-const { warn, log } = require('../public/async-logs');
+const { warn } = require('../public/async-logs');
 
+const {parse} = require('./modules/aviationWeather');
 const xml2js = require('xml2js');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-
-require('format_taf_and_metar.js');
 
 exports.run = function metar (_, msg, args) {
 
@@ -108,7 +107,9 @@ exports.run = function metar (_, msg, args) {
 
                     // `result` is a JavaScript object
 
-                    const metar = result.response.data[0].METAR[0]; // JSON Object; Try metar.raw_text
+                    const metar = result.response.data[0].METAR[0].raw_text.toString(); // JSON Object; Try metar.raw_text
+
+                    const parsedMetar = parse(metar); // Formats METAR to Keeper's liking
 
                     // debug(json);
 
@@ -116,7 +117,7 @@ exports.run = function metar (_, msg, args) {
 
                     // TODO add response for no report received
                     //if (!isnull(result.response.data[0])) {
-                        msg.channel.send(metar.raw_text.toString());
+                        msg.channel.send(parsedMetar);
                     //} else {
                     //    msg.channel.send("No report for " + $args);
                     //}
