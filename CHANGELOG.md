@@ -1,14 +1,22 @@
 # Rocket Bot Changelog
 
-## 2.2.1 (unreleased)
+## 2.3.1 (unreleased)
 
-### 2.2.1 Proposed Features
+### 2.3.1 Proposed Features
 
 - further improved `!weather` command(s)
   - support for more diverse queries
   - weather forecast command(s)
   - special weather statements & alerts command(s)
   - space weather command(s)
+
+----------------------------------
+
+## 2.3.0 (2023-02-17)
+
+### 2.3.0 Possible Breaking Changes
+
+- Updated `npm` to v9 from v8
 
 ----------------------------------
 

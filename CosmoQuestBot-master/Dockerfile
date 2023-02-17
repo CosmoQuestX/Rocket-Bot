@@ -10,9 +10,9 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
-# Install npm@^8
-# This should remove the outdated npm warning until v9
-RUN npm install -g npm@8
+# Install npm@^9
+# This should remove the outdated npm warning until v10
+RUN npm install -g npm@9
 
 # Install production dependencies
 RUN npm ci --omit=dev
