@@ -10,13 +10,20 @@
   - special weather statements & alerts command(s)
   - space weather command(s)
 
+- `!launch` command(s)
+  - returns information about rocket launches
+  > Hey, isn't that what this bot is made for???
+
 ----------------------------------
 
 ## 2.3.0 (2023-02-17)
 
-### 2.3.0 Possible Breaking Changes
+### 2.3.0 Changes
 
-- Updated `npm` to v9 from v8
+- <span style="color:#BD1221;"><b>&#x1F534;[BREAKING]</b></span> updated `npm` to v9 from v8 in [Docker](CosmoQuestBot-master/Dockerfile)
+
+- added warning to the `npm start` command
+  - with Docker working as intended, it is now recommended to only use Docker outside of specific use cases
 
 ----------------------------------
 
@@ -40,7 +47,6 @@
 - updated [`example.js`](CosmoQuestBot-master/commands/example.js)
 - added [`!help`](CosmoQuestBot-master/commands/help.js) command
 - added [`!invite`](CosmoQuestBot-master/commands/invite.js) command
--
 - other minor updates <!-- calc, cookie, etc. -->
 
 ### 2.2.0 Changes
@@ -70,7 +76,7 @@
 
 - added `Dockerfile` for containerization; check [here](README.md#docker-instructions) for information on how to use it
 
-- added instructions for running [Docker](README.md#docker-instructions) & [npm](README.md#npm-instructions) in `README.md`
+- added instructions for running [Docker](README.md#docker-instructions) & npm in `README.md`
 
 ### 2.1.2 Fixes
 
