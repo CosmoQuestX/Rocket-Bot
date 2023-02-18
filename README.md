@@ -1,10 +1,6 @@
-# Rocket Bot (v2.2 Stable)
+# 🚀 Rocket Bot (v2.3 Stable)
 
-The Bot of the New generation of explorers for the CosmoQuest server on Discord. Assembled with official APIs and documentation,
-and originally created using the Github Students Program tools,
-version 2.2 is a substantial overhaul of much of the original Rocket Bot.
-
-Version 2.2 introduces a number of aviation weather commands and other goodies.
+Check out all the different commands, and maybe make some more. With version 2.3 of Rocket Bot, you can do a lot.
 
 ## Introduction
 
@@ -16,15 +12,15 @@ The current version is being maintained primarily by TheRealFakeAdmin and Keeper
 
 ### Application Programming Interface (APIs)
 
-🌑 NASA's APOD: We use the NASA API to access the full history of Astronomy Picture of The Day
+🌑 [NASA's APOD](https://apod.nasa.gov/): We use the NASA API to access the full history of Astronomy Picture of The Day
 
-🌒 FLIKr API: Get images from the latest JWST posts.
+🌒 [Flickr API](https://flickr.com/): Get images from the latest JWST posts.
 
-🌓 OpenWeatherMap: OpenWeatherMap is an API for obtaining weather information
+🌓 [OpenWeatherMap](https://openweathermap.org/): OpenWeatherMap is an API for obtaining weather information
 
-🌔 AviationWeather.gov: Source for the METAR and TAF data
+🌔 [AviationWeather.gov](https://aviationweather.gov/): Source for the METAR and TAF data
 
-🌕 Discord API: For everything basically
+🌕 [Discord API](https://discord.com/): For everything basically
 
 <!-- Planned -->
 
@@ -46,12 +42,12 @@ Starting in the `Rocket-Bot` directory
 
     > Try `nano .env`
 
-3. Run `docker build . -t rocket-bot:v2.2.0`
+3. Run `docker build . -t rocket-bot:v2.3.0`
 
 
 ### Docker - Usage instructions
 
-- Run `docker run --name rocket-bot -d rocket-bot:v2.2.0` from anywhere on the system to start the bot
+- Run `docker run --name rocket-bot -d rocket-bot:v2.3.0` from anywhere on the system to start the bot
   - To auto-restart after a server reboot, add the tag `--restart always`
 
   > After the [first install](#docker---first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
@@ -60,7 +56,7 @@ Starting in the `Rocket-Bot` directory
 
 Eventually you might want to stop the container, run the following commands to accomplish this:
 
-1. `docker ps` displays all running process; locate `rocket-bot:v2.2.0` & note the `Container ID`
+1. `docker ps` displays all running process; locate `rocket-bot:v2.3.0` & note the `Container ID`
     - if it returns no process, you need to change your context by running `docker context list` then `docker context use <context_not_marked_with_*>`
         - run step 1 again
 
