@@ -12,7 +12,7 @@ const run = async (_, message) => {
     const d1 = new Date("June 16, 1995").getTime(); // First APOD [June 16, 1995]
     const d2 = new Date().getTime(); // Current Date
     const dr = new Date(Math.floor(Math.random() * (d2 - d1) + d1)); // Random Date in range
-    const dt = dr.toLocaleDateString('en-CA'); // YYYY-MM-DD
+    const dt = dr.toISOString().split('T')[0]; // YYYY-MM-DD
     
     const reqUrl = `${api}&date=${dt}`; // API URL
 
@@ -21,7 +21,8 @@ const run = async (_, message) => {
         .then(async r => { // Handles API Request
             try {
                 const resp = await r.json(); // JSON response
-                const media = (resp.hdurl || resp.url).toLowerCase(); // APOD Image/Video
+                // console.log(reqUrl, resp);
+                const media = (resp.hdurl || resp.url); // APOD Image/Video
                 const date = resp.date; // Date of creation (YYYY-MM-DD)
                 const bE = resp.explanation;
                 let desc;
