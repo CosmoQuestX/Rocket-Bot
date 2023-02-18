@@ -21,7 +21,7 @@ const run = async (_, message) => {
         .then(async r => { // Handles API Request
             try {
                 const resp = await r.json(); // JSON response
-                console.log(reqUrl, resp);
+                // console.log(reqUrl, resp);
                 const media = (resp.hdurl || resp.url); // APOD Image/Video
                 const date = resp.date; // Date of creation (YYYY-MM-DD)
                 const bE = resp.explanation;
