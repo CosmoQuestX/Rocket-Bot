@@ -78,5 +78,6 @@ Eventually you might want to stop the container, run the following commands to a
 | `throwInvalid` | `false` | `[bool]`       | Toggles the `!<command> is not a valid command.` error message. |
 | `github`       | `N/A`   | `<url-string>` | Sets the GitHub repo link.                                      |
 | `discord`      | `N/A`   | `<url-string>` | Sets the Discord invite link.                                   |
-| `version`      | `N/A`   | `<array>`      | Defines the version                                             |
+| `version`      | `N/A`   | `<array>`      | Defines the version.                                            |
 | `debug`        | `false` | `[bool]`       | Enables debug features.                                         |
+| `devId`        | `N/A`   | `[string]`     | User ID of the bot owner.                                       |
