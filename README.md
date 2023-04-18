@@ -38,17 +38,19 @@ Starting in the `Rocket-Bot` directory
 
 1. `cd CosmoQuestBot-master`
 
-2. Edit `.env-example` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
+2. Edit `.example-env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
-    > Try `nano .env-example`
+    > Try `nano .example-env`
 
- And save the file as `.env`. The `.env` file is in the .gitignore so your API keys should not be overwritten or committed should you pull or push.
-3. Run `docker build . -t rocket-bot:v2.3.0`
+3. After making your changes, save the file as `.env`. 
+
+4. Run `docker build . -t rocket-bot:v2.3.0`
+
 
 
 ### Docker - Usage instructions
 
-- Run `docker run --name rocket-bot -d rocket-bot:v2.3.0` from anywhere on the system to start the bot
+- Run `docker run --name rocket-bot-230 -d rocket-bot:v2.3.0` from anywhere on the system to start the bot
   - To auto-restart after a server reboot, add the tag `--restart always`
 
   > After the [first install](#docker---first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
