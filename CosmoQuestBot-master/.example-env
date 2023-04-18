@@ -19,11 +19,4 @@ NASA_API_KEY=
 WEATHER_API_KEY=
 
 
-# Flickr API Key & Secret :     https://www.flickr.com/services/developer
-
-FLICKR_API_KEY=
-
-FLICKR_API_SECRET=
-
-
 # note: .env is a shell file so there can't be spaces around = WEATHER_API_KEY=bb5832afe13cefbd2bb1ad78a0200875
