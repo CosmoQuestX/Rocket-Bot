@@ -1,4 +1,4 @@
-# 🚀 Rocket Bot (v2.3 Stable)
+# 🚀 Rocket Bot (v2.3.1 Stable)
 
 Check out all the different commands, and maybe make some more. With version 2.3 of Rocket Bot, you can do a lot.
 
