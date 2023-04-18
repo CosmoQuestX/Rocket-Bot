@@ -12,11 +12,11 @@ COPY package*.json ./
 
 # Install npm@^9
 # This should remove the outdated npm warning until v10
-# RUN ["npm"] ["install"] ["-g"] ["npm@9"]
+RUN ["npm", "install", "-g", "npm@9"]
 
 # Install production dependencies
 #RUN ["if"] ["[["] ["-n"] ["'\$dev' ]]"] ["&&"] ["[["] ["'\$dev'"] ["="] ["'1'"] ["]]"] [";"] ["then"] ["npm"] ["ci"] [";"] ["else"] ["npm"] ["ci"] ["--omit=dev"] [";"] ["fi"]
-RUN ["npm"] ["install"] ["--omit=dev"]
+RUN ["npm", "ci", "--omit=dev"]
 
 # Bundle app source
 COPY . .
