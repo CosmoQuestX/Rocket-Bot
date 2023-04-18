@@ -1,9 +1,9 @@
 const { warn } = asyncLogs;
 const { EmbedBuilder } = require('discord.js');
 
-const version = config.version.full;
-const github = config.github;
-const botName = config.name;
+const version = config.version.full,
+github = config.github,
+botName = config.botName;
 
 module.exports.run = async function about (client, msg) {
 

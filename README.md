@@ -47,7 +47,7 @@ Starting in the `Rocket-Bot` directory
 
 ### Docker - Usage instructions
 
-- Run `docker run --name rocket-bot -d rocket-bot:v2.3.0` from anywhere on the system to start the bot
+- Run `docker run --name rocket-bot-230 -d rocket-bot:v2.3.0` from anywhere on the system to start the bot
   - To auto-restart after a server reboot, add the tag `--restart always`
 
   > After the [first install](#docker---first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
