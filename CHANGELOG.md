@@ -30,6 +30,7 @@
 ### 2.3.0 Features
 
 - added `botName` to [`config.json`](./CosmoQuestBot-master/config.json)[*](./README.md#options)
+- added formatting to `!taf` & `!metar`
 
 ### 2.3.0 Fixes
 
