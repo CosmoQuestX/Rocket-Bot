@@ -18,10 +18,10 @@
     "discord-api-types": "^0.37.35",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
-    "keyv": "^4.5.2",
-    "mathjs": "^11.5.1",
-    "node-fetch": "^3.3.0",
-    "xml2js": "^0.4.23"
+    "keyv": "^4.5.0",
+    "mathjs": "^11.3.2",
+    "node-fetch": "^3.2.10",
+    "xml2js": "^0.5.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
