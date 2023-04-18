@@ -2,7 +2,7 @@
 	"prefix": "!",
 	"throwInvalid": false,
 	"statusMessages": [
-		"📡 Running v2.3 🛰️",
+		"📡 Running v2.3.1 🛰️",
 		"💻 Coded With Love 💙",
 		"🌦 Try !weather ⛈"
 	],
@@ -10,13 +10,13 @@
 	"discord": "https://discord.gg/pVGXJDUKud",
 	"botName": "Rocket Bot",
 	"version": {
-		"full": "v2.3.0 (stable)",
-		"long": "v2.3.0",
+		"full": "v2.3.1 (stable)",
+		"long": "v2.3.1",
 		"short": "v2.3",
 		"release": "stable",
 		"major": "2",
 		"minor": "3",
-		"patch": "0",
+		"patch": "1",
 		"rCode": ""
 	}
 }
