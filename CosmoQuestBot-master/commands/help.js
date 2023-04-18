@@ -1,6 +1,6 @@
 //const { debug, warn } = asyncLogs;
 const { devId } = config;
-const { Permissions, MessageEmbed } = require('discord.js');
+const { Permissions, EmbedBuilder } = require('discord.js');
 
 var list,
     embed;
@@ -20,7 +20,7 @@ exports.setup = (help) => {
 exports.run = async function help (client, msg, args) {
     let command = (typeof args[0] === 'string' ? args[0].replace(RegExp(`^${prefix}`), '') : undefined); // if arg given, remove prefix (if any)
     
-    const embed = new MessageEmbed().setTitle("Command Info:").setColor("#2f3136");
+    const embed = new EmbedBuilder().setTitle("Command Info:").setColor(0x2B2D31);
 
     switch (typeof args[0]) {
         case 'string': // if command is specified

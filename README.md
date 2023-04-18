@@ -75,9 +75,10 @@ Eventually you might want to stop the container, run the following commands to a
 
 | Name           | Default | Type           | Description                                                     |
 |:---------------|:--------|:---------------|:----------------------------------------------------------------|
-| `throwInvalid` | `false` | `[bool]`       | Toggles the `!<command> is not a valid command.` error message. |
-| `github`       | `N/A`   | `<url-string>` | Sets the GitHub repo link.                                      |
-| `discord`      | `N/A`   | `<url-string>` | Sets the Discord invite link.                                   |
-| `version`      | `N/A`   | `<array>`      | Defines the version.                                            |
+| `botName`      | `N/A`   | `<string>`     | The name of the bot [does not need to match username]           |
 | `debug`        | `false` | `[bool]`       | Enables debug features.                                         |
 | `devId`        | `N/A`   | `[string]`     | User ID of the bot owner.                                       |
+| `discord`      | `N/A`   | `<url-string>` | Sets the Discord invite link.                                   |
+| `github`       | `N/A`   | `<url-string>` | Sets the GitHub repo link.                                      |
+| `throwInvalid` | `false` | `[bool]`       | Toggles the `!<command> is not a valid command.` error message. |
+| `version`      | `N/A`   | `<array>`      | Defines the version.                                            |

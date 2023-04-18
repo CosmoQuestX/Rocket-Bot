@@ -8,6 +8,7 @@
 	],
 	"github": "https://github.com/CosmoQuestX/Rocket-Bot",
 	"discord": "https://discord.gg/pVGXJDUKud",
+	"botName": "Rocket Bot",
 	"version": {
 		"full": "v2.3.0 (stable)",
 		"long": "v2.3.0",

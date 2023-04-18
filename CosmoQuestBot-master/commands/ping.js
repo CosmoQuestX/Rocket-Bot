@@ -1,4 +1,5 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js'),
+{ EmbedBuilder } = Discord;
 //const { debug } = asyncLogs;
 
 module.exports.run = async (client, message, args) => {
@@ -13,7 +14,7 @@ module.exports.run = async (client, message, args) => {
     msg.delete();
     sendLaten = time2 - time1;
 
-    let pEmbed = new Discord.MessageEmbed()
+    let pEmbed = new EmbedBuilder()
         .setTitle(":ping_pong: PONG!")
         .addFields(
             {
@@ -32,7 +33,7 @@ module.exports.run = async (client, message, args) => {
                 inline: true
             }
         )
-        .setColor("GREEN");
+        .setColor(0x57F288);
 
     // debug(time1, time2, sendLaten, clientPing, client.ws.ping);
     message.channel.send({ embeds: [ pEmbed ] });
@@ -43,4 +44,9 @@ exports.conf = { enabled: true }
 exports.help = {
     name: "ping",
     description: "Pong!"
+}
+
+exports.command = {
+    name: 'ping',
+    description: 'Pong!'
 }

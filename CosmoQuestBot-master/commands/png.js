@@ -4,7 +4,9 @@ const { log, debug, warn } = asyncLogs;
 
 const api = `https://api.nasa.gov/planetary/apod?api_key=${process.env["NASA_API_KEY"]}`;
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-const Discord = require('discord.js');
+
+const Discord = require('discord.js'),
+{ EmbedBuilder } = Discord;
 
 const run = async (_, message) => {
     let msg = await message.channel.send('🛰️Fetching information from the database...'); // Temporary Message
@@ -38,8 +40,8 @@ const run = async (_, message) => {
 
                 const url = `https://apod.nasa.gov/apod/ap${dn}.html`; // Title URL
         
-                const embed = new Discord.MessageEmbed() // Response Embed
-                .setColor('#584db0')
+                const embed = new EmbedBuilder() // Response Embed
+                .setColor(0x584db0)
                 .setTitle(resp.title)
                 .setURL(url)
                 .setDescription(desc)

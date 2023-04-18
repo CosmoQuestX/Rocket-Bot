@@ -12,7 +12,6 @@ require('dotenv').config();
 const apiKey  = process.env.WEATHER_API_KEY;
 
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-AbortController
 
 function toTitleCase(str) { // src: https://www.w3docs.com/snippets/javascript/how-to-convert-string-to-title-case-with-javascript.html
     return str.toLowerCase().split(' ').map(function (word) {
