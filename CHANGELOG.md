@@ -15,6 +15,11 @@
   > Hey, isn't that what this bot is made for???
 
 ----------------------------------
+## 2.3.1 (2023-04-18)
+
+### 2.3.1 Features
+
+- added formatting to `!taf` & `!metar`
 
 ## 2.3.0 (2023-04-04)
 
