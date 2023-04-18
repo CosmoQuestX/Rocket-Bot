@@ -38,10 +38,11 @@ Starting in the `Rocket-Bot` directory
 
 1. `cd CosmoQuestBot-master`
 
-2. Edit `.env` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
+2. Edit `.env-example` using your preferred IDE or text-editor. Fill out all necessary details (`DISCORD_TOKEN`, `NASA_API_KEY`, & `WEATHER_API_KEY`)
 
-    > Try `nano .env`
+    > Try `nano .env-example`
 
+ And save the file as `.env`. The `.env` file is in the .gitignore so your API keys should not be overwritten or committed should you pull or push.
 3. Run `docker build . -t rocket-bot:v2.3.0`
 
 
