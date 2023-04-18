@@ -6,15 +6,17 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js",
+    "start": "echo \"It is HIGHLY RECOMMENDED that you use the Docker version of this project. See ../README.md\" & echo \"It is HIGHLY RECOMMENDED that you use the Docker version of this project. See ../README.md\" & echo \"It is HIGHLY RECOMMENDED that you use the Docker version of this project. See ../README.md\" & echo \"It is HIGHLY RECOMMENDED that you use the Docker version of this project. See ../README.md\" & echo \"It is HIGHLY RECOMMENDED that you use the Docker version of this project. See ../README.md\" && node main.js",
     "dev": "nodemon main.js --config dev/nodemon.json",
     "rebuild": "docker build . -t rocket-bot:v$npm_package_version && docker stop rocket-bot && docker container rm rocket-bot && docker run --name rocket-bot -d rocket-bot:v$npm_package_version"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@discordjs/rest": "^1.5.0",
     "@keyv/mongo": "^2.1.8",
-    "discord.js": "^13.10.2",
+    "discord-api-types": "^0.37.35",
+    "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "keyv": "^4.5.0",
     "mathjs": "^11.3.2",

@@ -1,18 +1,19 @@
 const { warn } = asyncLogs;
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 const version = config.version.full;
 const github = config.github;
+const botName = config.name;
 
 module.exports.run = async function about (client, msg) {
 
     try {
         const ico = client.user.displayAvatarURL();
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor(0x5dadec)
             .setThumbnail(ico)
-            .setTitle("About Rocket-Bot")
+            .setTitle(`About ${botName}`)
             .setURL(`${github}/blob/master/README.md`)
             .addFields(
                 {
@@ -41,7 +42,7 @@ module.exports.run = async function about (client, msg) {
                     "inline": false
                 }
             )
-            .setFooter({ text: `Rocket Bot ${version}`, iconURL: ico });
+            .setFooter({ text: `${botName} ${version}`, iconURL: ico });
         
         msg.channel.send({ embeds: [embed] });
     } catch(e) {

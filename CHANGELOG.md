@@ -10,13 +10,37 @@
   - special weather statements & alerts command(s)
   - space weather command(s)
 
+- `!launch` command(s)
+  - returns information about rocket launches
+  > Hey, isn't that what this bot is made for???
+
 ----------------------------------
 
-## 2.3.0 (2023-02-17)
+## 2.3.0 (2023-04-04)
 
-### 2.3.0 Possible Breaking Changes
+### 2.3.0 Changes
 
-- Updated `npm` to v9 from v8
+- <span style="color:#BD1221;"><b>&#x1F534;[BREAKING]</b></span> updated `npm` to v9 from v8 in [Docker](CosmoQuestBot-master/Dockerfile)
+
+- <span style="color:#BD1221;"><b>&#x1F534;[BREAKING]</b></span> updated [`discordjs`](https://discordjs.guide/additional-info/changes-in-v14.html) to v14 from v13
+
+- added warning to the `npm start` command
+  - with Docker working as intended, it is now recommended to only use Docker except for specific situations
+
+### 2.3.0 Features
+
+- added `botName` to [`config.json`](./CosmoQuestBot-master/config.json)[*](./README.md#options)
+
+### 2.3.0 Fixes
+
+- improved commands
+  - `!cookie` now works as intended with the limited permissions granted to the bot by default.
+  - `!example` was updated to mirror new DiscordJS formats
+
+- fixed commands broken by updating discordjs from v13 to v14
+  - new embed class
+  - colors can no longer be represented as strings
+  - embed timestamps no longer support string date/time
 
 ----------------------------------
 
@@ -40,7 +64,6 @@
 - updated [`example.js`](CosmoQuestBot-master/commands/example.js)
 - added [`!help`](CosmoQuestBot-master/commands/help.js) command
 - added [`!invite`](CosmoQuestBot-master/commands/invite.js) command
--
 - other minor updates <!-- calc, cookie, etc. -->
 
 ### 2.2.0 Changes
@@ -70,7 +93,7 @@
 
 - added `Dockerfile` for containerization; check [here](README.md#docker-instructions) for information on how to use it
 
-- added instructions for running [Docker](README.md#docker-instructions) & [npm](README.md#npm-instructions) in `README.md`
+- added instructions for running [Docker](README.md#docker-instructions) & npm in `README.md`
 
 ### 2.1.2 Fixes
 

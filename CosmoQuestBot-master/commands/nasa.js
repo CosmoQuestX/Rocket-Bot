@@ -1,10 +1,12 @@
 require('dotenv').config();
 
-const { debug } = asyncLogs;
+const { debug, warn } = asyncLogs,
 
-const api = `https://api.nasa.gov/planetary/apod?api_key=${process.env["NASA_API_KEY"]}`;
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-const Discord = require('discord.js');
+api = `https://api.nasa.gov/planetary/apod?api_key=${process.env["NASA_API_KEY"]}`,
+fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args)),
+
+Discord = require('discord.js'),
+{ EmbedBuilder } = Discord;
 
 const oD = new Date("June 16, 1995").getTime(); // First APOD [June 16, 1995]
 
@@ -55,7 +57,7 @@ module.exports.run = async (bot, message, args) => {
             
                 const url = `https://apod.nasa.gov/apod/ap${dn}.html`; // Title URL
                 
-                const embed = new Discord.MessageEmbed() // Response embed
+                const embed = new EmbedBuilder() // Response embed
                     .setColor('#584db0')
                     .setTitle(resp.title)
                     .setURL(url)
@@ -66,7 +68,7 @@ module.exports.run = async (bot, message, args) => {
                             iconURL: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/287px-NASA_logo.svg.png'
                         }
                     )
-                    .setTimestamp(rDt.toString());
+                    .setTimestamp(rDt.valueOf());
 
 
                 if (resp.copyright) // If author, set it
@@ -103,7 +105,6 @@ module.exports.run = async (bot, message, args) => {
         .catch(e => {
             warn(e);
         })
-
     msg.delete(); // Delete temp message
 }
 
