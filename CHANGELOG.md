@@ -1,8 +1,8 @@
 # Rocket Bot Changelog
 
-## 2.3.1 (unreleased)
+## 2.3.2 (unreleased)
 
-### 2.3.1 Proposed Features
+### Future Features
 
 - further improved `!weather` command(s)
   - support for more diverse queries
@@ -15,6 +15,12 @@
   > Hey, isn't that what this bot is made for???
 
 ----------------------------------
+## 2.3.2 (2023-xx-xx)
+
+### 2.3.2 Changes
+
+- small improvements to formatting of `!taf` and `!metar`
+
 ## 2.3.1 (2023-04-18)
 
 ### 2.3.1 Features
