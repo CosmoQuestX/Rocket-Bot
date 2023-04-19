@@ -10,10 +10,10 @@
 	"discord": "https://discord.gg/pVGXJDUKud",
 	"botName": "Rocket Bot",
 	"version": {
-		"full": "v2.3.2 (stable)",
+		"full": "v2.3.2 (dev)",
 		"long": "v2.3.2",
 		"short": "v2.3",
-		"release": "stable",
+		"release": "dev",
 		"major": "2",
 		"minor": "3",
 		"patch": "2",
