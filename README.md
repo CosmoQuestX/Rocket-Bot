@@ -1,4 +1,4 @@
-# 🚀 Rocket Bot (v2.3.1 Stable)
+# 🚀 Rocket Bot (v2.3.2 Dev)
 
 Check out all the different commands, and maybe make some more. With version 2.3 of Rocket Bot, you can do a lot.
 
@@ -44,13 +44,13 @@ Starting in the `Rocket-Bot` directory
 
 3. After making your changes, save the file as `.env`. 
 
-4. Run `docker build . -t rocket-bot:v2.3.1`
+4. Run `docker build . -t rocket-bot:v2.3.2`
 
 
 
 ### Docker - Usage instructions
 
-- Run `docker run --name rocket-bot-231 -d rocket-bot:v2.3.1` from anywhere on the system to start the bot
+- Run `docker run --name rocket-bot-232 -d rocket-bot:v2.3.2` from anywhere on the system to start the bot
   - To auto-restart after a server reboot, add the tag `--restart always`
 
   > After the [first install](#docker---first-install), there is no need to run the build command until the next update. All the necessary packages have already been installed.
@@ -59,7 +59,7 @@ Starting in the `Rocket-Bot` directory
 
 Eventually you might want to stop the container, run the following commands to accomplish this:
 
-1. `docker ps` displays all running process; locate `rocket-bot:v2.3.1` & note the `Container ID`
+1. `docker ps` displays all running process; locate `rocket-bot:v2.3.2` & note the `Container ID`
     - if it returns no process, you need to change your context by running `docker context list` then `docker context use <context_not_marked_with_*>`
         - run step 1 again
 
