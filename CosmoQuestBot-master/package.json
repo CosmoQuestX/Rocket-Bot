@@ -1,6 +1,6 @@
 {
   "name": "rocket-bot",
-  "version": "2.3.0",
+  "version": "2.3.2",
   "private": true,
   "description": "Rocket Bot is used in the CosmoQuest Discord server",
   "main": "main.js",
