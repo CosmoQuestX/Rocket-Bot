@@ -30,8 +30,8 @@ exports.parse = function parse (rawReport) {
             v = `\n\t${v}`; // Was "</span><br /><span class='taf_period'>$element"
         }
 
-        // Do not highlight the first or second element of a report (ICAO code or TAF ICAO) even if it includes a TS
-        if (v.includes("+") || (v.includes("TS") && i > 1 && rmkFlag === false) || (v.includes("FC") && v !== "FCST")) {
+        // Do not highlight the first or second element of a report (ICAO code or TAF ICAO)
+        if (($i > 1) && (v.includes("+") || (v.includes("TS") && i > 1 && rmkFlag === false) || (v.includes("FC") && v !== "FCST"))) {
             v = `**${v}**`; // Was "<span class='extreme_weather'>$element</span>"
         }
 
