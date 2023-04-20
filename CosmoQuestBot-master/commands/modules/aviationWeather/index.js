@@ -114,11 +114,13 @@ const _request = async (type, icao, options) => {
 
 const getReport = async (type, icao, options) => {
     if (!(/^[a-zA-Z]{4}$/).test(icao)) throw "Does not follow ICAO regex";
+    
+    const ICAO = icao.toUpperCase();
 
     let response = [];
 
     try {
-        response = await _request(type, icao, options);
+        response = await _request(type, ICAO, options);
     } catch (e) {
         throw e;
     }
