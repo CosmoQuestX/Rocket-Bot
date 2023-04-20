@@ -51,7 +51,7 @@ const _parse = (rawReport, icao) => {
         case true:
             return formattedReport;
         case false:
-            return `No forecast available for ${icao}.`;
+            return `No ${tafFlag ? "TAF" : "METAR"} available for ${icao}.`;
     }
 };
 
@@ -87,17 +87,19 @@ const _request = async (type, icao, options) => {
                 return;
             }
 
-            /* if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0][type.toUpperCase().slice(0,-1)])) {
+            const tfmt = type.toUpperCase().slice(0,-1);
+
+            /* if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0][tfmt])) {
                 parsedRprt = [new Error('Issue with response.'), null];
                 return;
             }; */
             
             // `result` is a JavaScript object
-            if (result.response.data[0][type.toUpperCase().slice(0,-1)] !== undefined) {
-                const rprt = result.response.data[0][type.toUpperCase().slice(0,-1)][0].raw_text.toString();
+            if (result.response.data[0][tfmt] !== undefined) {
+                const rprt = result.response.data[0][tfmt][0].raw_text.toString();
                 finalResp = [null, _parse(rprt, icao)]; // Formats Report to Keeper's liking
             } else {
-                finalResp = [null, `No forecast available for ${icao}.`];
+                finalResp = [null, `No ${tfmt} available for ${icao}.`];
             }
         });
     } catch (e) {

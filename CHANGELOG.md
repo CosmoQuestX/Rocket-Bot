@@ -17,9 +17,16 @@
 ----------------------------------
 ## 2.3.2 (2023-xx-xx)
 
+### 2.3.2 Features
+
+- added [`!avwx`](CosmoQuestBot-master/commands/avwx.js) command
+
 ### 2.3.2 Changes
 
-- small improvements to formatting of `!taf` and `!metar`
+- updated `!taf` & `!metar`
+  - made [`aviationWeather`](CosmoQuestBot-master/commands/modules/aviationWeather/index.js) more modular
+  - small improvements to formatting of `!taf` and `!metar`
+  - improved error handling
 
 ## 2.3.1 (2023-04-18)
 
