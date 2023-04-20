@@ -4,10 +4,10 @@ fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...ar
 /**
  * Format a METAR or TAF
  * @param {string} rawReport - Unparsed TAF string
- * @return {string} Markdown formatted string
+ * @return {string}
  */
-const parse = function parse (rawReport) {
-    let rawReportPieces, formattedReport = "", tafFlag = false, rmkFlag = false;
+const parse = function parse (rawReport, icao) {
+    let rawReportPieces = "", formattedReport = "", tafFlag = false, rmkFlag = false;
 
     rawReportPieces = rawReport.split(" "); // Split words separated by spaces into array
 
@@ -45,154 +45,102 @@ const parse = function parse (rawReport) {
         formattedReport += "";
     }
 
-    formattedReport += "";
-    return formattedReport;
+    formattedReport = formattedReport.trim();
+
+    switch (typeof formattedReport === 'string' && formattedReport.length > 0) {
+        case true:
+            return formattedReport;
+        case false:
+            return `No forecast available for ${icao}.`;
+    }
 };
 
 
 /**
- * 
+ * \
+ * @param {string} type
  * @param {string} icao 
- * @param {JSON} [options]
+ * @param {JSON} [options] 
  */
-const taf = (icao, options) => {
-    if (args.length < 1) throw  "No station specified";
-
-    args = args.join(' ');
-
-    // Parse the parameters
-    // Build the URL
+const request = async (type, icao, options) => {
+    if (!['tafs', 'metars'].includes(type)) return [new Error("No valid type specified."), null];
+    if (!(/^[a-zA-Z]{4}$/).test(icao)) return [new Error("No ICAO code specified."), null];
 
     let reqUrl = 'https://aviationweather.gov/adds/dataserver_current/httpparam';
-    reqUrl += '?dataSource=' + (options.dataSource || 'tafs');
+    reqUrl += '?dataSource=' + type;
     reqUrl += '&requestType=retrieve';
     reqUrl += '&format=xml';
     reqUrl += '&stationString=' + icao;
     reqUrl += '&mostRecent=true';
-    reqUrl += '&hoursBeforeNow=' + (options.hoursBeforeNow || '12');
+    reqUrl += '&hoursBeforeNow=' + (options?.hoursBeforeNow || '12');
+    
+    let finalResp = "";
+    
+    try {
+        const r = await fetch(reqUrl),
+        resp = await r.text();
 
-    // msg.channel.send("requestString: "+requestString);
-
-    // Retrieve the data
-
-//    var request = new XMLHttpRequest();
-
-    fetch(reqUrl).then(
-        async r => {
-            try {
-                const resp = await r.text();
-
-                // convert XML to JSON
-                xml2js.parseString(resp, (err, result) => { //
-                    if(err) {
-                        return debug(err);
-                    }
-
-                    if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0].TAF)) return;
-
-                    // `result` is a JavaScript object
-
-                    const taf = result.response.data[0].TAF[0].raw_text.toString(); // JSON Object; Try taf.raw_text
-
-                    const parsedTaf = parse(taf); // Formats TAF to Keeper's liking
-
-                    // debug(json);
-
-                    //msg.channel.send("Result: "  + json);
-
-                    // TODO add response for no forecast received
-                    //if (!isnull(result.response.data[0])) {
-                        msg.channel.send(parsedTaf);
-                    //} else {
-                    //    msg.channel.send("No forecast for " + $args);
-                    //}
-                });
-            } catch (e) {
-                warn(e);
+        // convert XML to JSON
+        xml2js.parseString(resp, (err, result) => { //
+            if(err) {
+                finalResp = [err, null];
+                return;
             }
-        }
-    ).catch(
-        e => {
-            warn(e);
-        }
-    )
+
+            /* if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0][type.toUpperCase().slice(0,-1)])) {
+                parsedRprt = [new Error('Issue with response.'), null];
+                return;
+            }; */
+            
+            // `result` is a JavaScript object
+            if (result.response.data[0][type.toUpperCase().slice(0,-1)] !== undefined) {
+                const rprt = result.response.data[0][type.toUpperCase().slice(0,-1)][0].raw_text.toString();
+                finalResp = [null, parse(rprt, icao)]; // Formats Report to Keeper's liking
+            } else {
+                finalResp = [null, `No forecast available for ${icao}.`];
+            }
+        });
+    } catch (e) {
+        return [e, null];
+    }
+
+
+    if (Array.isArray(finalResp)) return finalResp;
+    return [null, finalResp];
 }
 
 
+const getReport = async (type, icao, options) => {
+    if (!(/^[a-zA-Z]{4}$/).test(icao)) throw "Does not follow ICAO regex";
 
-/**
- * 
- * @param {string} icao 
- * @param {JSON} [options]
- */
-const metar = (icao, options) => {
-    if (args.length < 1) throw  "No station specified";
+    let response = [];
 
-    args = args.join(' ');
+    try {
+        response = await request(type, icao, options);
+    } catch (e) {
+        throw e;
+    }
 
-    // Parse the parameters
-    // Build the URL
+    switch (response[0] === null) {
+        case true:
+            return response[1];
+        case false:
+            throw response[0];
+    }
 
-    var reqUrl = 'https://aviationweather.gov/adds/dataserver_current/httpparam?';
-    reqUrl += 'dataSource=metars';
-    reqUrl += '&requestType=retrieve&format=xml';
-    reqUrl += '&stationString=' + icao;
-    reqUrl += '&mostRecent=true';
-    reqUrl += '&hoursBeforeNow=' + (options.hoursBeforeNow || '3');
-
-    // msg.channel.send("requestString: "+requestString);
-
-    // Retrieve the data
-
-//    var request = new XMLHttpRequest();
-
-    fetch(reqUrl).then(
-        async r => {
-            try {
-                const resp = await r.text();
-
-                // convert XML to JSON
-                xml2js.parseString(resp, (err, result) => { //
-                    if(err) {
-                        return debug(err);
-                    }
-
-                    if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0].METAR)) return;
-
-                    // `result` is a JavaScript object
-
-                    const metar = result.response.data[0].METAR[0].raw_text.toString(); // JSON Object; Try metar.raw_text
-
-                    const parsedMetar = parse(metar); // Formats METAR to Keeper's liking
-
-                    // debug(json);
-
-                    //msg.channel.send("Result: "  + json);
-
-                    // TODO add response for no report received
-                    //if (!isnull(result.response.data[0])) {
-                        msg.channel.send(parsedMetar);
-                    //} else {
-                    //    msg.channel.send("No report for " + $args);
-                    //}
-
-                });
-            } catch (e) {
-                warn(e);
-            }
-        })
-        .catch(e => {
-            warn(e);
-        }
-    )
-};
+    // switch (response[0] === null) {
+    //     case true:
+    //         return [null, response[1]];
+    //     case false:
+    //         return [response[0], null];
+    // }
+}
 
 
-
-exports = {
-    parse,
-    metar,
-    taf
+module.exports = {
+    parse: parse,
+    request: request,
+    getReport: getReport
 }
 
 
