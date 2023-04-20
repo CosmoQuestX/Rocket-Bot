@@ -6,7 +6,7 @@ fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...ar
  * @param {string} rawReport - Unparsed TAF string
  * @return {string}
  */
-const parse = function parse (rawReport, icao) {
+const _parse = (rawReport, icao) => {
     let rawReportPieces = "", formattedReport = "", tafFlag = false, rmkFlag = false;
 
     rawReportPieces = rawReport.split(" "); // Split words separated by spaces into array
@@ -62,7 +62,7 @@ const parse = function parse (rawReport, icao) {
  * @param {string} icao 
  * @param {JSON} [options] 
  */
-const request = async (type, icao, options) => {
+const _request = async (type, icao, options) => {
     if (!['tafs', 'metars'].includes(type)) return [new Error("No valid type specified."), null];
     if (!(/^[a-zA-Z]{4}$/).test(icao)) return [new Error("No ICAO code specified."), null];
 
@@ -95,7 +95,7 @@ const request = async (type, icao, options) => {
             // `result` is a JavaScript object
             if (result.response.data[0][type.toUpperCase().slice(0,-1)] !== undefined) {
                 const rprt = result.response.data[0][type.toUpperCase().slice(0,-1)][0].raw_text.toString();
-                finalResp = [null, parse(rprt, icao)]; // Formats Report to Keeper's liking
+                finalResp = [null, _parse(rprt, icao)]; // Formats Report to Keeper's liking
             } else {
                 finalResp = [null, `No forecast available for ${icao}.`];
             }
@@ -116,7 +116,7 @@ const getReport = async (type, icao, options) => {
     let response = [];
 
     try {
-        response = await request(type, icao, options);
+        response = await _request(type, icao, options);
     } catch (e) {
         throw e;
     }
@@ -138,8 +138,6 @@ const getReport = async (type, icao, options) => {
 
 
 module.exports = {
-    parse: parse,
-    request: request,
     getReport: getReport
 }
 

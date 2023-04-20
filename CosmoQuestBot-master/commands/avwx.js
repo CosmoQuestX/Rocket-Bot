@@ -1,4 +1,5 @@
 const {getReport} = require('./modules/aviationWeather');
+const {prefix} = require('../config.json');
 
 exports.run = async (_, msg, args) => {
     const icao = args[0];
@@ -21,5 +22,5 @@ exports.help = {
     name: `avwx`,
     aliases: [],
     description: `Retrieve the most recent TAF & METAR for an airport.`,
-    usage: `avwx <ICAO airport code> (e.g., metar avwx)`
+    usage: `avwx <ICAO airport code> (e.g., ${prefix}avwx cyow)`
 };
