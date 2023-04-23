@@ -12,7 +12,8 @@ exports.conf = {
     enabled: true,
     guildOnly: false,
     permLevel: 1,
-    type: 5
+    type: 5,
+    await: true
 };
 
 exports.help = {

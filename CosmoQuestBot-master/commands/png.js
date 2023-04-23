@@ -2,6 +2,19 @@ require('dotenv').config();
 
 const { log, debug, warn } = asyncLogs;
 
+let randomInt;
+
+try { // crypto.randomInt is the better random integer generator; Math.random for compatibility
+    randomInt = require('node:crypto')?.randomInt;
+} catch (e) {
+    warn("node:crypto not found ; using outdated Math.random as fallback ; please install a newer version of node");
+    randomInt = ((min, max) => {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    });
+}
+
 const api = `https://api.nasa.gov/planetary/apod?api_key=${process.env["NASA_API_KEY"]}`;
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
@@ -9,11 +22,11 @@ const Discord = require('discord.js'),
 { EmbedBuilder } = Discord;
 
 const run = async (_, message) => {
-    let msg = await message.channel.send('🛰️Fetching information from the database...'); // Temporary Message
+    let msg = await message.channel.send('🛰️Fetching a random APOD from the database...'); // Temporary Message
 
     const d1 = new Date("June 16, 1995").getTime(); // First APOD [June 16, 1995]
-    const d2 = new Date().getTime(); // Current Date
-    const dr = new Date(Math.floor(Math.random() * (d2 - d1) + d1)); // Random Date in range
+    const d2 = Date.now(); // Current Date
+    const dr = new Date(randomInt(d1, d2)); // Random Date in range
     const dt = dr.toISOString().split('T')[0]; // YYYY-MM-DD
     
     const reqUrl = `${api}&date=${dt}`; // API URL

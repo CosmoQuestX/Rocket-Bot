@@ -1,12 +1,14 @@
+"use strict";
+
 // Configuring dotenv package & token variable
 require('dotenv').config();
 
-asyncLogs = require('./public/async-logs'); // Creates global variable asyncLogs; Useful for modules
+global.asyncLogs = require('./public/async-logs'); // Creates global variable asyncLogs; Useful for modules
 const { log, warn, debug, parseSeconds, startWatch, stopWatch } = asyncLogs;
 
-config = require('./config.json');  // Creates global variable config
+global.config = require('./config.json');  // Creates global variable config
 
-prefix = "!"; // Creates global variable prefix w/ default of "!"
+global.prefix = "!"; // Creates global variable prefix w/ default of "!"
 
 const fs = require('fs');
 
@@ -34,13 +36,13 @@ const client = new Client({ intents: [GatewayIntentBits.MessageContent, GatewayI
 
     const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-    helpList = []; // Array used for the help command
-    cmdList = []; // Array later used to store command information
+    global.helpList = []; // Array used for the help command
+    const cmdList = []; // Array later used to store command information
 
     for (const file of commandFiles) {
         (async (file) => {try {
 
-            let cmd = require(`./commands/${file}`);
+            const cmd = require(`./commands/${file}`);
 
             // grabs the help & conf exports
             const   help    = cmd.help,
@@ -57,7 +59,7 @@ const client = new Client({ intents: [GatewayIntentBits.MessageContent, GatewayI
                 return;
             }
             
-            let obj = {name: help.name, debug: conf}; // used once for entering data in help, deleted after
+            const obj = {name: help.name, debug: conf}; // used once for entering data in help, deleted after
 
             client.commands.set(help.name.toLowerCase(), cmd); // defines the commands, this will be used for running the commands
 
@@ -67,7 +69,7 @@ const client = new Client({ intents: [GatewayIntentBits.MessageContent, GatewayI
 
             switch (Array.isArray(help.aliases) && help.aliases.length > 0) { // if there are no aliases, don't add them
                 case true:
-                    for (alias of help.aliases) {
+                    for (const alias of help.aliases) {
                         client.commands.set(alias.toLowerCase(), cmd);
                     }
                     obj.aliases = help.aliases;
@@ -210,12 +212,11 @@ const client = new Client({ intents: [GatewayIntentBits.MessageContent, GatewayI
             `Bot foi iniciado com : ${client.users.cache.size} usuários, ${client.guilds.cache.size} servidores, e ${client.channels.cache.size} canais.`
         );
 
-        dt = Date();
-        ut = process.uptime();
+        const dt = Date();
+        const ut = process.uptime();
         parseSeconds(ut, (time) => {
             log('\nStart Date : ' + dt, "\nLoad Time  : " + time, '\n');
         });
-        void(delete ut, dt); // Some cleaning
 
         let stsId = 0;
         setInterval(() => {
@@ -239,13 +240,11 @@ const client = new Client({ intents: [GatewayIntentBits.MessageContent, GatewayI
      * 
      * Login the bot
      */
-    let token = process.env["DISCORD_TOKEN"];
+    const token = process.env["DISCORD_TOKEN"];
     client.login(token);
     
     // Construct and prepare an instance of the REST module
     const rest = new REST({ version: '10' }).setToken(token);
-
-    void(delete token);
 
     log(client.guilds.cache.map((guild) => guild));
 

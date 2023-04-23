@@ -23,11 +23,12 @@ module.exports.run = async (bot, message, args) => {
 
     const pDn = pDt.getTime(); // User submitted timestamp
     const tD = new Date().getTime(); // Current timestamp
-
+    
     let reqUrl; // Request URL
-
-    if (pDt != "Invalid Date" && (pDn <= tD && pDn >= oD)) { // User defined date, or most recent APOD
-        reqUrl = `${api}&date=${pDt.toLocaleDateString('en-CA')}`;
+    
+    if (!isNaN(pDt) && (pDn <= tD && pDn >= oD)) { // User defined date, or most recent APOD
+        const sDt = pDt.toISOString().split("T")[0]; // String Date YYYY-MM-DD
+        reqUrl = `${api}&date=${sDt}`;
     } else {
         reqUrl = api;
     }
@@ -41,9 +42,11 @@ module.exports.run = async (bot, message, args) => {
                 const date = resp.date; // Date of creation (YYYY-MM-DD)
                 const bE = resp.explanation;
                 let desc;
+                
+                debug(resp);
 
                 if (bE.indexOf(" ", 512) != -1) {
-                    desc = bE.substring(0, bE.indexOf(" ", 512)) + "...";
+                    desc = `${bE.substring(0, bE.indexOf(" ", 512))}\u2026`;
                 } else {
                     desc = bE;
                 }
@@ -58,7 +61,7 @@ module.exports.run = async (bot, message, args) => {
                 const url = `https://apod.nasa.gov/apod/ap${dn}.html`; // Title URL
                 
                 const embed = new EmbedBuilder() // Response embed
-                    .setColor('#584db0')
+                    .setColor(0x584db0)
                     .setTitle(resp.title)
                     .setURL(url)
                     .setDescription(desc)
@@ -69,7 +72,6 @@ module.exports.run = async (bot, message, args) => {
                         }
                     )
                     .setTimestamp(rDt.valueOf());
-
 
                 if (resp.copyright) // If author, set it
                     embed.setAuthor({ name: `\u00A9 ${resp.copyright}` });

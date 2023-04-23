@@ -17,16 +17,32 @@
 ----------------------------------
 ## 2.3.2 (2023-xx-xx)
 
-### 2.3.2 Features
-
-- added [`!avwx`](CosmoQuestBot-master/commands/avwx.js) command
-
 ### 2.3.2 Changes
 
 - updated `!taf` & `!metar`
   - made [`aviationWeather`](CosmoQuestBot-master/commands/modules/aviationWeather/index.js) more modular
   - small improvements to formatting of `!taf` and `!metar`
   - improved error handling
+
+- `"use strict"` has been enabled in [main.js](CosmoQuestBot-master/main.js)
+  - this should not effect any commands
+  - please report any bugs or issues in GitHub
+
+- improved [!png](CosmoQuestBot-master/commands/png.js)
+  - now using `crypto.randomInt` for better random integer generation [avoids [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias)]
+  - slightly improved command runtime
+
+### 2.3.2 Features
+
+- added [`!avwx`](CosmoQuestBot-master/commands/avwx.js) command
+
+## 2.3.2 Fixes
+
+- fixed debug permission check in [!help](CosmoQuestBot-master/commands/help.js)
+- fixed [!nasa](CosmoQuestBot-master/commands/nasa.js) specified dates not working properly
+- fixed [!png](CosmoQuestBot-master/commands/png.js)
+- [!taf](CosmoQuestBot-master/commands/taf.js) now uses await for better error handling
+  > It is recommended to enable `config.await` for any async command to prevent errors from stopping the bot entirely
 
 ## 2.3.1 (2023-04-18)
 
