@@ -7,7 +7,7 @@ exports.run = async (_, msg, args) => {
     const resp1 = await getReport('metars', icao, { hoursBeforeNow: 3 }),
     resp2 = await getReport('tafs', icao, { hoursBeforeNow: 12 });
 
-    msg.channel.send(`${resp1}\n${resp2}`);
+    msg.channel.send(`${resp1}\n\n${resp2}`);
 }
 
 exports.conf = {
