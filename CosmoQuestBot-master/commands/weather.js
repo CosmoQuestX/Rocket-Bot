@@ -2,7 +2,7 @@ const { warn, debug } = asyncLogs;
 const weatherApi = require('./modules/openWeatherMap'); // Weather data API
 
 
-exports.run = function weather (_, msg, args) {
+exports.run = (_, msg, args) => {
     
     if (args.length < 1) throw "No arguments passed";
 
@@ -44,6 +44,15 @@ exports.run = function weather (_, msg, args) {
             ]
         });
 
+        let sunrise, sunset;
+        if (!isNaN(result.sys.sunrise) && !isNaN(result.sys.sunset)) {
+            const tr = new Date(result.sys.sunrise * 1000), // Time of Sunrise
+            ts = new Date(result.sys.sunset * 1000); // Time of Sunset
+            sunrise = `${tr.getUTCHours().toString().padStart(2, "0")}:${tr.getUTCMinutes().toString().padStart(2, "0")}:${tr.getUTCSeconds().toString().padStart(2, "0")}`;
+            sunset = `${ts.getUTCHours().toString().padStart(2, "0")}:${ts.getUTCMinutes().toString().padStart(2, "0")}:${ts.getUTCSeconds().toString().padStart(2, "0")}`;
+            console.log(sunrise, sunset);
+        }
+
         // SUCCESS! Sending the data now...
         msg.reply({
             "embeds": [
@@ -53,12 +62,13 @@ exports.run = function weather (_, msg, args) {
                     "url": `https://openweathermap.org/city/${result.id}`,
 
                     "description": `**Sky**: ${result.weather[0].description}\n` +
+                    ((sunrise && sunset) ? `**Sunrise / Sunset**: ${sunrise} / ${sunset} UTC\n` : ``) +
                     ((!isNaN(result.main.temp)) ? `**Temperature**: ${result.main.temp}°C\t[${result.main.temp_max}°C / ${result.main.temp_min}°C]\n` : ``) +
                     ((!isNaN(result.main.feels_like)) ? `**Feels Like**: ${result.main.feels_like}°C\n` : ``) +
                     ((!isNaN(result.main.humidity)) ? `**Humidity**: ${result.main.humidity}%\n` : ``) +
                     ((!isNaN(result.main.pressure)) ? `**Pressure**: ${result.main.pressure}\u00A0hPa\n` : ``) +
                     ((!isNaN(result.wind.speed)) ? `**Wind Speed**: ${result.wind.speed}\u00A0m/s [${result.wind.cardinal}]\n` : ``) +
-                    ((!isNaN(result.wind.kmSpeed)) ? `**Keeper's Wind**: ${result.wind.kmSpeed}\u00A0km/h from ${result.wind.leadDeg}°\n` : ``) +
+                    ((!isNaN(result.wind.kmSpeed)) ? `**Advanced Wind**: ${result.wind.kmSpeed}\u00A0km/h from ${result.wind.leadDeg}°\n` : ``) +
                     ((!isNaN(result.wind.gust)) ? `**Wind Gust**: ${result.wind.gust}\u00A0m/s\n` : ``) +
                     ((!isNaN(result.visibility)) ? `**Visibility**: ${Math.floor(result.visibility / 1000)}\u00A0km` : ``),
 
