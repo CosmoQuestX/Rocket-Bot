@@ -19,7 +19,7 @@ exports.setup = (help) => {
 
 exports.run = async function help (client, msg, args) {
     let command = (typeof args[0] === 'string' ? args[0].replace(RegExp(`^${prefix}`), '') : undefined); // if arg given, remove prefix (if any)
-    
+
     const embed = new EmbedBuilder().setTitle("Command Info:").setColor(0x2B2D31);
 
     switch (typeof args[0]) {
@@ -62,7 +62,7 @@ exports.run = async function help (client, msg, args) {
                 })
             }
 
-            if (args[1] === "debug" && (msg.member.permissions.has(PermissionFlagsBits.Administrator) || msg.member.user.id === devId)) {
+            if (args[1] === "debug" && (msg.member.permissions.has(PermissionFlagsBits.Administrator) || msg.member.user.id === String(devId))) {
                 fields.push({
                     name: "Debug:",
                     value: `\n\`\`\`json\n${JSON.stringify(cmd.conf, null, 4)}\n\`\`\``
