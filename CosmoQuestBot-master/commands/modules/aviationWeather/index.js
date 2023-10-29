@@ -1,5 +1,4 @@
-const xml2js = require('xml2js'),
-fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 /**
  * Format a METAR or TAF
@@ -59,20 +58,17 @@ const _parse = (rawReport, icao) => {
 /**
  * \
  * @param {string} type
- * @param {string} icao 
- * @param {JSON} [options] 
+ * @param {string} icao
  */
-const _request = async (type, icao, options) => {
+const _request = async (type, icao) => {
     if (!['tafs', 'metars'].includes(type)) return [new Error("No valid type specified."), null];
     if (!(/^[a-zA-Z]{4}$/).test(icao)) return [new Error("No ICAO code specified."), null];
 
-    let reqUrl = 'https://aviationweather.gov/adds/dataserver_current/httpparam';
-    reqUrl += '?dataSource=' + type;
-    reqUrl += '&requestType=retrieve';
-    reqUrl += '&format=xml';
-    reqUrl += '&stationString=' + icao;
-    reqUrl += '&mostRecent=true';
-    reqUrl += '&hoursBeforeNow=' + (options?.hoursBeforeNow || '12');
+    const
+        reqUrl = 'https://aviationweather.gov/api/data'
+        + ( type === 'metars' ? '/metar' : '/taf' )
+        + '?format=raw'
+        + '&ids=' + icao;
     
     let finalResp = "";
     
@@ -80,28 +76,12 @@ const _request = async (type, icao, options) => {
         const r = await fetch(reqUrl),
         resp = await r.text();
 
-        // convert XML to JSON
-        xml2js.parseString(resp, (err, result) => { //
-            if(err) {
-                finalResp = [err, null];
-                return;
-            }
-
-            const tfmt = type.toUpperCase().slice(0,-1);
-
-            /* if (typeof result.response !== "object" || !Array.isArray(result.response.data) || result.response.data.length < 1 || !Array.isArray(result.response.data[0][tfmt])) {
-                parsedRprt = [new Error('Issue with response.'), null];
-                return;
-            }; */
-            
-            // `result` is a JavaScript object
-            if (result.response.data[0][tfmt] !== undefined) {
-                const rprt = result.response.data[0][tfmt][0].raw_text.toString();
-                finalResp = [null, _parse(rprt, icao)]; // Formats Report to Keeper's liking
-            } else {
-                finalResp = [null, `No ${tfmt} available for ${icao}.`];
-            }
-        });
+        // `result` is a JavaScript object
+        if (resp !== undefined && resp !== "") {
+            finalResp = [null, _parse(resp, icao)]; // Formats Report to Keeper's liking
+        } else {
+            finalResp = [null, `No ${type} available for ${icao}.`];
+        }
     } catch (e) {
         return [e, null];
     }
@@ -112,7 +92,7 @@ const _request = async (type, icao, options) => {
 }
 
 
-const getReport = async (type, icao, options) => {
+const getReport = async (type, icao) => {
     if (!(/^[a-zA-Z]{4}$/).test(icao)) throw "Does not follow ICAO regex";
     
     const ICAO = icao.toUpperCase();
@@ -120,7 +100,7 @@ const getReport = async (type, icao, options) => {
     let response = [];
 
     try {
-        response = await _request(type, ICAO, options);
+        response = await _request(type, ICAO);
     } catch (e) {
         throw e;
     }
