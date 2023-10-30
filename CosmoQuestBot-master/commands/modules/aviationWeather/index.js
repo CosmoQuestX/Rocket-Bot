@@ -8,10 +8,10 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const _parse = (rawReport, icao) => {
     let rawReportPieces = "", formattedReport = "", tafFlag = false, rmkFlag = false;
 
-    rawReportPieces = rawReport.split(" "); // Split words separated by spaces into array
+    rawReportPieces = rawReport.split(/[\n\s]+/g); // Split words separated by spaces into array
+    console.debug(rawReport);
 
     rawReportPieces.forEach((v, i) => { // Runs through the array [v: Value, i: Index Number]
-
         if (v.substring(0,2) === "FM" && i > 0) { // If begins with "FM" and index number is greater than zero
             if (tafFlag === true) {
                 v = `\n\t${v}`; // Was "</span><br /><span class='taf_period'>$element"
@@ -122,7 +122,7 @@ const getReport = async (type, icao) => {
 
 
 module.exports = {
-    getReport: getReport
+    getReport
 }
 
 
