@@ -9,7 +9,6 @@ const _parse = (rawReport, icao) => {
     let rawReportPieces = "", formattedReport = "", tafFlag = false, rmkFlag = false;
 
     rawReportPieces = rawReport.split(/[\n\s]+/g); // Split words separated by spaces into array
-    console.debug(rawReport);
 
     rawReportPieces.forEach((v, i) => { // Runs through the array [v: Value, i: Index Number]
         if (v.substring(0,2) === "FM" && i > 0) { // If begins with "FM" and index number is greater than zero
